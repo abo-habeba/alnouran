@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->text('body');
             $table->timestamps();
+            $table->unsignedBigInteger('station_id');
+            $table->foreign('station_id')->references('id')->on('stations');
+            
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('Users');
+            
         });
     }
 

@@ -14,7 +14,7 @@ class AuthController extends Controller {
     protected $redirectTo = RouteServiceProvider::HOME;
 
     public function __construct() {
-        // $this->middleware( 'guest' )->except( 'logout' );
+        $this->middleware( 'guest' )->except( 'logout' );
     }
 
     public function login( Request $request ) {

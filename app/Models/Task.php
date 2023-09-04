@@ -32,7 +32,5 @@ class Task extends Model
     public function preparation(){
         return $this->belongsTo(preparations::class);
     }
-    public function comments(){
-    return $this->hasMany(Comment::class);
-}
+
 }
