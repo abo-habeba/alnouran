@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/Stations',StationController::class);
     Route::apiResource('/tasks', TaskController::class);
+    Route::apiResource('/posts', TaskController::class);
 });
 Route::post('/logout/{id}',[AuthController::class,'logout']);
 Route::apiResource('/users', UserController::class);
