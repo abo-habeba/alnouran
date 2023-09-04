@@ -48,6 +48,6 @@ class UserController extends Controller
     }
     public function show($userId){
     $user = User::findOrFail($userId);
-    return $user->load('stations','stations.tasks','posts.station');
+    return $user->load('stations.tasks.user','stations.posts.user');
     }
 }
