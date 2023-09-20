@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+use App\Models\Post;
 use App\Models\User;
 use App\Models\Station;
-use App\Models\Task;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
 class UserController extends Controller
 {
     public function index(){
@@ -47,7 +50,16 @@ class UserController extends Controller
     
     }
     public function show($userId){
-    $user = User::findOrFail($userId);
-    return $user->load('stations.tasks.user','stations.posts.user');
+        $user = User::findOrFail($userId);
+        return $user->load('stations.tasks.user','stations.posts.user','stations.posts.comments');
     }
-}
+    public function getUserPosts($userId){
+            $user = User::find($userId);
+            $stationIds = $user->stations->pluck('id');
+            $posts = Post::whereIn('station_id', $stationIds)->with('user','station','comments.user')->orderBy('created_at', 'DESC')->get();     
+            return response()->json($posts);
+    }
+    public function authCheck(){
+       return response()->json(Auth::check());
+    }
+    }

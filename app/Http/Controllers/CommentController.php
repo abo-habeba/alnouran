@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\comment;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorecommentRequest;
 use App\Http\Requests\UpdatecommentRequest;
+use Symfony\Component\HttpFoundation\Request;
 
 class CommentController extends Controller
 {
@@ -19,9 +21,10 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorecommentRequest $request)
+    public function store(Request $request)
     {
-        //
+        $comment = comment::create($request->all());
+        return $comment->load('user');
     }
 
     /**
