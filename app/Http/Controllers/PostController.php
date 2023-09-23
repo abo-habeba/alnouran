@@ -15,7 +15,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = Post::create($request->all());
-        return response()->json(['data' => $post], 201);
+        return $post->load("user","station");
     }
     public function update(Request $request, Post $post)
     {

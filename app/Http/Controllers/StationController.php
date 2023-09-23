@@ -11,9 +11,7 @@ class StationController extends Controller
     public function index()
     {
         $stations = Station::with('tasks')->get();
-        return Response()->json([
-         'stations' => $stations
-     ]);
+        return Response()->json($stations);
     }
     public function store(Request $request)
     {
