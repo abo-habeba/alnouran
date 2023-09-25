@@ -19,6 +19,7 @@ class Station extends Model
     {
         return $this->belongsToMany(User::class,'user_stations');
     }
+    
     public function tasks()
     {
         return $this->hasMany(Task::class);

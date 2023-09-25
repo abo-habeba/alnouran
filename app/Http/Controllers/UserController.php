@@ -49,6 +49,20 @@ class UserController extends Controller
         ]);
     
     }
+
+    public function update($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update(request()->only('name', 'email', 'phone'));
+
+        if (request()->password) {
+            $user->update(['password' => bcrypt(request()->password)]);
+        }
+
+        return $user->fresh();
+    }
+
     public function show($userId){
         $user = User::findOrFail($userId);
         return $user->load('stations.tasks.user','stations.posts.user','stations.posts.comments');
