@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\AuthController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/tasks', TaskController::class);
-    // Route::apiResource('/posts', PostController::class);
+    Route::apiResource('/posts', PostController::class);
     Route::apiResource('/reports', ReportController::class);
     Route::apiResource('/users', UserController::class);
     Route::get('/check', [UserController::class, 'authCheck']);
