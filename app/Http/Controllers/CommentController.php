@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\comment;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorecommentRequest;
-use App\Http\Requests\UpdatecommentRequest;
-use Symfony\Component\HttpFoundation\Request;
 
 class CommentController extends Controller
 {
@@ -38,10 +36,10 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatecommentRequest $request, comment $comment)
-    {
-        //
-    }
+    // public function update(UpdatecommentRequest $request, comment $comment)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.

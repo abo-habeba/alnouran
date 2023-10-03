@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Station;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
@@ -21,7 +20,6 @@ class RegisterController extends Controller
     {
        
     }
-    
     
     public function store(Request $request){
 
@@ -51,9 +49,7 @@ class RegisterController extends Controller
                 $station_id = $request['station_id'];
                 $user->stations()->attach($station_id);
 
-                return response()->json([
-                    'user' => $user->stations(),
-                ]);
+            return response()->json($user);
 
                };
                 

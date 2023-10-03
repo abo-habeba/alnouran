@@ -19,14 +19,12 @@ return new class extends Migration
             $table->dateTime('actual_time');
             $table->float('slices_ton');
             $table->string('shift');
-            $table->string('name');
-            $table->text('description');
             
             $table->unsignedBigInteger('station_id');
             $table->foreign('station_id')->references('id')->on('stations');
             
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('Users');
+            $table->foreign('user_id')->references('id')->on('users');
             
             $table->unsignedBigInteger('preparation_id');
             $table->foreign('preparation_id')->references('id')->on('preparations');

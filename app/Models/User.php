@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Report;
 use App\Models\Station;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -44,8 +45,9 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
-    function posts(){
-        return $this->hasMany(Post::class);
+    function reports()
+    {
+        return $this->hasMany(Report::class);
     }
     
 }

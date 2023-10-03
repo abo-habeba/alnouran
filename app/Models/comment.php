@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Report;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class comment extends Model
 {
     use HasFactory;
     protected $fillable = [
         'body',
-        'post_id',
+        'report_id',
         'user_id',
     ];
 
-    public function post()
+    public function report()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Report::class);
     }
     public function user()
     {
