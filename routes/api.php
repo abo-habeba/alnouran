@@ -17,8 +17,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/check', [UserController::class, 'authCheck']);
     Route::apiResource('/Comments', CommentController::class);
 });
-Route::apiResource('/Stations', StationController::class);
-Route::post('/logout/{id}', [AuthController::class, 'logout']);
-Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [UserController::class, 'store']);
+Route::middleware(['cors'])->group(function () {
+    Route::apiResource('/Stations', StationController::class);
+    Route::post('/logout/{id}', [AuthController::class, 'logout']);
+    Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [UserController::class, 'store']);
+});
