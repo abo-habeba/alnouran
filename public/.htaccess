@@ -4,7 +4,6 @@
     </IfModule>
 
     RewriteEngine On
-    Header set Access-Control-Allow-Origin "https://h.hwnix.com"
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
