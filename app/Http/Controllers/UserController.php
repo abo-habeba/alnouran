@@ -81,9 +81,6 @@ class UserController extends Controller
     public function authCheck()
     {
         if (request()->tokens) {
-            // foreach (Auth::user()->tokens as $token) {
-            //     $token;
-            // }
             return response()->json(Auth::user()->tokens);
         }
         return response()->json(Auth::check());
