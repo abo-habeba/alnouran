@@ -17,17 +17,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/check', [UserController::class, 'authCheck']);
     Route::apiResource('/Comments', CommentController::class);
 });
-<<<<<<< HEAD
 
-    Route::apiResource('/Stations', StationController::class);
-    Route::post('/logout/{id}', [AuthController::class, 'logout']);
-    Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/register', [UserController::class, 'store']);
-=======
 Route::apiResource('/Stations', StationController::class);
 Route::post('/logout/{id}', [AuthController::class, 'logout']);
 Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [UserController::class, 'store']);
->>>>>>> e7f37bb32a25b22369bdd78b5d798d79884a68da
