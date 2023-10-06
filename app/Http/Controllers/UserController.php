@@ -69,13 +69,13 @@ class UserController extends Controller
     public function show($userId)
     {
         $user = User::findOrFail($userId);
-        return $user->load('stations.tasks.user', 'stations.reports.user', 'stations.reports.comments');
+        return $user->load('stations.reports.user', 'stations.reports.comments');
     }
     public function getUserReports($userId)
     {
         $user = User::find($userId);
         $stationIds = $user->stations->pluck('id');
-        $reports = Report::whereIn('station_id', $stationIds)->with('user', 'station')->orderBy('created_at', 'DESC')->get();
+        $reports = Report::whereIn('station_id', $stationIds)->with('user', 'station', 'comments.user')->orderBy('created_at', 'DESC')->get();
         return response()->json($reports);
     }
     public function authCheck()
