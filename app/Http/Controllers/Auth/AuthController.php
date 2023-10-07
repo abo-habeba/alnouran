@@ -26,7 +26,7 @@ class AuthController extends Controller
         // تسجيل الدخول
         if (Auth::attempt($credentials)) {
             // إنشاء رمز مميز
-            $user = $request->user();
+            $user = Auth::User();
             $token = $user->createToken('API Token')->plainTextToken;
             // إرسال رد
             return response()->json([
