@@ -42,10 +42,10 @@ class AuthController extends Controller
     }
     public function logout(Request $request, $id)
     {
-        // $user = User::find($id);
+        $user = User::find($id);
         // $user->tokens()->delete();
         // return response()->json($request->header('Authorization'));
-        $request->user()->currentAccessToken()->delete();
+        $user()->currentAccessToken()->delete();
         Auth::guard('web')->logout();
         return response()->json([
             'status' => 'success',
