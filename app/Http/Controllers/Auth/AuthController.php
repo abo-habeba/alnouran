@@ -23,10 +23,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        // تسجيل الدخول
         if (Auth::attempt($credentials)) {
-            // $engineer = ( Auth::user()->Job_title == 'engineer' ) ? 'engineer' : '' ;
-            $token = Auth::user()->createToken()->plainTextToken;
+            // إنشاء رمز مميز
+            $token = Auth::user()->createToken('my-app')->plainTextToken;
+            // العثور على المستخدم
             $user = User::find(Auth::user()->id);
+            // إرسال رد
             return response()->json([
                 'user' => $user,
                 'token' => $token,
