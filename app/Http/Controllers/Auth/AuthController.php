@@ -25,11 +25,8 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             // $engineer = ( Auth::user()->Job_title == 'engineer' ) ? 'engineer' : '' ;
-            $token = Auth::user()->createToken('token-name', ['server:update'])->plainTextToken;
+            $token = Auth::user()->createToken()->plainTextToken;
             $user = User::find(Auth::user()->id);
-            // foreach ($user->stations as $station) {
-            // $station;
-            // }
             return response()->json([
                 'user' => $user,
                 'token' => $token,
@@ -44,8 +41,6 @@ class AuthController extends Controller
 
     public function logout(Request $request, $id)
     {
-        // $request->user()->tokens()->delete();
-
         $user = User::find($id);
         $user->tokens()->delete();
         return response()->json($request->header('Authorization'));
