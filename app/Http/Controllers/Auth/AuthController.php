@@ -45,7 +45,7 @@ class AuthController extends Controller
         $user = User::find($id);
         // $user->tokens()->delete();
         $user()->tokens()->delete();
-        Auth::guard('web')->logout();
+        // Auth::guard('web')->logout();
         return response()->json($request->header('Authorization'));
         // return response()->json([
         //     'status' => 'success',
