@@ -19,9 +19,7 @@ class UserController extends Controller
         foreach ($users as $user) {
             $user->tasks_count;
         }
-        return response()->json([
-            'usres' => $users
-        ]);
+        return response()->json($users);
     }
     public function store(Request $request)
     {
