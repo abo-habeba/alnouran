@@ -50,9 +50,7 @@ class UserController extends Controller
         $user = User::create(request(['name', 'email', 'Job_title', 'phone']) + ['password' => bcrypt(request()->password)]);
         //add many to many relation
         $user->stations()->attach(request()->station_id);
-        return Response()->json([
-            'user' => $user
-        ]);
+        return Response()->json($user);
     }
     public function update($id)
     {
