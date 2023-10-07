@@ -26,7 +26,7 @@ class AuthController extends Controller
         // تسجيل الدخول
         if (Auth::attempt($credentials)) {
             // إنشاء رمز مميز
-            $token = Auth::user()->createToken('my-app')->plainTextToken;
+            $token = auth()->user()->createToken()->plainTextToken;
             // العثور على المستخدم
             $user = User::find(Auth::user()->id);
             // إرسال رد
@@ -41,7 +41,6 @@ class AuthController extends Controller
             ], 401);
         }
     }
-
     public function logout(Request $request, $id)
     {
         $user = User::find($id);
