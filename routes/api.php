@@ -19,7 +19,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::apiResource('/Stations', StationController::class);
-Route::post('/logout/{id}', [AuthController::class, 'logout']);
 Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
+Route::post('/logout/{id}', [AuthController::class, 'logout']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [UserController::class, 'store']);
