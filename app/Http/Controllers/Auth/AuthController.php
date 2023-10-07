@@ -26,7 +26,7 @@ class AuthController extends Controller
         // تسجيل الدخول
         if (Auth::attempt($credentials)) {
             // إنشاء رمز مميز
-            $token = Auth::user()->id->createToken("hhhh")->plainTextToken;
+            $token = Auth::user()->createToken("hhhh")->plainTextToken;
             // العثور على المستخدم
             $user = User::find(Auth::user()->id);
             // إرسال رد
@@ -46,7 +46,7 @@ class AuthController extends Controller
         // $user = User::find($id);
         // $user->tokens()->delete();
         // return response()->json($request->header('Authorization'));
-        Auth::user()->id->tokens()->delete();
+        Auth::user()->tokens()->delete();
         Auth::guard('web')->logout();
         return response()->json([
             'status' => 'success',
