@@ -45,7 +45,7 @@ class RegisterController extends Controller
                 'phone' => $request['phone'],
                 'Job_title' => $request['Job_title'],
                 'station_id' => $request['station_id'],
-                'password' => Hash::make($request['password']),
+                'password' => bcrypt($request['password']),
             ]);
             $station_id = $request['station_id'];
             $user->stations()->attach($station_id);
