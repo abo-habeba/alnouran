@@ -14,13 +14,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/tasks', TaskController::class);
     Route::apiResource('/posts', PostController::class);
     Route::apiResource('/users', UserController::class);
-    Route::get('/check',[UserController::class,'authCheck']);
+    Route::apiResource('/Comments', CommentController::class);
+
+    Route::get('/check', [UserController::class, 'authCheck']);
+    Route::post('/logout/{id}', [AuthController::class, 'logout']);
 });
-Route::apiResource('/Comments', CommentController::class);
-Route::post('/logout/{id}',[AuthController::class,'logout']);
 
-Route::get('/user/{userID}/posts',[UserController::class,'getUserPosts']);
+Route::get('/user/{userID}/posts', [UserController::class, 'getUserPosts']);
 
-Route::post('/login',[AuthController::class,'login']);
-Route::apiResource('/Stations',StationController::class);
-Route::post('/register',[UserController::class,'store']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::apiResource('/Stations', StationController::class);
+Route::post('/register', [UserController::class, 'store']);
