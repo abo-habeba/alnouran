@@ -16,10 +16,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::get('/check', [UserController::class, 'authCheck']);
     Route::apiResource('/Comments', CommentController::class);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 Route::apiResource('/Stations', StationController::class);
 Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
-Route::post('/logout/{id}', [AuthController::class, 'logout']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [UserController::class, 'store']);
