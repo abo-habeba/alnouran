@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Psy\Util\Str;
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Carbon\Carbon;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {
@@ -45,10 +44,11 @@ class AuthController extends Controller
         // $user->tokens()->where('id', $id)->delete();
         // $user =  $request->user()->currentAccessToken()->delete();
         // $user = $request->user()->tokens();
-        $userid = $request->user()->id;
-        $user =  $request->user()->tokens()->find($userid)->delete();
+        // $userid = $request->user()->id;
+        $tokenId = Str::before(request()->bearerToken(), '|');
+        $user =  $request->user()->tokens()->find($tokenId)->delete();
         // $user = $request->user()->tokens()->where('id', $userid)->delete();
         // $user->delete();
-        return response()->json($user, $userid);
+        return response()->json($user, $tokenId);
     }
 }
