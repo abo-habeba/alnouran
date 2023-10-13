@@ -79,10 +79,10 @@ class UserController extends Controller
         $user = $request->user();
         $requestTokenId = intval(explode("|", request()->bearerToken())[0]);
         $tokenId = $user->tokens()->where('id', $requestTokenId)->id;
-        if ($tokenId) {
+        // if ($tokenId) {
             return response()->json([true, $tokenId, 'yes']);
-        } else {
-            return response()->json([false, $tokenId, 'no']);
-        }
+        // } else {
+        //     return response()->json([false, $tokenId, 'no']);
+        // }
     }
 }
