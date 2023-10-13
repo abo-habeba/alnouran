@@ -43,7 +43,7 @@ class AuthController extends Controller
         $tokenId = intval(explode("|", request()->bearerToken())[0]);
         $user = $request->user();
         Auth::logout();
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
         // $request->session()->regenerateToken();
         $user->tokens()->where('id', $tokenId)->delete();
         return response()->json([$tokenId, $user]);
