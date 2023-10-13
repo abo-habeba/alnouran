@@ -41,7 +41,7 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
     {
-        $tokenId = explode("|", request()->bearerToken())[0];
+        $tokenId = -explode("|", request()->bearerToken())[0];
         return response()->json($tokenId);
         // $user->tokens()->where('id', $id)->delete();
         // $user =  $request->user()->currentAccessToken()->delete();
