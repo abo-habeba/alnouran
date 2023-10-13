@@ -80,7 +80,7 @@ class UserController extends Controller
         $requestTokenId = intval(explode("|", request()->bearerToken())[0]);
         $tokenId = $user->tokens()->where('id', $requestTokenId);
         if ($tokenId) {
-            return response()->json(true);
+            return response()->json([true, $tokenId]);
         } else {
             $request->session()->invalidate();
             return response()->json(false);
