@@ -15,11 +15,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/reports', ReportController::class);
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/Comments', CommentController::class);
-    Route::get('/check', [UserController::class, 'authCheck']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
 });
 
+Route::get('/check', [UserController::class, 'authCheck']);
 Route::apiResource('/Stations', StationController::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [UserController::class, 'store']);
