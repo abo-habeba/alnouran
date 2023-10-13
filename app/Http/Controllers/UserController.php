@@ -83,9 +83,11 @@ class UserController extends Controller
             if ($tokenId->id == $requestTokenId) {
                 return response()->json(true);
             } else {
+                $request->session()->invalidate();
                 return response()->json(false);
             }
         } else {
+            $request->session()->invalidate();
             return response()->json(false);
         }
     }
