@@ -45,6 +45,7 @@ class AuthController extends Controller
         // $user =  $request->user();
         // $user->tokens()->delete();
         // $user->tokens()->find($tokenId)->delete();
+        $user->guard('web')->logout();
         $user->tokens()->where('id', $tokenId)->delete();
         return response()->json([$tokenId, $user]);
         // $user->tokens()->where('id', $id)->delete();
