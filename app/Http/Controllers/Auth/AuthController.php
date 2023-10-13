@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Psy\Util\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -42,11 +41,12 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $tokenId = intval(explode("|", request()->bearerToken())[0]);
+        $user = $request->user();
         // $user =  $request->user();
         // $user->tokens()->delete();
         // $user->tokens()->find($tokenId)->delete();
         // $user->tokens()->where('id', $tokenId)->delete();
-        return response()->json($tokenId);
+        return response()->json($tokenId, $user);
         // $user->tokens()->where('id', $id)->delete();
         // $user =  $request->user()->currentAccessToken()->delete();
         // $user = $request->user()->tokens();
