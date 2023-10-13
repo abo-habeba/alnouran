@@ -42,11 +42,14 @@ class AuthController extends Controller
     {
         $tokenId = intval(explode("|", request()->bearerToken())[0]);
         $user = $request->user();
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         // $user =  $request->user();
         // $user->tokens()->delete();
         // $user->tokens()->find($tokenId)->delete();
-        $user->guard('web')->logout();
         $user->tokens()->where('id', $tokenId)->delete();
+        $user->guard('web')->logout();
         return response()->json([$tokenId, $user]);
         // $user->tokens()->where('id', $id)->delete();
         // $user =  $request->user()->currentAccessToken()->delete();
