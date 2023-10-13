@@ -74,11 +74,16 @@ class UserController extends Controller
         $reports = Report::whereIn('station_id', $stationIds)->with('user', 'station', 'comments.user')->orderBy('created_at', 'DESC')->get();
         return response()->json($reports);
     }
-    public function authCheck()
+    public function authCheck(Request $request)
     {
-        if (request()->tokens) {
-            return response()->json(Auth::user()->tokens);
+        $user = $request->user();
+        $requestTokenId = intval(explode("|", request()->bearerToken())[0]);
+        $tokenId = $user->tokens()->where('id', $requestTokenId);
+        if ($tokenId) {
+            return response()->json(true);
+        } else {
+            $request->session()->invalidate();
+            return response()->json(false);
         }
-        return response()->json(Auth::check());
     }
 }
