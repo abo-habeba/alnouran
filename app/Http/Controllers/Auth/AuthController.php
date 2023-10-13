@@ -45,7 +45,7 @@ class AuthController extends Controller
         // $user =  $request->user()->currentAccessToken()->delete();
         // $user = $request->user()->tokens();
         // $userid = $request->user()->id;
-        $tokenId = Str::before(request()->bearerToken(), '|');
+        $tokenId = explode("|", request()->bearerToken());
         $user =  $request->user()->tokens()->find($tokenId)->delete();
         // $user = $request->user()->tokens()->where('id', $userid)->delete();
         // $user->delete();
