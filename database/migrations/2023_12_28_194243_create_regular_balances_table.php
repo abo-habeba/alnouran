@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('regular_balances', function (Blueprint $table) {
             $table->id();
-            $table->text('body');
+            $table->unsignedBigInteger('user_id')->unique();
+            $table->decimal('balance', 10, 1)->default(0.0);
             $table->timestamps();
-            $table->unsignedBigInteger('station_id');
-            $table->foreign('station_id')->references('id')->on('stations');
-            
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('regular_balances');
     }
 };

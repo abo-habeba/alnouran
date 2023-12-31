@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Task;
 use App\Models\Report;
+use App\Models\Absence;
 use App\Models\Station;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -31,19 +32,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    
+
     public function stations()
     {
-        return $this->belongsToMany(Station::class,'user_stations');
+        return $this->belongsToMany(Station::class, 'user_stations');
     }
-
-    function tasks(){
+    function tasks()
+    {
         return $this->hasMany(Task::class);
     }
-
     function reports()
     {
         return $this->hasMany(Report::class);
     }
-    
+    function absences()
+    {
+        return $this->hasMany(Absence::class);
+    }
+    public function regularBalance()
+    {
+        return $this->hasOne(RegularBalance::class);
+    }
+    public function restBalance()
+    {
+        return $this->hasOne(RestBalance::class);
+    }
 }

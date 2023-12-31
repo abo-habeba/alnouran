@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Report;
 use App\Models\Station;
+use App\Models\RestBalance;
 use Illuminate\Http\Request;
+use App\Models\RegularBalance;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\PersonalAccessToken;
@@ -45,9 +48,19 @@ class UserController extends Controller
                 'message' => 'There is no ID matching this station',
             ], 401);
         }
+        DB::beginTransaction();
         $user = User::create(request(['name', 'email', 'Job_title', 'phone']) + ['password' => bcrypt(request()->password)]);
         //add many to many relation
         $user->stations()->attach(request()->station_id);
+        $segularBalance = RegularBalance::create(['user_id' => $user->id]);
+        $restBalance = RestBalance::create(['user_id' => $user->id]);
+
+        if (!$restBalance && !$segularBalance) {
+            DB::rollback();
+            return 'failed to add Rest Balance or Regular Balance';
+        }
+        DB::commit();
+
         return Response()->json($user);
     }
     public function update($id)

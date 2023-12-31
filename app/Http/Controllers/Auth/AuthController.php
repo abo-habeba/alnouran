@@ -24,6 +24,7 @@ class AuthController extends Controller
         // تسجيل الدخول
         if (Auth::attempt($credentials)) {
             // إنشاء رمز مميز
+            /** @var User */
             $user = Auth::User();
             $token = $user->createToken('API Token')->plainTextToken;
             // إرسال رد
@@ -45,16 +46,5 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $user->tokens()->where('id', $tokenId)->delete();
         return response()->json([$tokenId, $user]);
-        // Auth::logout();
-        // $user =  $request->user();
-        // $request->session()->regenerateToken();
-        // $user->tokens()->delete();
-        // $user->tokens()->find($tokenId)->delete();
-        // $user->tokens()->where('id', $id)->delete();
-        // $user =  $request->user()->currentAccessToken()->delete();
-        // $user = $request->user()->tokens();
-        // $userid = $request->user()->id;
-        // $user = $request->user()->tokens()->where('id', $userid)->delete();
-        // $user->delete();
     }
 }

@@ -13,7 +13,6 @@ class StationController extends Controller
     public function index()
     {
         if (request()->current_user) {
-            //return Auth::user();
             return Station::whereRelation('users', 'user_id', request()->current_user)->with('tasks')->get();
         }
         $stations = Station::with('tasks', 'users')->get();
