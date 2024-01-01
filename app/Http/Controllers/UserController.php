@@ -89,19 +89,20 @@ class UserController extends Controller
     }
     public function authCheck(Request $request)
     {
-        $user = $request->user();
-        $requestTokenId = intval(explode("|", request()->bearerToken())[0]);
-        $tokenId = $user->tokens()->where('id', $requestTokenId)->first();
-        if ($tokenId) {
-            if ($tokenId->id == $requestTokenId) {
-                return response()->json(true);
-            } else {
-                $request->session()->invalidate();
-                return response()->json(false);
-            }
-        } else {
-            $request->session()->invalidate();
-            return response()->json(false);
-        }
+        return 'authCheck ok';
+        // $user = $request->user();
+        // $requestTokenId = intval(explode("|", request()->bearerToken())[0]);
+        // $tokenId = $user->tokens()->where('id', $requestTokenId)->first();
+        // if ($tokenId) {
+        //     if ($tokenId->id == $requestTokenId) {
+        //         return response()->json(true);
+        //     } else {
+        //         $request->session()->invalidate();
+        //         return response()->json(false);
+        //     }
+        // } else {
+        //     $request->session()->invalidate();
+        //     return response()->json(false);
+        // }
     }
 }
