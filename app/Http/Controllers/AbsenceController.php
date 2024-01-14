@@ -51,13 +51,13 @@ class AbsenceController extends Controller
         }
         $user_id = Auth::id();
 
-        $currentMonth = date('m');  // الحصول على الشهر الحالي
-        $currentYear = date('Y');  // الحصول على الشهر الحالي
+        // $currentMonth = date('m');  // الحصول على الشهر الحالي
+        $currentYear = date('Y');  // الحصول على السنة الحالي
 
         $absences = Absence::query()
             ->where('user_id', $user_id)
             ->whereYear('date', $currentYear)
-            ->whereMonth('date', $currentMonth)
+            // ->whereMonth('date', $currentMonth)
             ->get();
         return $absences;
     }

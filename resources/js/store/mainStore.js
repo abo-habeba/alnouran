@@ -1,8 +1,11 @@
+import moment from "moment";
+moment.locale(localStorage.language + "-dz");
 import axios from "axios";
 import { defineStore } from "pinia";
 export const usemainStore = defineStore("mainStore", {
     state: () => ({
         passToggle: true,
+        popup: false,
         auth: false,
         user: localStorage.user ? JSON.parse(localStorage.user) : false,
         reports: ["getData"],
@@ -11,7 +14,8 @@ export const usemainStore = defineStore("mainStore", {
         text: " ",
         coler: "success",
         urlDirec: " ",
-        timeout: 1500,
+        timeout: 2000,
+        colorBTN: '#08BC45',
     }),
     actions: {
         setAuthHeaderNew(token) {
@@ -21,40 +25,35 @@ export const usemainStore = defineStore("mainStore", {
                 axios
                     .get(`check`)
                     .then((res) => {
-                        console.log(res);
+                        console.log(res.data);
                         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                         this.auth = true;
                     })
                     .catch((e) => {
                         console.log(".get(`check`) catch((e)");
                         console.log(e);
-
-                        // delete axios.defaults.headers.common["Authorization"];
-                        // localStorage.removeItem("token");
-                        // localStorage.removeItem("user");
+                        delete axios.defaults.headers.common["Authorization"];
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("user");
                         this.auth = false;
                         this.startSnack("error", "login", "danger");
                     });
             } else {
                 console.log("check else if (token) {");
                 delete axios.defaults.headers.common["Authorization"];
-                this.startSnack("error", "login", "danger", false);
                 this.auth = false;
+                this.startSnack("error", "login", "danger");
             }
         },
-        startSnack(
-            text,
-            urlDirect,
-            coler = "success",
-            snack = true,
-            timeout = 1500
-        ) {
+        startSnack(text, urlDirect, coler = "success", snack = true, timeout = 2000) {
             this.text = text;
             this.coler = coler;
             this.urlDirec = urlDirect;
             this.timeout = timeout;
             this.snackbar = snack;
             this.redirect = true;
+            console.log(this.redirect);
+            console.log(this.urlDirec);
         },
         getUser() {
             if (this.user.id) {
@@ -65,13 +64,12 @@ export const usemainStore = defineStore("mainStore", {
                     })
                     .catch((e) => {
                         console.log(e);
-                        this.startSnack("error", "no", "danger");
+                        this.startSnack("error", "login", "danger");
                     });
             }
         },
         getReports() {
-            axios
-                .get(`user/${this.user.id}/reports`)
+            axios.get(`user/${this.user.id}/reports`)
                 .then((res) => {
                     if (res.data.length == 0) {
                         this.reports = ["noData"];
@@ -81,8 +79,12 @@ export const usemainStore = defineStore("mainStore", {
                 })
                 .catch(() => {
                     this.reports = ["noData"];
-                    this.startSnack("error", "no", "danger");
+                    this.startSnack("error", "login", "danger");
                 });
         },
+        formatDate(date, format = 'YYYY-MM-DD') {
+            // format = 'YYYY-MM-DD'
+            return moment(date).format(format);
+        }
     },
 });

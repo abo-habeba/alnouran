@@ -5,7 +5,9 @@ import Register from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import StationsView from "../views/StationsView.vue";
 import userEdit from "../views/user/editProfil.vue";
-import ReportView from "../views/ReportView.vue";
+import ReportView from "../views/reports/ReportView.vue";
+import ReportsView from "../views/reports/ReportsView.vue";
+import VacationsView from "../views/Vacations/VacationsView.vue";
 import NotFound from "../views/NotFound.vue";
 
 const routes = [
@@ -34,6 +36,17 @@ const routes = [
         name: "report",
         component: ReportView,
         meta: { title: "Report" },
+    },
+    {
+        path: "/reports",
+        name: "reports",
+        component: ReportsView,
+        meta: { title: "Reports" },
+    }, {
+        path: "/vacations",
+        name: "vacations",
+        component: VacationsView,
+        meta: { title: "Vacations" },
     },
     {
         path: "/auth",

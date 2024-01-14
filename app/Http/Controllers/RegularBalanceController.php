@@ -12,7 +12,8 @@ class RegularBalanceController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = auth()->user()->id;
+        return RegularBalance::where('user_id', $user_id)->first();
     }
 
     /**

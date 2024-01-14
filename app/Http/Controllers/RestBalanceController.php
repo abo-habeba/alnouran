@@ -12,7 +12,8 @@ class RestBalanceController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = auth()->user()->id;
+        return RestBalance::where('user_id', $user_id)->first();
     }
 
     /**
@@ -20,7 +21,11 @@ class RestBalanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = auth()->user();
+        $restBalance = $user->restBalance;
+        $restBalance->balance += request()->balance;
+        $restBalance->save();
+        return $restBalance;
     }
 
     /**

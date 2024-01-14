@@ -1,3 +1,3 @@
 <template>
-  <h1>Stations peg</h1>
+    <h1>Stations Peg</h1>
 </template>
