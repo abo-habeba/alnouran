@@ -9,6 +9,9 @@ export const usemainStore = defineStore("mainStore", {
         auth: false,
         user: localStorage.user ? JSON.parse(localStorage.user) : false,
         reports: ["getData"],
+        absences: '',
+        regular: '',
+        rest: '',
         snackbar: false,
         redirect: false,
         text: " ",
@@ -81,6 +84,24 @@ export const usemainStore = defineStore("mainStore", {
                     this.reports = ["noData"];
                     this.startSnack("error", "login", "danger");
                 });
+        },
+        getAbsences() {
+            axios
+                .get(`absence`)
+                .then((res) => {
+                    this.absences = res.data;
+                    console.log(res.data);
+                })
+                .catch((e) => {
+                    console.log(e);
+                    this.startSnack("error", "login", "danger");
+                });
+            axios.get(`regular`).then((res) => {
+                this.regular = res.data.balance;
+            });
+            axios.get(`rest`).then((res) => {
+                this.rest = res.data.balance;
+            });
         },
         formatDate(date, format = 'YYYY-MM-DD') {
             // format = 'YYYY-MM-DD'

@@ -5,3 +5,10 @@
         </template>
     </v-app-bar>
 </template>
+<style>
+.v-app-bar {
+    position: fixed !important;
+    top: 0;
+    z-index: 999;
+}
+</style>

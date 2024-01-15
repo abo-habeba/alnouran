@@ -1,16 +1,19 @@
 <template>
-    <AddVacationComponent />
-    <v-row class="text-center">
-        <v-col>
-            <div class="m-1 p-1">Regular</div>
-            <div class="m-1 p-1">{{ regular }}</div>
-        </v-col>
-        <v-col>
-            <div class="m-1 p-1">Rest</div>
-            <div class="m-1 p-1">{{ rest }}</div>
-        </v-col>
-    </v-row>
-    <hr style="margin: auto; width: 80%;">
+    <!-- <v-btn @click="store.getAbsences()">getAbsences</v-btn> -->
+    <div>
+        <AddVacationComponent />
+        <div class="div-balance text-center">
+            <div class=" box-balance">
+                <div class="item-balance">Regular</div>
+                <div class="item-balance">{{ store.regular }}</div>
+            </div>
+            <div class=" box-balance">
+                <div class="item-balance">Rest</div>
+                <div class="item-balance">{{ store.rest }}</div>
+            </div>
+        </div>
+        <hr style="margin: auto;">
+    </div>
     <div style="white-space: nowrap; overflow: auto;  width: 100%;">
         <table class="table table-striped">
             <thead>
@@ -24,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(absence, index) in absences">
+                <tr v-for="(absence, index) in store.absences">
                     <th>{{ index + 1 }}</th>
                     <td>{{ absence.Type }}</td>
                     <td>{{ absence.date }}</td>
@@ -41,27 +44,45 @@ import { usemainStore } from "../../store/mainStore";
 const store = usemainStore();
 import AddVacationComponent from "../../components/Vacations/AddVacationComponent.vue";
 import { onMounted, ref } from "vue";
-import axios from "axios";
-const absences = ref("");
-const regular = ref("");
-const rest = ref("");
+// const absences = ref(store.absences);
+// const regular = ref("");
+// const rest = ref("");
 onMounted(() => {
-    axios.get(`absence`).then((res) => {
-        absences.value = res.data;
-        console.log(absences.value);
-    });
-    axios.get(`regular`).then((res) => {
-        regular.value = res.data.balance;
-    });
-    axios.get(`rest`).then((res) => {
-        rest.value = res.data.balance;
-    });
+    store.getAbsences();
 });
 // const formatDate = (date) => {
 //   return moment(date).format('YYYY-MM-DD');
 // };
 </script>
 <style>
+.box-fixed {
+    position: sticky !important;
+    top: 73px;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+}
+
+.box-fixed * {
+    position: unset !important;
+}
+
+.div-balance {
+    padding: 10px 3px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    letter-spacing: 2px;
+}
+
+.box-balance {
+    border-radius: 15px;
+    background-color: #0d6efd;
+    width: 20%;
+    color: white;
+}
+
 html {
     overflow-y: auto !important;
 }

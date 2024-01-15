@@ -74,4 +74,9 @@ const handleResize = () => {
 /* .navbar-width {
     width: fit-content !important;
 } */
+
+.v-navigation-drawer {
+    position: fixed !important;
+    right: 0px;
+}
 </style>

@@ -57,7 +57,6 @@ class AbsenceController extends Controller
         $absences = Absence::query()
             ->where('user_id', $user_id)
             ->whereYear('date', $currentYear)
-            // ->whereMonth('date', $currentMonth)
             ->get();
         return $absences;
     }
@@ -100,19 +99,20 @@ class AbsenceController extends Controller
         /** @var User */
         $user = Auth::User();
         $countLeave = count($absences);
-        if ($type == 'Regular' ||  $type == 'Casual') {
+        if ($type == 'Rest allowance') {
+            $restBalance = $user->restBalance;
+            $user->restBalance()->update([
+                'balance' => $restBalance->balance - $countLeave,
+            ]);
+        } else {
+            // ($type == 'Regular' ||  $type == 'Casual')
             $regularBalance = $user->regularBalance;
             $user->regularBalance()->update([
                 'balance' => $regularBalance->balance - $countLeave,
             ]);
         }
         // Add rest Balance
-        if ($type == 'Rest allowance') {
-            $restBalance = $user->restBalance;
-            $user->restBalance()->update([
-                'balance' => $restBalance->balance - $countLeave,
-            ]);
-        }
+
         return $absences;
     }
 
