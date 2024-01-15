@@ -39,7 +39,7 @@ export const usemainStore = defineStore("mainStore", {
                         localStorage.removeItem("token");
                         localStorage.removeItem("user");
                         this.auth = false;
-                        this.startSnack("error", "login", "danger");
+                        this.startSnack("error", "login", "danger", false);
                     });
             } else {
                 console.log("check else if (token) {");
