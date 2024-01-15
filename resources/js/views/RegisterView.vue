@@ -8,7 +8,7 @@
             {{ $t("noData") }}
         </div>
         <v-form v-else lazy-validation>
-            <v-text-field variant="outlined" :label="$t('enterName')" v-model="user.name"
+            <v-text-field type="text" variant="outlined" :label="$t('enterName')" v-model="user.name"
                 :rules="[(v) => !!v || 'This field is required']"></v-text-field>
             <v-text-field type="email" variant="outlined" :label="$t('enterEmail')"
                 :rules="[(v) => !!v || 'This field is required']" v-model="user.email"></v-text-field>
