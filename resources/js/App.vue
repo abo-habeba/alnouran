@@ -35,7 +35,7 @@ onMounted(() => {
     axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
     axios.defaults.withCredentials = true;
     store.setAuthHeaderNew(localStorage.token);
-    router.push({ path: "vacations" });
+    // router.push({ path: "vacations" });
     store.getUser();
 });
 function eventOffset() {
@@ -54,6 +54,7 @@ window.addEventListener("beforeunload", function (event) {
 .clickd {
     cursor: pointer !important;
 }
+
 /* .v-app-bar,
 .v-navigation-drawer {
     position: fixed !important;

@@ -18,7 +18,7 @@
                 " @click:appendInner="store.passToggle = !store.passToggle" variant="outlined" autocomplete="ON"
                 v-model="user.password" :label="$t('enterPassword')"
                 :rules="[(v) => !!v || 'This field is required']"></v-text-field>
-            <v-select label="اختر الوظيفة" variant="outlined" :rules="[(v) => !!v || 'This field is required']"
+            <v-select :label="$t('Selectjob')" variant="outlined" :rules="[(v) => !!v || 'This field is required']"
                 :items="Job_title" item-title="name" item-value="id" v-model="user.Job_title"></v-select>
             <v-select :label="$t('SelectPartment')" variant="outlined" :rules="[(v) => !!v || 'This field is required']"
                 :items="stations" item-title="name" item-value="id" :multiple="user.Job_title == 'engeneer' ? true : false"
@@ -39,8 +39,6 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 const stations = ref(["getData"]);
 const user = ref({});
-const stationsadd = ref({});
-const dialog = ref();
 const Job_title = ref([
     { id: "engeneer", name: "مهندس" },
     { id: "technician", name: "فني" },
@@ -50,6 +48,7 @@ onMounted(() => {
         .get(`Stations`)
         .then((res) => {
             stations.value = res.data;
+            console.log(stations.value);
         })
         .catch(() => {
             stations.value = "noData";
