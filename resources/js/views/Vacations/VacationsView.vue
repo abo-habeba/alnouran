@@ -83,6 +83,15 @@ onMounted(() => {
     color: white;
 }
 
+@media (max-width: 700px) {
+    .box-balance {
+        border-radius: 15px;
+        background-color: hsl(0, 98%, 52%);
+        width: 30%;
+        color: white;
+    }
+}
+
 html {
     overflow-y: auto !important;
 }
