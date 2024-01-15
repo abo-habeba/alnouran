@@ -77,7 +77,7 @@ onMounted(() => {
 }
 
 .box-balance {
-    border-radius: 15px;
+    border-radius: 8px;
     background-color: #0d6efd;
     width: 23%;
     color: white;
@@ -85,10 +85,7 @@ onMounted(() => {
 
 @media (max-width: 700px) {
     .box-balance {
-        border-radius: 15px;
-        background-color: hsl(0, 98%, 52%);
-        width: 30%;
-        color: white;
+        width: 40%;
     }
 }
 
