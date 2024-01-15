@@ -45,7 +45,7 @@ export const usemainStore = defineStore("mainStore", {
                 console.log("check else if (token) {");
                 delete axios.defaults.headers.common["Authorization"];
                 this.auth = false;
-                this.startSnack("error", "login", "danger");
+                this.startSnack("error", "login", "danger", false);
             }
         },
         startSnack(text, urlDirect, coler = "success", snack = true, timeout = 2000) {
