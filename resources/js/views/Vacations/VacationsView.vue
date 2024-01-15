@@ -79,7 +79,7 @@ onMounted(() => {
 .box-balance {
     border-radius: 15px;
     background-color: #0d6efd;
-    width: 20%;
+    width: 23%;
     color: white;
 }
 
