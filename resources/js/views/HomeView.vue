@@ -1,12 +1,7 @@
 <template>
     <v-dialog min-width="70%" v-model="dialog" width="auto">
         <template v-slot:activator="{ props }">
-            <v-btn
-                class="fixed-b-r"
-                color="green"
-                icon="mdi-plus"
-                v-bind="props"
-            >
+            <v-btn class="fixed-b-r" color="green" icon="mdi-plus" v-bind="props">
             </v-btn>
         </template>
         <v-card>
@@ -15,30 +10,12 @@
                     {{ $t("addReport") }}
                 </h1>
                 <v-form class="my-3">
-                    <v-textarea
-                        variant="outlined"
-                        :rows="1"
-                        auto-grow
-                        v-model="newReport.body"
-                        :label="$t('addReport')"
-                        :rules="[(v) => !!v || 'This field is required']"
-                    ></v-textarea>
-                    <v-select
-                        :label="$t('SelectStation')"
-                        :rules="[(v) => !!v || 'This field is required']"
-                        :items="stations"
-                        item-title="name"
-                        item-value="id"
-                        v-model="newReport.station_id"
-                    ></v-select>
+                    <v-textarea variant="outlined" :rows="1" auto-grow v-model="newReport.body" :label="$t('addReport')"
+                        :rules="[(v) => !!v || 'This field is required']"></v-textarea>
+                    <v-select :label="$t('SelectPartment')" :rules="[(v) => !!v || 'This field is required']"
+                        :items="stations" item-title="name" item-value="id" v-model="newReport.station_id"></v-select>
                 </v-form>
-                <v-btn
-                    color="green"
-                    location="center"
-                    @click="addReport"
-                    class="mt-2"
-                    >{{ $t("addReport") }}</v-btn
-                >
+                <v-btn color="green" location="center" @click="addReport" class="mt-2">{{ $t("addReport") }}</v-btn>
             </v-card-text>
             <v-btn color="primary" block @click="dialog = false">{{
                 $t("close")
