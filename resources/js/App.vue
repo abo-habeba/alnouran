@@ -24,15 +24,15 @@ import SnackbarComponent from "./components/SnackbarComponent.vue";
 import { usemainStore } from "./store/mainStore";
 const store = usemainStore();
 console.log(window.location.origin);
-// const BASE_URL =
-//     window.location.origin === "http://localhost:8080"
-//         ? "http://127.0.0.1:8000/api/"
-//         : "https://api.hwnix.com/api/";
-// console.log(BASE_URL);
-axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+const BASE_URL =
+    window.location.origin === "http://localhost:8080" || "http://127.0.0.1:8000"
+        ? "http://127.0.0.1:8000/api/"
+        : "https://api.hwnix.com/api/";
+console.log(BASE_URL);
+axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.token}`;
 onMounted(() => {
-    axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+    axios.defaults.baseURL = BASE_URL;
     axios.defaults.withCredentials = true;
     store.setAuthHeaderNew(localStorage.token);
     // router.push({ path: "vacations" });
