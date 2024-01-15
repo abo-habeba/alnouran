@@ -3,7 +3,6 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
 console.log('componet home');
 
 </script>
