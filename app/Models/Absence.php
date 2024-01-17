@@ -10,7 +10,7 @@ class Absence extends Model
     use HasFactory;
     protected $fillable = [
         'description',
-        'type',
+        'Type',
         'date',
         'user_id'
     ];

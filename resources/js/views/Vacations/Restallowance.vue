@@ -5,7 +5,7 @@
         <div class="div-balance text-center">
             <div class="box-balance">
                 <router-link to="/rest">
-                    <div class="item-balance">Rest</div>
+                    <div class="item-balance"> البدلات </div>
                     <div class="item-balance">{{ store.rest }}</div>
                 </router-link>
             </div>
@@ -18,10 +18,10 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>description</th>
-                    <th>date</th>
-                    <th>state</th>
-                    <th>created_at</th>
+                    <th> الوصف </th>
+                    <th> التاريخ </th>
+                    <th> الحالة </th>
+                    <th> تاريخ الانشاء </th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,8 @@
                     <th>{{ index + 1 }}</th>
                     <td>{{ absence.description }}</td>
                     <td>{{ absence.date }}</td>
-                    <td :class="absence.state == 1 ? 'bg-success' : 'bg-danger'">{{ absence.state == 1 ? 'yes' : 'No' }}
+                    <td :class="absence.state == 1 ? 'bg-success' : 'bg-danger'">
+                        {{ absence.state == 1 ? 'متاح' : 'تم التبديل' }}
                     </td>
                     <td>{{ store.formatDate(absence.created_at) }}</td>
                 </tr>

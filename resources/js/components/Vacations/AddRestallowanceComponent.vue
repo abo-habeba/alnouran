@@ -2,28 +2,28 @@
     <v-row justify="center">
         <v-dialog v-model="dialog">
             <template v-slot:activator="{ props }">
-                <v-btn color="success" @click="setField()" v-bind="props"> Add Resta llowance </v-btn>
+                <v-btn color="success" @click="setField()" v-bind="props"> اضافة بدل راحة </v-btn>
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="text-h5">Add Request</span>
+                    <span class="text-h5">اضافة بدل راحة</span>
                 </v-card-title>
                 <v-card-text>
                     <v-form class="my-3">
-                        <v-textarea label="description" v-model="addRequest.description" variant="outlined" :rows="1"
-                            auto-grow :rules="[(v) => !!v || 'This field is required']">
+                        <v-textarea label="الوصف" v-model="addRequest.description" variant="outlined" :rows="1" auto-grow
+                            :rules="[(v) => !!v || ' هذا الحقل مطلوب']">
                         </v-textarea>
-                        <v-text-field label="Date Start" type="date" v-model="addRequest.date"
+                        <v-text-field label="حدد التاريخ" type="date" v-model="addRequest.date"
                             variant="outlined"></v-text-field>
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-                        Close
+                        اغلاق
                     </v-btn>
                     <v-btn color="blue-darken-1" variant="text" @click="saveRequest">
-                        Save
+                        حفظ
                     </v-btn>
                 </v-card-actions>
             </v-card>

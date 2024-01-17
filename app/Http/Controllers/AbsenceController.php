@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Absence;
 use Illuminate\Http\Request;
+use App\Models\Restallowance;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,13 +68,13 @@ class AbsenceController extends Controller
     public function store(Request $request)
     {
         $description = request()->description;
-        $type = request()->type;
+        $Type = request()->Type;
+        $rest_id = request()->rest_id;
         $user_id = Auth::id();
         $startDate = Carbon::parse(request()->start_date);
         $endDate = Carbon::parse(request()->end_date);
         $dates = $startDate->daysUntil($endDate)->toArray();
         $absences = [];
-
         /** Types of vacations
          *
          * اعتيادية	Regular
@@ -88,20 +89,19 @@ class AbsenceController extends Controller
         // Add regular Balance
         /** @var User */
         $user = Auth::User();
-        $countLeave = count($absences);
-        if ($type == 'Rest allowance') {
+        // $countLeave = count($absences);
+        if ($Type == 'Rest allowance') {
             //=============
-            // $user = User::findOrFail($userId);
-            $restallowance = $user->restallowances()
-                ->where('created_at', Carbon::parse($startDate)) // تاريخ الإنشاء المحدد
-                ->first();
-
+            $restallowance = Restallowance::findOrFail($rest_id);
             if ($restallowance) {
-                $restallowance->state = false;
-                $restallowance->save();
-
+                $restallowance->update([
+                    'state' => false,
+                ]);
+                $restBalance = $user->restBalance;
+                $user->restBalance()->update([
+                    'balance' => $restBalance->balance - 1,
+                ]);
                 return response()->json([
-                    'message' => 'تم تحديث حقل الحالة بنجاح',
                     'data' => $restallowance
                 ]);
             } else {
@@ -110,25 +110,21 @@ class AbsenceController extends Controller
                 ], 404);
             }
             //=============
-            $restBalance = $user->restBalance;
-            $user->restBalance()->update([
-                'balance' => $restBalance->balance - $countLeave,
-            ]);
         } else {
             foreach ($dates as $date) {
                 $absence = Absence::create([
                     'description' => $description,
-                    'type' => $type,
+                    'Type' => $Type,
                     'user_id' => $user_id,
                     'date' => $date,
                 ]);
                 array_push($absences, $absence);
             }
 
-            // ($type == 'Regular' ||  $type == 'Casual')
+            // ($Type == 'Regular' ||  $Type == 'Casual')
             $regularBalance = $user->regularBalance;
             $user->regularBalance()->update([
-                'balance' => $regularBalance->balance - $countLeave,
+                'balance' => $regularBalance->balance - count($absences),
             ]);
         }
         // Add rest Balance

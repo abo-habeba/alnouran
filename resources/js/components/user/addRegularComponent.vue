@@ -2,26 +2,26 @@
     <v-row justify="center">
         <v-dialog v-model="dialog">
             <template v-slot:activator="{ props }">
-                <v-btn v-bind="props"> Add Regular </v-btn>
+                <v-btn v-bind="props"> اضافة رصيد اعتيادي </v-btn>
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="text-h5">Add Regular</span>
+                    <span class="text-h5"> اضافة رصيد اعتيادي </span>
                 </v-card-title>
                 <v-card-text>
                     <v-form class="my-3">
-                        <v-text-field type="number" label="balance" v-model="addRegular.balance" variant="outlined"
-                            :rows="1" auto-grow :rules="[(v) => !!v || 'This field is required']">
+                        <v-text-field type="number" label="الرصيد" v-model="addRegular.balance" variant="outlined" :rows="1"
+                            auto-grow :rules="[(v) => !!v || 'This field is required']">
                         </v-text-field>
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-                        Close
+                        اغلاق
                     </v-btn>
                     <v-btn color="blue-darken-1" variant="text" @click="saveRegular">
-                        Save
+                        حفظ
                     </v-btn>
                 </v-card-actions>
             </v-card>

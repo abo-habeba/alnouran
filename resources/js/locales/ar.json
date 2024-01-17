@@ -34,5 +34,13 @@
     "yes": "نعم",
     "no": "لا",
     "Vacations": "الاجازات",
-    "comment": "تعليق"
+    "comment": "تعليق",
+    "Regular": "اعتيادية",
+    "Rest allowance": " بدل راحة ",
+    "Casual": "عارضة",
+    "Umrah leave": "إجازة عمرة",
+    "Recruitment": "تجنيد",
+    "Maternity leave": "إجازة وضع",
+    "Compensatory leave": "إجازة تعويضية",
+    "Other": "أخرى"
 }

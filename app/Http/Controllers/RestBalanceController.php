@@ -41,7 +41,9 @@ class RestBalanceController extends Controller
      */
     public function update(Request $request, RestBalance $restBalance)
     {
-        //
+        // $restBalance->update([
+        //     'field_name' => $request->input('field_name'),
+        // ]);
     }
 
     /**

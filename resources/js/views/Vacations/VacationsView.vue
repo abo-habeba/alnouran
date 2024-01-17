@@ -3,12 +3,12 @@
         <AddVacationComponent />
         <div class="div-balance text-center">
             <div class="box-balance">
-                <div class="item-balance">Regular</div>
+                <div class="item-balance"> الاعتيادية </div>
                 <div class="item-balance">{{ store.regular }}</div>
             </div>
             <div class="box-balance">
                 <router-link to="/rest">
-                    <div class="item-balance">Rest</div>
+                    <div class="item-balance"> بدل راحة </div>
                     <div class="item-balance">{{ store.rest }}</div>
                 </router-link>
             </div>
@@ -17,27 +17,27 @@
         <router-view></router-view>
     </div>
     <div style="white-space: nowrap; overflow: auto; width: 100%">
-        <table class="table table-striped">
+        <table v-if="store.absences" class="table table-striped">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Type</th>
-                    <th>date</th>
-                    <th>description</th>
-                    <th>created_at</th>
+                    <th> نوع الاجازة </th>
+                    <th>تاريخ الاجازة</th>
+                    <th>الوصف</th>
+                    <th>تاريخ الانشاء</th>
                 </tr>
             </thead>
-            <tbody v-if="store.absences">
+            <tbody>
                 <tr v-for="(absence, index) in store.absences">
                     <th>{{ index + 1 }}</th>
-                    <td>{{ absence.Type }}</td>
+                    <td>{{ $t(absence.Type) }}</td>
                     <td>{{ absence.date }}</td>
                     <td>{{ absence.description }}</td>
                     <td>{{ store.formatDate(absence.created_at) }}</td>
                 </tr>
             </tbody>
         </table>
-        <div class="text-center">{{ $t("noData") }}</div>
+        <div v-else class="text-center">{{ $t("noData") }}</div>
     </div>
 </template>
 <script setup>

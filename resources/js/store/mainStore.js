@@ -25,11 +25,9 @@ export const usemainStore = defineStore("mainStore", {
         setAuthHeaderNew(token) {
             if (token) {
                 axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-                console.log(token);
                 axios
                     .get(`check`)
                     .then((res) => {
-                        console.log(res.data);
                         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                         this.auth = true;
                     })
@@ -91,10 +89,8 @@ export const usemainStore = defineStore("mainStore", {
                 .get(`absence`)
                 .then((res) => {
                     this.absences = res.data;
-                    console.log(res.data);
                 })
                 .catch((e) => {
-                    console.log(e);
                     this.startSnack("error", "login", "danger");
                 });
             axios.get(`regular`).then((res) => {
@@ -105,7 +101,6 @@ export const usemainStore = defineStore("mainStore", {
             });
             axios.get(`restallowance`).then((res) => {
                 this.restallowance = res.data;
-                console.log(res.data);
             });
         },
         formatDate(date, format = 'YYYY-MM-DD') {
