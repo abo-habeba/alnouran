@@ -7,42 +7,19 @@
                     $t("confirm")
                 }}</v-card-title>
                 <div class="mx-auto">
-                    <v-btn
-                        class="m-5"
-                        color="green"
-                        text
-                        @click="deleteReport()"
-                        >{{ $t("yes") }}</v-btn
-                    >
-                    <v-btn
-                        class="m-5"
-                        color="red"
-                        text
-                        @click="dialog = false"
-                        >{{ $t("no") }}</v-btn
-                    >
+                    <v-btn class="m-5" color="green" text @click="deleteReport()">{{ $t("yes") }}</v-btn>
+                    <v-btn class="m-5" color="red" text @click="dialog = false">{{ $t("no") }}</v-btn>
                 </div>
             </v-card>
         </v-dialog>
-        <div
-            class="alert alert-info text-center"
-            v-if="store.reports[0] == 'getData'"
-        >
+        <div class="alert alert-info text-center" v-if="store.reports[0] == 'getData'">
             {{ $t("getData") }}
         </div>
-        <div
-            class="alert alert-warning text-center"
-            v-else-if="store.reports[0] == 'noData'"
-        >
+        <div class="alert alert-warning text-center" v-else-if="store.reports[0] == 'noData'">
             {{ $t("noData") }}
         </div>
         <div v-else>
-            <v-card
-                color="grey-lighten-2"
-                class="my-3 p-3"
-                v-for="(report, i) in store.reports"
-                :key="i"
-            >
+            <v-card color="grey-lighten-2" class="my-3 p-3" v-for="(report, i) in store.reports" :key="i">
                 <router-link class="nav-link" :to="`/report/${report.id}`">
                     <div id="textShare">
                         <v-card-title>
@@ -56,57 +33,34 @@
                         <v-card-text class="my-2 text-content">{{
                             report.body
                         }}</v-card-text>
-                        <v-chip>{{ date(report.created_at) }}</v-chip>
-                        <v-chip class="m-3">{{
+                        <v-chip class="m-1">{{ date(report.created_at) }}</v-chip>
+                        <v-chip class="m-1">{{
                             timeSinceReport(report.created_at)
                         }}</v-chip>
                     </div>
                 </router-link>
                 <v-card-actions class="mt-2">
-                    <v-textarea
-                        variant="outlined"
-                        :rows="1"
-                        auto-grow
-                        :label="$t('comment')"
-                        v-model="report.comment"
-                    />
+                    <v-textarea color="grey-lighten-5" variant="outlined" :rows="1" auto-grow :label="$t('comment')"
+                        v-model="report.comment" />
                     <v-btn icon="mdi-send" @click="addComment(report)"></v-btn>
                 </v-card-actions>
                 <div class="comment-length float-right">
                     <span class="mdi mdi-comment-outline"></span>
                     <span class="m-1">{{ report.comments.length }}</span>
-                    <div
-                        v-if="report.user.id == store.user.id"
-                        class="float-right mx-4"
-                    >
-                        <span
-                            class="clickd mdi mdi-delete-outline"
-                            @click="deleted(report.id)"
-                        ></span>
+                    <div v-if="report.user.id == store.user.id" class="float-right mx-4">
+                        <span class="clickd mdi mdi-delete-outline" @click="deleted(report.id)"></span>
                     </div>
-                    <span
-                        class="mx-3 clickd mdi mdi-share-outline"
-                        @click="share(report)"
-                    ></span>
+                    <span class="mx-3 clickd mdi mdi-share-outline" @click="share(report)"></span>
                 </div>
-                <v-btn
-                    class="mb-2"
-                    @click="report.showComments = !report.showComments"
-                    >{{
-                        report.showComments
-                            ? $t("hideComments")
-                            : $t("showComments")
-                    }}</v-btn
-                >
-                <v-card
-                    class="mb-3 p-3"
-                    color="grey-lighten-4"
-                    v-for="(comment, i) in report.comments.slice(
-                        0,
-                        report.showComments ? report.comments.length : 1
-                    )"
-                    :key="i"
-                >
+                <v-btn class="mb-2" @click="report.showComments = !report.showComments">{{
+                    report.showComments
+                    ? $t("hideComments")
+                    : $t("showComments")
+                }}</v-btn>
+                <v-card class="mb-3 p-3" v-for="(comment, i) in report.comments.slice(
+                            0,
+                            report.showComments ? report.comments.length : 1
+                        )" :key="i">
                     <v-chip>{{ comment.user.name }}</v-chip>
                     <div class="text-content">{{ comment.body }}</div>
                     <span class="float-right">{{
@@ -177,7 +131,14 @@ function deleteReport() {
 .comment-length {
     width: 100%;
 }
+
 .comment-length span {
     font-size: 25px;
+}
+</style>
+<style>
+#textShare {
+    background-color: #F5F5F5;
+    border-radius: 6px;
 }
 </style>

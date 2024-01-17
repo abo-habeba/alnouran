@@ -74,16 +74,7 @@ class AbsenceController extends Controller
         $endDate = Carbon::parse(request()->end_date);
         $dates = $startDate->daysUntil($endDate)->toArray();
         $absences = [];
-        foreach ($dates as $date) {
-            $absence = Absence::create([
-                'description' => $description,
-                'type' => $type,
-                'location' => $location,
-                'user_id' => $user_id,
-                'date' => $date,
-            ]);
-            array_push($absences, $absence);
-        }
+
         /** Types of vacations
          *
          * اعتيادية	Regular
@@ -100,11 +91,42 @@ class AbsenceController extends Controller
         $user = Auth::User();
         $countLeave = count($absences);
         if ($type == 'Rest allowance') {
+            //=============
+            // $user = User::findOrFail($userId);
+            $restallowance = $user->restallowances()
+                ->where('created_at', Carbon::parse($startDate)) // تاريخ الإنشاء المحدد
+                ->first();
+
+            if ($restallowance) {
+                $restallowance->state = false;
+                $restallowance->save();
+
+                return response()->json([
+                    'message' => 'تم تحديث حقل الحالة بنجاح',
+                    'data' => $restallowance
+                ]);
+            } else {
+                return response()->json([
+                    'message' => 'لم يتم العثور على أي سجل يطابق الشروط المحددة'
+                ], 404);
+            }
+            //=============
             $restBalance = $user->restBalance;
             $user->restBalance()->update([
                 'balance' => $restBalance->balance - $countLeave,
             ]);
         } else {
+            foreach ($dates as $date) {
+                $absence = Absence::create([
+                    'description' => $description,
+                    'type' => $type,
+                    'location' => $location,
+                    'user_id' => $user_id,
+                    'date' => $date,
+                ]);
+                array_push($absences, $absence);
+            }
+
             // ($type == 'Regular' ||  $type == 'Casual')
             $regularBalance = $user->regularBalance;
             $user->regularBalance()->update([

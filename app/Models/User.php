@@ -33,7 +33,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function stations()
+    function stations()
     {
         return $this->belongsToMany(Station::class, 'user_stations');
     }
@@ -49,12 +49,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Absence::class);
     }
-    public function regularBalance()
+    function regularBalance()
     {
         return $this->hasOne(RegularBalance::class);
     }
-    public function restBalance()
+    function restBalance()
     {
         return $this->hasOne(RestBalance::class);
+    }
+    function restallowance()
+    {
+        return $this->hasOne(Restallowance::class);
     }
 }

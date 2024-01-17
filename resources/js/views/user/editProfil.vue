@@ -9,14 +9,14 @@
                 v-model="user.email"></v-text-field>
             <v-text-field variant="outlined" type="number" :label="$t('enterTelephone')"
                 :rules="[(v) => !!v || 'This field is required']" v-model="user.phone"></v-text-field>
-            <v-btn style="color: wheat" location="center" class="my-3 btn-password"
+            <v-btn class="my-3 btn-password"
                 @click="editPass = !editPass">{{ !editPass ? $t("changePassword") : $t("noChangePassword") }}</v-btn>
             <v-text-field v-if="editPass" :type="store.passToggle == true ? 'password' : 'text'" :append-inner-icon="store.passToggle ? 'mdi-eye-off-outline' : 'mdi-eye-outline'
                 " @click:appendInner="store.passToggle = !store.passToggle" variant="outlined" autocomplete="ON"
                 v-model="user.password" :label="$t('enterPassword')"
                 :rules="[(v) => !!v || 'This field is required']"></v-text-field>
         </v-form>
-        <v-btn color="secondary" location="center" class="my-3" @click="editProfil">{{ $t("save") }}</v-btn>
+        <v-btn color="secondary" class="my-3" @click="editProfil">{{ $t("save") }}</v-btn>
     </div>
 </template>
 
@@ -47,8 +47,8 @@ function editProfil() {
 .btn-password {
     color: white !important;
     background-color: #ff5722 !important;
-    position: sticky !important;
+    /* position: sticky !important;
     right: 20%;
-    bottom: 50%;
+    bottom: 50%; */
 }
 </style>

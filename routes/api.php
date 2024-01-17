@@ -9,6 +9,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\StationController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\RestBalanceController;
+use App\Http\Controllers\RestallowanceController;
 use App\Http\Controllers\RegularBalanceController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -19,6 +20,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/absence', AbsenceController::class);
     Route::apiResource('/regular', RegularBalanceController::class);
     Route::apiResource('/rest', RestBalanceController::class);
+    Route::apiResource('/restallowance', RestallowanceController::class);
+    ////////
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
     Route::get('/check', [UserController::class, 'authCheck']);

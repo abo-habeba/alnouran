@@ -5,11 +5,16 @@
 import { usemainStore } from "@/store/mainStore";
 const store = usemainStore();
 import { onMounted, ref } from "vue";
-// import axios from "axios";
+import axios from "axios";
 const dialog = ref();
 onMounted(() => {
     store.getUser();
 });
+function clickd() {
+    axios.get('Stations').then((res) => {
+        console.log(res.data);
+    })
+}
 </script>
 <style>
 /* .box-content {

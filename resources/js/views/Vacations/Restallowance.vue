@@ -1,12 +1,8 @@
 <template>
     <!-- <v-btn @click="store.getAbsences()">getAbsences</v-btn> -->
     <div>
-        <AddVacationComponent />
+        <AddVRestallowanceComponent />
         <div class="div-balance text-center">
-            <div class="box-balance">
-                <div class="item-balance">Regular</div>
-                <div class="item-balance">{{ store.regular }}</div>
-            </div>
             <div class="box-balance">
                 <router-link to="/rest">
                     <div class="item-balance">Rest</div>
@@ -18,45 +14,39 @@
         <router-view></router-view>
     </div>
     <div style="white-space: nowrap; overflow: auto; width: 100%">
-        <table class="table table-striped">
+        <table v-if="store.restallowance" class="table table-striped">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Type</th>
-                    <th>date</th>
                     <th>description</th>
-                    <th>location</th>
+                    <th>date</th>
+                    <th>state</th>
                     <th>created_at</th>
                 </tr>
             </thead>
-            <tbody v-if="store.absences">
-                <tr v-for="(absence, index) in store.absences">
+            <tbody>
+                <tr v-for="(absence, index) in store.restallowance">
                     <th>{{ index + 1 }}</th>
-                    <td>{{ absence.Type }}</td>
-                    <td>{{ absence.date }}</td>
                     <td>{{ absence.description }}</td>
-                    <td>{{ absence.location }}</td>
+                    <td>{{ absence.date }}</td>
+                    <td :class="absence.state == 1 ? 'bg-success' : 'bg-danger'">{{ absence.state == 1 ? 'yes' : 'No' }}
+                    </td>
                     <td>{{ store.formatDate(absence.created_at) }}</td>
                 </tr>
             </tbody>
         </table>
-        <div class="text-center">{{ $t("noData") }}</div>
+        <div v-else class="text-center">{{ $t("noData") }}</div>
     </div>
 </template>
 <script setup>
 import { usemainStore } from "../../store/mainStore";
 const store = usemainStore();
-import AddVacationComponent from "../../components/Vacations/AddVacationComponent.vue";
+import AddVRestallowanceComponent from "../../components/Vacations/AddRestallowanceComponent.vue";
 import { onMounted, ref } from "vue";
-// const absences = ref(store.absences);
-// const regular = ref("");
-// const rest = ref("");
+
 onMounted(() => {
     store.getAbsences();
 });
-// const formatDate = (date) => {
-//   return moment(date).format('YYYY-MM-DD');
-// };
 </script>
 <style lang="scss">
 .box-fixed {
@@ -65,6 +55,10 @@ onMounted(() => {
     z-index: 9999;
     width: 100%;
     height: 100%;
+}
+
+.bg-success {
+    background-color: darkgreen !important;
 }
 
 .box-fixed * {

@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rest_balances', function (Blueprint $table) {
+        Schema::create('restallowances', function (Blueprint $table) {
             $table->id();
-            $table->decimal('balance', 10, 1)->default(0.0);
+            $table->text('description');
+            $table->date('date');
+            $table->boolean('state')->default(true);
             $table->timestamps();
-
-            $table->unsignedBigInteger('user_id')->unique();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rest_balances');
+        Schema::dropIfExists('restallowances');
     }
 };

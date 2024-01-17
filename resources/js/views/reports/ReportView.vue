@@ -9,74 +9,44 @@
                     $t("confirm")
                 }}</v-card-title>
                 <div class="mx-auto">
-                    <v-btn
-                        class="m-5"
-                        color="green"
-                        text
-                        @click="deleteReport()"
-                        >{{ $t("yes") }}</v-btn
-                    >
-                    <v-btn
-                        class="m-5"
-                        color="red"
-                        text
-                        @click="dialog = false"
-                        >{{ $t("no") }}</v-btn
-                    >
+                    <v-btn class="m-5" color="green" text @click="deleteReport()">{{ $t("yes") }}</v-btn>
+                    <v-btn class="m-5" color="red" text @click="dialog = false">{{ $t("no") }}</v-btn>
                 </div>
             </v-card>
         </v-dialog>
         <div class="alert alert-info text-center" v-if="report == 'getData'">
             {{ $t("getData") }}
         </div>
-        <div
-            class="alert alert-warning text-center"
-            v-else-if="report == 'noreport'"
-        >
+        <div class="alert alert-warning text-center" v-else-if="report == 'noreport'">
             {{ $t("noReport") }}
         </div>
         <div v-else>
             <v-card color="grey-lighten-2 p-3">
-                <v-card-title>
-                    <v-chip class="float-start">{{ report.user.name }}</v-chip>
-                    <v-chip class="float-end">{{ report.station.name }}</v-chip>
-                </v-card-title>
-                <v-card-text class="my-2 text-content">{{
-                    report.body
-                }}</v-card-text>
-                <v-chip>{{ date(report.created_at) }}</v-chip>
-                <v-chip class="m-3">{{
-                    timeSinceReport(report.created_at)
-                }}</v-chip>
+                <div id="textShare">
+                    <v-card-title>
+                        <v-chip class="float-start">{{ report.user.name }}</v-chip>
+                        <v-chip class="float-end">{{ report.station.name }}</v-chip>
+                    </v-card-title>
+                    <v-card-text color="grey-lighten-4" class="my-2 text-content">{{
+                        report.body
+                    }}</v-card-text>
+                    <v-chip class="m-1">{{ date(report.created_at) }}</v-chip>
+                    <v-chip class="m-1">{{
+                        timeSinceReport(report.created_at)
+                    }}</v-chip>
+                </div>
                 <v-card-actions class="mt-2">
-                    <v-textarea
-                        variant="outlined"
-                        :rows="1"
-                        auto-grow
-                        :label="$t('comment')"
-                        v-model="report.comment"
-                    />
+                    <v-textarea variant="outlined" :rows="1" auto-grow :label="$t('comment')" v-model="report.comment" />
                     <v-btn icon="mdi-send" @click="addComment(report)"></v-btn>
                 </v-card-actions>
                 <div class="comment-length float-right">
                     <span class="mdi mdi-comment-outline"></span>
                     <span class="m-1">{{ report.comments.length }}</span>
                 </div>
-                <div
-                    v-if="report.user.id == store.user.id"
-                    class="comment-length float-right mx-4"
-                >
-                    <span
-                        class="clickd mdi mdi-delete-outline"
-                        @click="deleted(report.id)"
-                    ></span>
+                <div v-if="report.user.id == store.user.id" class="comment-length float-right mx-4">
+                    <span class="clickd mdi mdi-delete-outline" @click="deleted(report.id)"></span>
                 </div>
-                <v-card
-                    class="mb-3 p-3 w-100"
-                    color="grey-lighten-4"
-                    v-for="(comment, i) in report.comments"
-                    :key="i"
-                >
+                <v-card class="mb-3 p-3 w-100" v-for="(comment, i) in report.comments" :key="i">
                     <v-chip>{{ comment.user.name }}</v-chip>
                     <div class="text-content">>{{ comment.body }}</div>
                     <span class="float-right">{{

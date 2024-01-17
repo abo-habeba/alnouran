@@ -11,6 +11,7 @@ export const usemainStore = defineStore("mainStore", {
         reports: ["getData"],
         absences: '',
         regular: '',
+        restallowance: '',
         rest: '',
         snackbar: false,
         redirect: false,
@@ -101,6 +102,10 @@ export const usemainStore = defineStore("mainStore", {
             });
             axios.get(`rest`).then((res) => {
                 this.rest = res.data.balance;
+            });
+            axios.get(`restallowance`).then((res) => {
+                this.restallowance = res.data;
+                console.log(res.data);
             });
         },
         formatDate(date, format = 'YYYY-MM-DD') {

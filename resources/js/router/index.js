@@ -8,6 +8,7 @@ import userEdit from "../views/user/editProfil.vue";
 import ReportView from "../views/reports/ReportView.vue";
 import ReportsView from "../views/reports/ReportsView.vue";
 import VacationsView from "../views/Vacations/VacationsView.vue";
+import restallowance from "../views/Vacations/Restallowance.vue";
 import NotFound from "../views/NotFound.vue";
 
 const routes = [
@@ -30,6 +31,12 @@ const routes = [
         name: "userEdit",
         component: userEdit,
         meta: { title: "User Edit" },
+    },
+    {
+        path: "/rest",
+        name: "rest",
+        component: restallowance,
+        meta: { title: "Rest allowance" },
     },
     {
         path: "/report/:id",
