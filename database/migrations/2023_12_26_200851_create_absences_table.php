@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->text('description');
             $table->text('Type');
-            $table->text('location');
             $table->date('date');
             $table->timestamps();
 

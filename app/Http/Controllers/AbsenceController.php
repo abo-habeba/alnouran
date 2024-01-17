@@ -68,7 +68,6 @@ class AbsenceController extends Controller
     {
         $description = request()->description;
         $type = request()->type;
-        $location = request()->location;
         $user_id = Auth::id();
         $startDate = Carbon::parse(request()->start_date);
         $endDate = Carbon::parse(request()->end_date);
@@ -120,7 +119,6 @@ class AbsenceController extends Controller
                 $absence = Absence::create([
                     'description' => $description,
                     'type' => $type,
-                    'location' => $location,
                     'user_id' => $user_id,
                     'date' => $date,
                 ]);

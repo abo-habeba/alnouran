@@ -20,9 +20,7 @@
                             variant="outlined"></v-text-field>
                         <v-text-field label="Date End" type="date" v-model="addRequest.end_date"
                             variant="outlined"></v-text-field>
-                        <v-text-field label="location" variant="outlined" v-model="addRequest.location"
-                            :rules="[(v) => !!v || 'This field is required']">
-                        </v-text-field>
+
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -64,24 +62,6 @@ function saveRequest() {
 function setField() {
     addRequest.value.start_date = store.formatDate(new Date());
     addRequest.value.end_date = store.formatDate(new Date());
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            async (position) => {
-                const { latitude, longitude } = position.coords;
-                const response = await fetch(
-                    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-                );
-                const data = await response.json();
-                // console.log(data);
-                addRequest.value.location = `${data.address.state}, ${data.address.town}`;
-            },
-            (error) => {
-                console.error("فشل في الحصول على الموقع:", error.message);
-            }
-        );
-    } else {
-        console.error("المتصفح الخاص بك لا يدعم Geolocation API");
-    }
 }
 const typeRequest = ref([
     "Regular",

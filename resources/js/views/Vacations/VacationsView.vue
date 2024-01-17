@@ -1,5 +1,4 @@
 <template>
-    <!-- <v-btn @click="store.getAbsences()">getAbsences</v-btn> -->
     <div>
         <AddVacationComponent />
         <div class="div-balance text-center">
@@ -25,7 +24,6 @@
                     <th>Type</th>
                     <th>date</th>
                     <th>description</th>
-                    <th>location</th>
                     <th>created_at</th>
                 </tr>
             </thead>
@@ -35,7 +33,6 @@
                     <td>{{ absence.Type }}</td>
                     <td>{{ absence.date }}</td>
                     <td>{{ absence.description }}</td>
-                    <td>{{ absence.location }}</td>
                     <td>{{ store.formatDate(absence.created_at) }}</td>
                 </tr>
             </tbody>
@@ -48,15 +45,10 @@ import { usemainStore } from "../../store/mainStore";
 const store = usemainStore();
 import AddVacationComponent from "../../components/Vacations/AddVacationComponent.vue";
 import { onMounted, ref } from "vue";
-// const absences = ref(store.absences);
-// const regular = ref("");
-// const rest = ref("");
 onMounted(() => {
     store.getAbsences();
 });
-// const formatDate = (date) => {
-//   return moment(date).format('YYYY-MM-DD');
-// };
+
 </script>
 <style lang="scss">
 .box-fixed {

@@ -11,7 +11,6 @@ class Absence extends Model
     protected $fillable = [
         'description',
         'type',
-        'location',
         'date',
         'user_id'
     ];
