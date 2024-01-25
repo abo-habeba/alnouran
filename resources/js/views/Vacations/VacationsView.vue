@@ -2,9 +2,12 @@
     <div>
         <AddVacationComponent />
         <div class="div-balance text-center">
-            <div class="box-balance">
-                <div class="item-balance"> الاعتيادية </div>
-                <div class="item-balance">{{ store.regular }}</div>
+            <div class="d-f-r box-balance">
+                <div>
+                    <div class="item-balance"> الاعتيادية </div>
+                    <div class="item-balance">{{ store.regular }}</div>
+                </div>
+                <addRegularComponent />
             </div>
             <div class="box-balance">
                 <router-link to="/rest">
@@ -41,6 +44,7 @@
     </div>
 </template>
 <script setup>
+import addRegularComponent from "../../components/Vacations/addRegularComponent.vue";
 import { usemainStore } from "../../store/mainStore";
 const store = usemainStore();
 import AddVacationComponent from "../../components/Vacations/AddVacationComponent.vue";
@@ -66,9 +70,6 @@ onMounted(() => {
 .div-balance {
     padding: 10px 3px;
     margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     letter-spacing: 2px;
 
     a {
@@ -80,15 +81,16 @@ onMounted(() => {
 .box-balance {
     border-radius: 8px;
     background-color: #0d6efd;
-    width: 23%;
+    width: auto;
     color: white;
+    padding: 2px 10px;
 }
 
-@media (max-width: 700px) {
-    .box-balance {
-        width: 40%;
-    }
-}
+// @media (max-width: 700px) {
+//     .box-balance {
+//         width: 40%;
+//     }
+// }
 
 html {
     overflow-y: auto !important;

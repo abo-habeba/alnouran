@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Restallowance;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,21 +37,23 @@ class RestallowanceController extends Controller
      */
     public function store(Request $request)
     {
-        $description = $request->input('description');
-        $user_id = Auth::id();
-        $dated = $request->input('date');
-        /** @var User */
-        $user = Auth::User();
-        $restallowance = Restallowance::create([
-            'description' => $description,
-            'user_id' => $user_id,
-            'date' => $dated,
-        ]);
-        $restBalance = $user->restBalance;
-        $user->restBalance()->update([
-            'balance' => $restBalance->balance + 1,
-        ]);
-        return $restallowance;
+        DB::transaction(function ($request) {
+            $description = $request->input('description');
+            $user_id = Auth::id();
+            $dated = $request->input('date');
+            /** @var User */
+            $user = Auth::User();
+            $restallowance = Restallowance::create([
+                'description' => $description,
+                'user_id' => $user_id,
+                'date' => $dated,
+            ]);
+            $restBalance = $user->restBalance;
+            $user->restBalance()->update([
+                'balance' => $restBalance->balance + 1,
+            ]);
+            return $restallowance;
+        });
     }
 
     /**
@@ -66,7 +69,7 @@ class RestallowanceController extends Controller
      */
     public function update(Request $request, Restallowance $restallowance)
     {
-        $restallowance->state = false;
+        $restallowance->state = !$restallowance->state;
         $restallowance->save();
     }
 

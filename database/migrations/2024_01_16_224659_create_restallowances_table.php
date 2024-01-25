@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('restallowances', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->date('date');
             $table->boolean('state')->default(true);
             $table->timestamps();

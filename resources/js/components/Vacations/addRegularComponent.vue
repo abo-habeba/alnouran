@@ -2,7 +2,7 @@
     <v-row justify="center">
         <v-dialog v-model="dialog">
             <template v-slot:activator="{ props }">
-                <v-btn v-bind="props"> اضافة رصيد اعتيادي </v-btn>
+                <v-btn color="green" variant="text" size="x-large" icon="mdi-plus" v-bind="props"></v-btn>
             </template>
             <v-card>
                 <v-card-title>

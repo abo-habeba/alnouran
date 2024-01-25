@@ -4,27 +4,14 @@
             <img class="img-log" src="../assets/Report.png" />
             <h1 class="h1 my-3 text-center">{{ $t("LogIn") }}</h1>
             <v-form class="my-3" lazy-validation>
-                <v-text-field
-                    type="email"
-                    variant="outlined"
-                    v-model="userLog.email"
-                    :label="$t('enterEmail')"
-                    :rules="[(v) => !!v || 'This field is required']"
-                ></v-text-field>
-                <v-text-field
-                    :type="store.passToggle == true ? 'password' : 'text'"
-                    :append-inner-icon="
-                        store.passToggle
-                            ? 'mdi-eye-off-outline'
-                            : 'mdi-eye-outline'
-                    "
-                    @click:appendInner="store.passToggle = !store.passToggle"
-                    variant="outlined"
-                    autocomplete="no"
-                    v-model="userLog.password"
-                    :label="$t('enterPassword')"
-                    :rules="[(v) => !!v || 'This field is required']"
-                >
+                <v-text-field type="email" variant="outlined" v-model="userLog.email" :label="$t('enterEmail')"
+                    :rules="[(v) => !!v || 'This field is required']"></v-text-field>
+                <v-text-field :type="store.passToggle == true ? 'password' : 'text'" :append-inner-icon="store.passToggle
+                    ? 'mdi-eye-off-outline'
+                    : 'mdi-eye-outline'
+                    " @click:appendInner="store.passToggle = !store.passToggle" variant="outlined" autocomplete="no"
+                    v-model="userLog.password" :label="$t('enterPassword')"
+                    :rules="[(v) => !!v || 'This field is required']">
                 </v-text-field>
             </v-form>
             <v-btn @click="toLogIn" class="mt-2">
@@ -60,7 +47,7 @@ function toLogIn(e) {
                 store.setAuthHeaderNew(res.data.token);
                 store.getUser();
                 store.auth = true;
-                store.startSnack("success", "home", "success", false);
+                store.startSnack("success", "home", "success", false, 200);
             })
             .catch((e) => {
                 console.log(e);
@@ -80,6 +67,7 @@ function toLogIn(e) {
     max-width: 500px;
     margin: 5% auto;
 }
+
 .img-log {
     display: block;
     width: 10%;

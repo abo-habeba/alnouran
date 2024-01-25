@@ -14,45 +14,16 @@
             <v-list-item prepend-icon="mdi-bug" :title="$t('reports')" to="/reports"></v-list-item>
         </v-list>
     </v-navigation-drawer>
+    <div @click="rail = !rail" :class="pageWidth <= 765 && !rail ? 'transBox' : ''"></div>
 </template>
 <script setup>
 import { usemainStore } from "@/store/mainStore";
-// import axios from "axios";
 const store = usemainStore();
-// function toLogout(e) {
-//     const myButton = e.currentTarget;
-//     myButton.disabled = true;
-//     myButton.style.cursor = "progress";
-//     axios
-//         .post(`logout`)
-//         .then(() => {
-//             localStorage.removeItem("token");
-//             localStorage.removeItem("user");
-//             store.setAuthHeaderNew();
-//             store.startSnack("success", "login", "success", false);
-//             store.auth = false;
-//         })
-//         .catch(() => {
-//             store.startSnack("error", "no", "danger");
-//             myButton.disabled = false;
-//             myButton.style.cursor = "default";
-//         });
-// }
 import { ref, onMounted } from "vue";
 
 const drawer = ref(true);
 const rail = ref(false);
 const pageWidth = ref(0);
-
-// function drawerd() {
-//     rail.value = false;
-//     const navigationDrawerWidth = ref(0);
-//     const navigationDrawer = ref(
-//         document.querySelector(".v-navigation-drawer__content")
-//     );
-//     navigationDrawerWidth.value = navigationDrawer.value.offsetWidth;
-//     console.log(navigationDrawerWidth.value);
-// }
 
 const open = ref(["Users"]);
 onMounted(() => {
@@ -70,12 +41,18 @@ const handleResize = () => {
 };
 </script>
 <style>
-/* .navbar-width {
+.navbar-width {
     width: fit-content !important;
-} */
+}
 
 .v-navigation-drawer {
     position: fixed !important;
     right: 0px;
+}
+
+.transBox {
+    width: 100%;
+    height: 100%;
+    position: fixed;
 }
 </style>

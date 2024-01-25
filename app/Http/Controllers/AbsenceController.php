@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Absence;
 use Illuminate\Http\Request;
 use App\Models\Restallowance;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,69 +68,81 @@ class AbsenceController extends Controller
      */
     public function store(Request $request)
     {
-        $description = request()->description;
-        $Type = request()->Type;
-        $rest_id = request()->rest_id;
-        $user_id = Auth::id();
-        $startDate = Carbon::parse(request()->start_date);
-        $endDate = Carbon::parse(request()->end_date);
-        $dates = $startDate->daysUntil($endDate)->toArray();
-        $absences = [];
-        /** Types of vacations
-         *
-         * اعتيادية	Regular
-         * بدل راحة	Rest allowance
-         * عارضة	Casual
-         * اجازة عمرة	Umrah leave
-         * تجنيد	Recruitment
-         * اجازة وضع	Maternity leave
-         * اجازة تعويضية	Compensatory leave
-         * اخري	Other
-         */
-        // Add regular Balance
-        /** @var User */
-        $user = Auth::User();
-        // $countLeave = count($absences);
-        if ($Type == 'Rest allowance') {
-            //=============
-            $restallowance = Restallowance::findOrFail($rest_id);
-            if ($restallowance) {
-                $restallowance->update([
-                    'state' => false,
-                ]);
-                $restBalance = $user->restBalance;
-                $user->restBalance()->update([
-                    'balance' => $restBalance->balance - 1,
-                ]);
-                return response()->json([
-                    'data' => $restallowance
-                ]);
+        DB::transaction(function () {
+            $description = request()->description;
+            $Type = request()->Type;
+            $rest_id = request()->rest_id;
+            $user_id = Auth::id();
+            $startDate = Carbon::parse(request()->start_date);
+            $endDate = Carbon::parse(request()->end_date);
+            $dates = $startDate->daysUntil($endDate)->toArray();
+            $absences = [];
+            /** Types of vacations
+             *
+             * اعتيادية	Regular
+             * بدل راحة	Rest allowance
+             * عارضة	Casual
+             * اجازة عمرة	Umrah leave
+             * تجنيد	Recruitment
+             * اجازة وضع	Maternity leave
+             * اجازة تعويضية	Compensatory leave
+             * اخري	Other
+             */
+            // Add regular Balance
+            /** @var User */
+            $user = Auth::User();
+            // $countLeave = count($absences);
+            if ($Type == 'Rest allowance') {
+                //=============
+                $restallowance = Restallowance::findOrFail($rest_id);
+                if ($restallowance) {
+
+                    foreach ($dates as $date) {
+                        $absence = Absence::create([
+                            'description' => $description,
+                            'Type' => $Type,
+                            'user_id' => $user_id,
+                            'date' => $date,
+                        ]);
+                        array_push($absences, $absence);
+                    }
+
+                    $restallowance->update([
+                        'state' => false,
+                    ]);
+                    $restBalance = $user->restBalance;
+                    $user->restBalance()->update([
+                        'balance' => $restBalance->balance - 1,
+                    ]);
+                    return response()->json([
+                        'data' => $restallowance
+                    ]);
+                } else {
+                    return response()->json([
+                        'message' => 'لم يتم العثور على أي سجل يطابق الشروط المحددة'
+                    ], 404);
+                }
+                //=============
             } else {
-                return response()->json([
-                    'message' => 'لم يتم العثور على أي سجل يطابق الشروط المحددة'
-                ], 404);
-            }
-            //=============
-        } else {
-            foreach ($dates as $date) {
-                $absence = Absence::create([
-                    'description' => $description,
-                    'Type' => $Type,
-                    'user_id' => $user_id,
-                    'date' => $date,
+                foreach ($dates as $date) {
+                    $absence = Absence::create([
+                        'description' => $description,
+                        'Type' => $Type,
+                        'user_id' => $user_id,
+                        'date' => $date,
+                    ]);
+                    array_push($absences, $absence);
+                }
+
+                // ($Type == 'Regular' ||  $Type == 'Casual')
+                $regularBalance = $user->regularBalance;
+                $user->regularBalance()->update([
+                    'balance' => $regularBalance->balance - count($absences),
                 ]);
-                array_push($absences, $absence);
             }
-
-            // ($Type == 'Regular' ||  $Type == 'Casual')
-            $regularBalance = $user->regularBalance;
-            $user->regularBalance()->update([
-                'balance' => $regularBalance->balance - count($absences),
-            ]);
-        }
-        // Add rest Balance
-
-        return $absences;
+            // Add rest Balance
+            return $absences;
+        });
     }
 
     /**

@@ -1,6 +1,5 @@
 <template>
     <div class="register">
-        <addRegularComponent />
         <h1 class="h1 my-5 text-center">{{ $t("editProfil") }}</h1>
         <v-form lazy-validation>
             <v-text-field variant="outlined" :label="$t('enterName')" v-model="user.name"
@@ -21,7 +20,6 @@
 </template>
 
 <script setup>
-import addRegularComponent from "../../components/user/addRegularComponent.vue";
 import { usemainStore } from "@/store/mainStore";
 const store = usemainStore();
 import axios from "axios";

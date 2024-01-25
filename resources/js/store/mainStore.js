@@ -18,7 +18,7 @@ export const usemainStore = defineStore("mainStore", {
         text: " ",
         coler: "success",
         urlDirec: " ",
-        timeout: 2000,
+        timeout: 1000,
         colorBTN: '#08BC45',
     }),
     actions: {
