@@ -66,33 +66,6 @@ onMounted(() => {
     position: unset !important;
 }
 
-.div-balance {
-    padding: 10px 3px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    letter-spacing: 2px;
-
-    a {
-        text-decoration: none;
-        color: white;
-    }
-}
-
-.box-balance {
-    border-radius: 8px;
-    background-color: #0d6efd;
-    width: 23%;
-    color: white;
-}
-
-@media (max-width: 700px) {
-    .box-balance {
-        width: 40%;
-    }
-}
-
 html {
     overflow-y: auto !important;
 }

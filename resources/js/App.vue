@@ -1,5 +1,5 @@
 <template>
-    <v-app @click="closeNavigat">
+    <v-app>
         <v-layout class="rounded rounded-md">
             <SnackbarComponent />
             <NavbarComponent v-if="store.auth" />
@@ -22,10 +22,6 @@ import NavigationComponent from "./components/NavigationComponent.vue";
 import SnackbarComponent from "./components/SnackbarComponent.vue";
 // import FooterComponent from "./components/FooterComponent.vue";
 import { usemainStore } from "./store/mainStore";
-function closeNavigat(e) {
-    console.log('e.view');
-    // console.log(e);
-}
 const store = usemainStore();
 console.log(window.location.origin);
 const BASE_URL =
