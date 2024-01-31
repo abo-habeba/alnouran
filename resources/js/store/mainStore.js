@@ -41,7 +41,6 @@ export const usemainStore = defineStore("mainStore", {
                         this.startSnack("error", "login", "danger", false);
                     });
             } else {
-                console.log("check else if (token) {");
                 delete axios.defaults.headers.common["Authorization"];
                 this.auth = false;
                 this.startSnack("error", "login", "danger", false);
@@ -54,8 +53,6 @@ export const usemainStore = defineStore("mainStore", {
             this.timeout = timeout;
             this.snackbar = snack;
             this.redirect = true;
-            console.log(this.redirect);
-            console.log(this.urlDirec);
         },
         getUser() {
             if (this.user.id) {
@@ -99,7 +96,7 @@ export const usemainStore = defineStore("mainStore", {
             axios.get(`rest`).then((res) => {
                 this.rest = res.data.balance;
             });
-            axios.get(`restallowance`).then((res) => {
+            return axios.get(`restallowance`).then((res) => {
                 this.restallowance = res.data;
             });
         },

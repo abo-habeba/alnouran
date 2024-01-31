@@ -68,7 +68,14 @@ class AbsenceController extends Controller
      */
     public function store(Request $request)
     {
+        $Type = request()->Type;
+        $startDate = Carbon::parse(request()->start_date);
+        $endDate = Carbon::parse(request()->end_date);
+        $dates = $startDate->daysUntil($endDate)->toArray();
+
+
         DB::transaction(function () {
+
             $description = request()->description;
             $Type = request()->Type;
             $rest_id = request()->rest_id;
@@ -92,6 +99,7 @@ class AbsenceController extends Controller
             /** @var User */
             $user = Auth::User();
             // $countLeave = count($absences);
+
             if ($Type == 'Rest allowance') {
                 //=============
                 $restallowance = Restallowance::findOrFail($rest_id);
@@ -124,23 +132,29 @@ class AbsenceController extends Controller
                 }
                 //=============
             } else {
-                foreach ($dates as $date) {
-                    $absence = Absence::create([
-                        'description' => $description,
-                        'Type' => $Type,
-                        'user_id' => $user_id,
-                        'date' => $date,
-                    ]);
-                    array_push($absences, $absence);
-                }
 
-                // ($Type == 'Regular' ||  $Type == 'Casual')
-                $regularBalance = $user->regularBalance;
-                $user->regularBalance()->update([
-                    'balance' => $regularBalance->balance - count($absences),
-                ]);
+                $exists = Absence::whereIn('date', $dates)->pluck('date');
+                if ($exists->isEmpty()) {
+                    foreach ($dates as $date) {
+                        $absence = Absence::create([
+                            'description' => $description,
+                            'Type' => $Type,
+                            'user_id' => $user_id,
+                            'date' => $date,
+                        ]);
+                        array_push($absences, $absence);
+                    }
+
+                    // ($Type == 'Regular' ||  $Type == 'Casual')
+                    $regularBalance = $user->regularBalance;
+                    $user->regularBalance()->update([
+                        'balance' => $regularBalance->balance - count($absences),
+                    ]);
+                } else {
+                    return response()->json($exists, 409);
+                }
             }
-            // Add rest Balance
+
             return $absences;
         });
     }
@@ -166,6 +180,13 @@ class AbsenceController extends Controller
      */
     public function destroy(Absence $absence)
     {
-        //
+        $deleted = DB::transaction(function () use ($absence) {
+            $user = auth()->user();
+            $absence->delete();
+            $regularBalance = $user->regularBalance;
+            $regularBalance->balance += 1;
+            $regularBalance->save();
+        });
+        return $deleted;
     }
 }

@@ -9,9 +9,8 @@
                     <span class="text-h5"> اضافة رصيد اعتيادي </span>
                 </v-card-title>
                 <v-card-text>
-                    <p class="alert alert-warning text-center text-h6"> تنبه !! <br> سيتم اضافة القيمة التي ستكتبها علي
-                        الرصيد
-                        الحالي </p>
+                    <p class="alert alert-warning text-center text-h6"> تنبه !! <br> سيتم تعديل الرصيد الحالي الي القيمة
+                        التي ستكتبها </p>
                     <v-form class="my-3">
                         <v-text-field type="number" label="الرصيد" v-model="addRegular.balance" variant="outlined" :rows="1"
                             auto-grow :rules="[(v) => !!v || ' هذا الحقل مطلوب ']">

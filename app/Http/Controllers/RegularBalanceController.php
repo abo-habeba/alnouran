@@ -23,7 +23,7 @@ class RegularBalanceController extends Controller
     {
         $user = auth()->user();
         $regularBalance = $user->regularBalance;
-        $regularBalance->balance += request()->balance;
+        $regularBalance->balance = request()->balance;
         $regularBalance->save();
         return $regularBalance;
     }
