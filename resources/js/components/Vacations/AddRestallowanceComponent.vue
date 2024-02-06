@@ -28,6 +28,24 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-dialog v-model="dialog2" width="auto">
+            <v-card>
+                <v-card-title>
+                    لديك هذه اليوم بالفعل
+                </v-card-title>
+                <v-card-text>
+                    <div v-if="Array.isArray(restEixist)">
+                        <h2 v-for="(rest) in restEixist">{{ rest }}</h2>
+                    </div>
+                    <div v-else>{{ restEixist }}</div>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn color="primary" variant="text" @click="dialog2 = false">
+                        اغلاق
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-row>
 </template>
 <script setup>
@@ -36,18 +54,29 @@ import { usemainStore } from "../../store/mainStore";
 const store = usemainStore();
 import { ref } from "vue";
 const dialog = ref(false);
+const dialog2 = ref(false);
 const addRequest = ref({});
+const restEixist = ref({});
 function saveRequest() {
+    if (!addRequest.value.description) {
+        addRequest.value.description = ' بدل راحه '
+    }
     axios
         .post(`restallowance`, addRequest.value)
-        .then((res) => {
-            console.log(res.data)
+        .then(() => {
+            // console.log(res.data)
             store.getAbsences();
             addRequest.value = ref({});
             dialog.value = false;
         })
         .catch((e) => {
             console.log(e);
+            if (Array.isArray(e.response.data)) {
+                restEixist.value = e.response.data;
+            } else {
+                restEixist.value = ' حدث خطا اعد المحاولة';
+            }
+            dialog2.value = true;
         });
 }
 function setField() {

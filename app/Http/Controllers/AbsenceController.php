@@ -10,6 +10,7 @@ use App\Models\Restallowance;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Termwind\Components\Dd;
 
 class AbsenceController extends Controller
 {
@@ -68,73 +69,57 @@ class AbsenceController extends Controller
      */
     public function store(Request $request)
     {
-        $Type = request()->Type;
         $startDate = Carbon::parse(request()->start_date);
         $endDate = Carbon::parse(request()->end_date);
         $dates = $startDate->daysUntil($endDate)->toArray();
-
-
-        DB::transaction(function () {
-
-            $description = request()->description;
-            $Type = request()->Type;
-            $rest_id = request()->rest_id;
-            $user_id = Auth::id();
-            $startDate = Carbon::parse(request()->start_date);
-            $endDate = Carbon::parse(request()->end_date);
-            $dates = $startDate->daysUntil($endDate)->toArray();
-            $absences = [];
-            /** Types of vacations
-             *
-             * اعتيادية	Regular
-             * بدل راحة	Rest allowance
-             * عارضة	Casual
-             * اجازة عمرة	Umrah leave
-             * تجنيد	Recruitment
-             * اجازة وضع	Maternity leave
-             * اجازة تعويضية	Compensatory leave
-             * اخري	Other
-             */
-            // Add regular Balance
-            /** @var User */
-            $user = Auth::User();
-            // $countLeave = count($absences);
-
-            if ($Type == 'Rest allowance') {
-                //=============
-                $restallowance = Restallowance::findOrFail($rest_id);
-                if ($restallowance) {
-
-                    foreach ($dates as $date) {
-                        $absence = Absence::create([
-                            'description' => $description,
-                            'Type' => $Type,
-                            'user_id' => $user_id,
-                            'date' => $date,
+        $exists = Absence::whereIn('date', $dates)->pluck('date');
+        if ($exists->isEmpty()) {
+            DB::transaction(function () {
+                $description = request()->description;
+                $Type = request()->Type;
+                $rest_id = request()->rest_id;
+                $user_id = Auth::id();
+                $startDate = Carbon::parse(request()->start_date);
+                $endDate = Carbon::parse(request()->end_date);
+                $dates = $startDate->daysUntil($endDate)->toArray();
+                $absences = [];
+                /** Types of vacations
+                 *
+                 * اعتيادية	Regular
+                 * بدل راحة	Rest allowance
+                 * عارضة	Casual
+                 * اجازة عمرة	Umrah leave
+                 * تجنيد	Recruitment
+                 * اجازة وضع	Maternity leave
+                 * اجازة تعويضية	Compensatory leave
+                 * اخري	Other
+                 */
+                // Add regular Balance
+                /** @var User */
+                $user = Auth::User();
+                if ($Type == 'Rest allowance') {
+                    $restallowance = Restallowance::findOrFail($rest_id);
+                    if ($restallowance) {
+                        foreach ($dates as $date) {
+                            $absence = Absence::create([
+                                'description' => $description,
+                                'Type' => $Type,
+                                'user_id' => $user_id,
+                                'date' => $date,
+                                'rest_id' => $rest_id,
+                            ]);
+                            array_push($absences, $absence);
+                        }
+                        $restallowance->update([
+                            'state' => false,
                         ]);
-                        array_push($absences, $absence);
+                        $restBalance = $user->restBalance;
+                        $user->restBalance()->update([
+                            'balance' => $restBalance->balance - 1,
+                        ]);
+                        return $absences;
                     }
-
-                    $restallowance->update([
-                        'state' => false,
-                    ]);
-                    $restBalance = $user->restBalance;
-                    $user->restBalance()->update([
-                        'balance' => $restBalance->balance - 1,
-                    ]);
-                    return response()->json([
-                        'data' => $restallowance
-                    ]);
                 } else {
-                    return response()->json([
-                        'message' => 'لم يتم العثور على أي سجل يطابق الشروط المحددة'
-                    ], 404);
-                }
-                //=============
-            } else {
-
-                $exists = Absence::whereIn('date', $dates)->pluck('date');
-                if ($exists->isEmpty()) {
                     foreach ($dates as $date) {
                         $absence = Absence::create([
                             'description' => $description,
@@ -144,48 +129,49 @@ class AbsenceController extends Controller
                         ]);
                         array_push($absences, $absence);
                     }
-
                     // ($Type == 'Regular' ||  $Type == 'Casual')
                     $regularBalance = $user->regularBalance;
                     $user->regularBalance()->update([
                         'balance' => $regularBalance->balance - count($absences),
                     ]);
-                } else {
-                    return response()->json($exists, 409);
+                    return $absences;
                 }
-            }
-
-            return $absences;
-        });
+            });
+        } else {
+            return response()->json($exists, 409);
+        }
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Absence $absence)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Absence $absence)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Absence $absence)
     {
-        $deleted = DB::transaction(function () use ($absence) {
+        $deleted = null;
+        DB::transaction(function () use ($absence, $deleted) {
             $user = auth()->user();
+            if ($absence->Type == 'Rest allowance') {
+                // return ($absence->rest_id);
+                $restallowance = Restallowance::findOrFail($absence->rest_id);
+                $restallowance->update([
+                    'state' => true,
+                ]);
+                $restBalance = $user->restBalance;
+                $restBalance->balance += 1;
+                $restBalance->save();
+                // return [$absence, $absence->Type, 'Rest allowance'];
+            } elseif ($absence->Type == 'Regular') {
+                $regularBalance = $user->regularBalance;
+                $regularBalance->balance += 1;
+                $regularBalance->save();
+                // return [$absence, $absence->Type, 'Regular'];
+            }
             $absence->delete();
-            $regularBalance = $user->regularBalance;
-            $regularBalance->balance += 1;
-            $regularBalance->save();
+            $deleted = true;
         });
         return $deleted;
     }

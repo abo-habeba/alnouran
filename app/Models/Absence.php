@@ -12,7 +12,8 @@ class Absence extends Model
         'description',
         'Type',
         'date',
-        'user_id'
+        'user_id',
+        'rest_id'
     ];
     public function user()
     {

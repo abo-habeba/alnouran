@@ -184,12 +184,13 @@ function ActiveClass(absence) {
 
 }
 function funDelete() {
-    axios.delete(`absence/${absenceId.value}`).then((res) => {
+    axios.delete(`absence/${absenceId.value}`).then(() => {
         store.getAbsences();
         dialog.value = false;
         store.startSnack("success", "no", "success");
-    }).catch((e) => {
-        console.log(e);
+        // console.log(resp);
+    }).catch(() => {
+        // console.log(e);
         store.startSnack("error", "no", "danger");;
     })
     console.log('deletefun');

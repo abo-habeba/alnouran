@@ -53,7 +53,11 @@
                 لديك هذه الايام بالفعل
             </v-card-title>
             <v-card-text>
-                <h2 v-for="(absence) in absenceEixist">{{ absence }}</h2>
+                <!-- <h2>{{ absenceEixist }}</h2> -->
+                <div v-if="Array.isArray(absenceEixist)">
+                    <h2 v-for="(absence) in absenceEixist">{{ absence }}</h2>
+                </div>
+                <div v-else>{{ absenceEixist }}</div>
             </v-card-text>
             <v-card-actions>
                 <v-btn color="primary" variant="text" @click="dialog2 = false">
@@ -95,31 +99,37 @@ onMounted(() => {
 function saveRequest() {
     if (!addRequest.value.description) {
         if (addRequest.value.Type == 'Rest allowance') {
-
             // البحث عن الكائن الذي يحمل الـ ID المحدد
             let targetObject = store.restallowance.find(obj => obj.id === addRequest.value.rest_id);
             // الوصول إلى وصف الكائن
             addRequest.value.description = targetObject.description;
+            console.log(targetObject, 'if');
         } else {
             addRequest.value.description = 'بدون وصف';
         }
     }
     if (!addRequest.value.Type) {
         addRequest.value.Type = typeRequest.value[0].en;
-
     }
+    console.log(addRequest.value, 'axios');
     axios
         .post(`absence`, addRequest.value)
-        .then((res) => {
+        .then((ree) => {
             store.getAbsences();
             addRequest.value = ref({});
             dialog.value = false;
+            console.log(ree);
         })
         .catch((e) => {
-            console.log(e.response.data);
             console.log(e);
-            absenceEixist.value = e.response.data;
+            // absenceEixist.value = e.response.data;
+            if (Array.isArray(e.response.data)) {
+                absenceEixist.value = e.response.data;
+            } else {
+                absenceEixist.value = ' حدث خطا اعد المحاولة';
+            }
             dialog2.value = true;
+            // console.log('e.response.data');
         });
 }
 function setField() {
