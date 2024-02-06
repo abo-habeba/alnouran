@@ -161,11 +161,9 @@ function optionsMenu(absence) {
     // إضافة المراقبة
     if (optionsMenuEl.value.style.display == 'block') {
         document.addEventListener('click', funAddEvent);
-        console.log('yes addEventListener optionsMenu');
     }
 
     ActiveClass(absence);
-    console.log('function optionsMenu');
 }
 function ActiveClass(absence) {
 
@@ -180,7 +178,6 @@ function ActiveClass(absence) {
             element.classList.remove('active');
         }
     });
-    console.log('ActiveClass');
 
 }
 function funDelete() {
@@ -193,11 +190,9 @@ function funDelete() {
         // console.log(e);
         store.startSnack("error", "no", "danger");;
     })
-    console.log('deletefun');
     document.getElementById('optionsMenu').style.display = 'none';
 }
 // function funEdit() {
-//     console.log('editfun');
 //     document.getElementById('optionsMenu').style.display = 'none';
 // }
 </script>
@@ -205,7 +200,7 @@ function funDelete() {
 .active {
     td {
         background-color: #0d6dfd52 !important;
-        color: #06ce21 !important;
+        color: #4fce06 !important;
     }
 }
 

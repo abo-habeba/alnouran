@@ -32,12 +32,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(absence, index) in store.restallowance" @click="ActiveClass(absence)"
+                <tr class="box-absence" v-for="(absence, index) in store.restallowance" @click="ActiveClass(absence)"
                     @contextmenu="optionsMenu(absence)" :id="'id-' + absence.id">
                     <th>{{ index + 1 }}</th>
                     <td>{{ absence.description }}</td>
                     <td>{{ absence.date }}</td>
-                    <td :class="absence.state == 1 ? 'bg-success' : 'bg-danger'">
+                    <td :class="absence.state == 1 ? 'bg-suc' : 'bg-dang'">
                         {{ absence.state == 1 ? 'متاح' : 'تم التبديل' }}
                     </td>
                     <td>{{ store.formatDate(absence.created_at) }}</td>
@@ -94,13 +94,14 @@
 </template>
 <script setup>
 import { usemainStore } from "../../store/mainStore";
-const store = usemainStore();
 import AddVRestallowanceComponent from "../../components/Vacations/AddRestallowanceComponent.vue";
 import { onMounted, ref } from "vue";
+import axios from "axios";
+const store = usemainStore();
 const dialog = ref(false)
 const dialog2 = ref(false)
-const absenceId = ref(0);
-const absenceDescription = ref(0);
+const absenceId = ref(null);
+const absenceDescription = ref(null);
 const absenceState = ref(null);
 onMounted(() => {
     store.getAbsences();
@@ -160,39 +161,34 @@ function optionsMenu(absence) {
     // إضافة المراقبة
     if (optionsMenuEl.value.style.display == 'block') {
         document.addEventListener('click', funAddEvent);
-        console.log('yes addEventListener optionsMenu');
     }
 
     ActiveClass(absence);
-    console.log('function optionsMenu');
 }
 function ActiveClass(absence) {
 
     absenceId.value = absence.id;
     absenceDescription.value = absence.description;
 
-    // إضافة كلاس active إلى العنصر الهدف
-    document.getElementById(`id-${absence.id}`).classList.add('active');
     // إزالة كلاس active من باقي العناصر
     Array.from(document.querySelectorAll(`.box-absence`)).forEach(element => {
-        if (element !== document.getElementById(`id-${absence.id}`)) {
-            element.classList.remove('active');
-        }
+        // if (element != document.getElementById(`id-${absence.id}`)) {
+        element.classList.remove('active');
+        //}
     });
-    console.log('ActiveClass');
+    // إضافة كلاس active إلى العنصر الهدف
+    document.getElementById(`id-${absence.id}`).classList.add('active');
 
 }
 function funDelete() {
-    axios.delete(`restallowance/${absenceId.value}`).then(() => {
+    axios.delete(`restallowance/${absenceId.value}`).then((resp) => {
         store.getAbsences();
         dialog.value = false;
         store.startSnack("success", "no", "success");
-        // console.log(resp);
-    }).catch(() => {
-        // console.log(e);
-        store.startSnack("error", "no", "danger");;
+    }).catch((e) => {
+        console.log(e);
+        // store.startSnack("error", "no", "danger");
     })
-    console.log('deletefun');
     document.getElementById('optionsMenu').style.display = 'none';
 }
 </script>
@@ -205,8 +201,14 @@ function funDelete() {
     height: 100%;
 }
 
-.bg-success {
-    background-color: darkgreen !important;
+.box-absence {
+    .bg-suc {
+        background-color: darkgreen !important;
+    }
+
+    .bg-dang {
+        background-color: #dc3545 !important;
+    }
 }
 
 .box-fixed * {

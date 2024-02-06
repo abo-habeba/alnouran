@@ -68,6 +68,18 @@ class RestallowanceController extends Controller
     }
     public function destroy(Restallowance $restallowance)
     {
-        //
+        // return $restallowance->state;
+        DB::transaction(function () use ($restallowance) {
+            // $user = auth()->user();
+            if ($restallowance->state) {
+                $restBalance = auth()->user()->restBalance;
+                $restBalance->balance -= 1;
+                $restBalance->save();
+                $restallowance->delete();
+                return true;
+            } else {
+                return response()->json([false], 409);
+            }
+        });
     }
 }

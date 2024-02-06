@@ -151,8 +151,7 @@ class AbsenceController extends Controller
     }
     public function destroy(Absence $absence)
     {
-        $deleted = null;
-        DB::transaction(function () use ($absence, $deleted) {
+        DB::transaction(function () use ($absence) {
             $user = auth()->user();
             if ($absence->Type == 'Rest allowance') {
                 // return ($absence->rest_id);
@@ -171,8 +170,7 @@ class AbsenceController extends Controller
                 // return [$absence, $absence->Type, 'Regular'];
             }
             $absence->delete();
-            $deleted = true;
+            return true;
         });
-        return $deleted;
     }
 }
