@@ -9,7 +9,7 @@
                     <span class="text-h5"> طلب اجازة جديد </span>
                 </v-card-title>
                 <v-card-text>
-                    <div class="alert alert-danger" role="alert">
+                    <div v-if="addRequest.Type != 'Rest allowance'" class="alert alert-danger" role="alert">
                         تنبية ! <br> عدم تحديد فتره تحتوي علي عطلات مثل الجمعة والسبت
                     </div>
 
@@ -27,9 +27,9 @@
                                 v-model="addRequest.rest_id" variant="outlined" :rules="[(v) => !!v || 'هذا الحقل مطلوب ']">
                             </v-select>
                         </div>
-                        <div v-else>
-                            <v-text-field label="بداية الاجازه" type="date" v-model="addRequest.start_date"
-                                variant="outlined"></v-text-field>
+                        <v-text-field :label="addRequest.Type == 'Rest allowance' ? ' تاريخ الاجازة' : '  بداية الاجازه '"
+                            type="date" v-model="addRequest.start_date" variant="outlined"></v-text-field>
+                        <div v-if="addRequest.Type != 'Rest allowance'">
                             <v-text-field label="نهاية الاجازة" type="date" v-model="addRequest.end_date"
                                 variant="outlined"></v-text-field>
                         </div>
@@ -90,9 +90,11 @@ const typeRequest = ref([
 );
 onMounted(() => {
     store.getAbsences().then(() => {
-        let restallowance = store.restallowance;
-        let filteractiveRest = restallowance.filter(obj => obj.state == 1);
-        activeRest.value = filteractiveRest;
+        const restallowance = ref(store.restallowance);
+        if (restallowance.value) {
+            const filteractiveRest = ref(restallowance.value.filter(obj => obj.state == 1));
+            activeRest.value = filteractiveRest.value;
+        }
     });
 });
 
@@ -103,7 +105,7 @@ function saveRequest() {
             let targetObject = store.restallowance.find(obj => obj.id === addRequest.value.rest_id);
             // الوصول إلى وصف الكائن
             addRequest.value.description = targetObject.description;
-            console.log(targetObject, 'if');
+            addRequest.value.end_date = addRequest.value.start_date;
         } else {
             addRequest.value.description = 'بدون وصف';
         }
@@ -114,15 +116,13 @@ function saveRequest() {
     console.log(addRequest.value, 'axios');
     axios
         .post(`absence`, addRequest.value)
-        .then((ree) => {
+        .then(() => {
             store.getAbsences();
             addRequest.value = ref({});
             dialog.value = false;
-            console.log(ree);
         })
         .catch((e) => {
             console.log(e);
-            // absenceEixist.value = e.response.data;
             if (Array.isArray(e.response.data)) {
                 absenceEixist.value = e.response.data;
             } else {
