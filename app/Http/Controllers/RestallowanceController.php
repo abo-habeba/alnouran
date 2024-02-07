@@ -54,7 +54,7 @@ class RestallowanceController extends Controller
                 return $restallowance;
             });
         } else {
-            return response()->json($exists, 409);
+            return response()->json([$exists], 409);
         }
     }
     public function show(Restallowance $restallowance)

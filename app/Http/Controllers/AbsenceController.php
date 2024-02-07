@@ -138,7 +138,7 @@ class AbsenceController extends Controller
                 }
             });
         } else {
-            return response()->join($exists, 409);
+            return response()->join([$exists], 409);
         }
     }
     public function show(Absence $absence)
