@@ -73,6 +73,7 @@ class AbsenceController extends Controller
         $endDate = Carbon::parse(request()->end_date);
         $dates = $startDate->daysUntil($endDate)->toArray();
         $exists = Absence::whereIn('date', $dates)->where('user_id', Auth::id())->pluck('date');
+
         if ($exists->isEmpty()) {
             DB::transaction(function () {
                 $description = request()->description;

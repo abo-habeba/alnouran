@@ -49,7 +49,7 @@
     </v-row>
     <v-dialog v-model="dialog2" width="auto">
         <v-card>
-            <v-card-title>
+            <v-card-title v-if="Array.isArray(absenceEixist)">
                 لديك هذه الايام بالفعل
             </v-card-title>
             <v-card-text>
@@ -117,10 +117,11 @@ function saveRequest() {
     console.log(addRequest.value.rest_id, 'rest_id');
     axios
         .post(`absence`, addRequest.value)
-        .then(() => {
+        .then((re) => {
             store.getAbsences();
             addRequest.value = ref({});
             dialog.value = false;
+            console.log(re);
         })
         .catch((e) => {
             console.log(e);
