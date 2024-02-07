@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('Type');
             $table->date('date');
             $table->timestamps();
-
             $table->unsignedBigInteger('rest_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
