@@ -114,6 +114,7 @@ function saveRequest() {
         addRequest.value.Type = typeRequest.value[0].en;
     }
     console.log(addRequest.value, 'axios');
+    console.log(addRequest.value.rest_id, 'rest_id');
     axios
         .post(`absence`, addRequest.value)
         .then(() => {

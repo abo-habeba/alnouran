@@ -72,7 +72,7 @@ class AbsenceController extends Controller
         $startDate = Carbon::parse(request()->start_date);
         $endDate = Carbon::parse(request()->end_date);
         $dates = $startDate->daysUntil($endDate)->toArray();
-        $exists = Absence::whereIn('date', $dates)->pluck('date');
+        $exists = Absence::whereIn('date', $dates)->where('user_id', Auth::id())->pluck('date');
         if ($exists->isEmpty()) {
             DB::transaction(function () {
                 $description = request()->description;
@@ -117,7 +117,7 @@ class AbsenceController extends Controller
                         $user->restBalance()->update([
                             'balance' => $restBalance->balance - 1,
                         ]);
-                        return $absences;
+                        // return $absences;
                     }
                 } else {
                     foreach ($dates as $date) {
@@ -134,11 +134,11 @@ class AbsenceController extends Controller
                     $user->regularBalance()->update([
                         'balance' => $regularBalance->balance - count($absences),
                     ]);
-                    return $absences;
+                    // return $absences;
                 }
             });
         } else {
-            return response()->json($exists, 409);
+            return $exists;
         }
     }
     public function show(Absence $absence)
@@ -154,7 +154,6 @@ class AbsenceController extends Controller
         DB::transaction(function () use ($absence) {
             $user = auth()->user();
             if ($absence->Type == 'Rest allowance') {
-                // return ($absence->rest_id);
                 $restallowance = Restallowance::findOrFail($absence->rest_id);
                 $restallowance->update([
                     'state' => true,
@@ -162,12 +161,10 @@ class AbsenceController extends Controller
                 $restBalance = $user->restBalance;
                 $restBalance->balance += 1;
                 $restBalance->save();
-                // return [$absence, $absence->Type, 'Rest allowance'];
             } elseif ($absence->Type == 'Regular') {
                 $regularBalance = $user->regularBalance;
                 $regularBalance->balance += 1;
                 $regularBalance->save();
-                // return [$absence, $absence->Type, 'Regular'];
             }
             $absence->delete();
             return true;

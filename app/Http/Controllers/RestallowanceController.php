@@ -34,7 +34,7 @@ class RestallowanceController extends Controller
     public function store(Request $request)
     {
         $dated = $request->input('date');
-        $exists = Restallowance::where('date', $dated)->pluck('date');
+        $exists = Restallowance::where('date', $dated)->where('user_id', Auth::id())->pluck('date');
         if ($exists->isEmpty()) {
             DB::transaction(function () use ($request) {
                 $description = $request->input('description');
@@ -78,7 +78,7 @@ class RestallowanceController extends Controller
                 $restallowance->delete();
                 return true;
             } else {
-                return response()->json([false], 409);
+                return response()->json(false);
             }
         });
     }
