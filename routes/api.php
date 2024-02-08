@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Artisan;
 
 
 Route::prefix('/php')->group(function () {
+    Route::get('/seed', function () {
     \Illuminate\Support\Facades\Artisan::call('db:seed');
 $output = \Illuminate\Support\Facades\Artisan::output();
 
