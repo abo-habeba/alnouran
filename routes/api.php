@@ -12,13 +12,16 @@ use App\Http\Controllers\RestBalanceController;
 use App\Http\Controllers\RestallowanceController;
 use App\Http\Controllers\RegularBalanceController;
 
-Route::get('/run-migrations', function () {
-    exec('php artisan migrate', $output, $exitCode);
+
+Route::prefix('/php')->group(function () {
+    Route::get('/run-migrations', function () {
+        exec('php artisan migrate', $output, $exitCode);
     if ($exitCode === 0) {
         return 'تم تنفيذ الأمر بنجاح.';
     } else {
         return 'حدث خطأ أثناء تنفيذ الأمر: ' . implode(PHP_EOL, $output);
     }
+    });
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
