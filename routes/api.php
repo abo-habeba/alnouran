@@ -11,15 +11,22 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\RestBalanceController;
 use App\Http\Controllers\RestallowanceController;
 use App\Http\Controllers\RegularBalanceController;
+use Illuminate\Support\Facades\Artisan;
 
+Route::get('/run-seeders', function () {
+    Artisan::call('db:seed');
+    $output = Artisan::output();
+    return $output;
+});
 
 Route::prefix('/php')->group(function () {
     Route::get('/seed', function () {
-        exec('php artisan db:seed', $output, $exitCode);
-    if ($exitCode === 0) {
-        return 'تم تنفيذ الأمر بنجاح.';
+        Artisan::call('db:seed');
+    $output = Artisan::output();
+        if ($output) {
+        return $output;
     } else {
-        return 'حدث خطأ أثناء تنفيذ الأمر: ' . implode(PHP_EOL, $output);
+        return 'حدث خطأ أثناء تنفيذ الأمر: ';
     }
     });
 });
