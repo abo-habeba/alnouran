@@ -8,6 +8,7 @@ export const usemainStore = defineStore("mainStore", {
         popup: false,
         auth: false,
         user: localStorage.user ? JSON.parse(localStorage.user) : false,
+        users: ["getData"],
         reports: ["getData"],
         absences: '',
         regular: '',
@@ -78,6 +79,20 @@ export const usemainStore = defineStore("mainStore", {
                 })
                 .catch(() => {
                     this.reports = ["noData"];
+                    this.startSnack("error", "login", "danger");
+                });
+        },
+        getUsers() {
+            axios.get(`users`)
+                .then((res) => {
+                    if (res.data.length == 0) {
+                        this.users = ["noData"];
+                    } else {
+                        this.users = res.data;
+                    }
+                })
+                .catch(() => {
+                    this.users = ["noData"];
                     this.startSnack("error", "login", "danger");
                 });
         },

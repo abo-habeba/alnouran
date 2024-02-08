@@ -99,13 +99,15 @@ onMounted(() => {
 });
 
 function saveRequest() {
+    if (addRequest.value.Type == 'Rest allowance') {
+        addRequest.value.end_date = addRequest.value.start_date;
+    }
     if (!addRequest.value.description) {
         if (addRequest.value.Type == 'Rest allowance') {
             // البحث عن الكائن الذي يحمل الـ ID المحدد
             let targetObject = store.restallowance.find(obj => obj.id === addRequest.value.rest_id);
             // الوصول إلى وصف الكائن
             addRequest.value.description = targetObject.description;
-            addRequest.value.end_date = addRequest.value.start_date;
         } else {
             addRequest.value.description = 'بدون وصف';
         }

@@ -12,6 +12,8 @@
         <v-list v-model:opened="open">
             <v-list-item prepend-icon=" mdi-account-details" :title="$t('Vacations')" to="/vacations"></v-list-item>
             <v-list-item prepend-icon="mdi-bug" :title="$t('reports')" to="/reports"></v-list-item>
+            <v-list-item v-if="store.user.roles == 'admin'" prepend-icon="mdi-account-group" title="المستخدمين"
+                to="/users"></v-list-item>
         </v-list>
     </v-navigation-drawer>
     <div @click="rail = !rail" :class="pageWidth <= 765 && !rail ? 'transBox' : ''"></div>
