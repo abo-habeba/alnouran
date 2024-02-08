@@ -17,14 +17,9 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::prefix('/php')->group(function () {
     Route::get('/seed', function () {
-    \Illuminate\Support\Facades\Artisan::call('db:seed');
-$output = \Illuminate\Support\Facades\Artisan::output();
-
-if ($output) {
-    return $output;
-} else {
-    return 'حدث خطأ أثناء تنفيذ الأمر: ' . \Illuminate\Support\Facades\Artisan::output();
-}
+        Artisan::call('db:seed');
+        $output = Artisan::output();
+        return $output;
     });
 });
 
