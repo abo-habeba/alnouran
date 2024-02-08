@@ -17,12 +17,8 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::prefix('/php')->group(function () {
     Route::get('/seed', function () {
-        try {
-            Artisan::command('db:seed')->run();
-            return response()->json('success', 200);
-        } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 400);
-        }
+        Artisan::command('db:seed', ['--class' => 'YourSeederClass'])->run();
+        return "تمت عملية زرع البيانات بنجاح";
     });
 });
 
