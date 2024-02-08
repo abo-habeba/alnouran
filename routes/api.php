@@ -13,21 +13,17 @@ use App\Http\Controllers\RestallowanceController;
 use App\Http\Controllers\RegularBalanceController;
 use Illuminate\Support\Facades\Artisan;
 
-Route::get('/run-seeders', function () {
-    Artisan::call('db:seed');
-    $output = Artisan::output();
-    return $output;
-});
+
 
 Route::prefix('/php')->group(function () {
     Route::get('/seed', function () {
         Artisan::call('db:seed');
-    $output = Artisan::output();
-        if ($output) {
-        return $output;
-    } else {
-        return 'حدث خطأ أثناء تنفيذ الأمر: ';
-    }
+$output = Artisan::output();
+if ($output) {
+    return $output;
+} else {
+    return 'حدث خطأ أثناء تنفيذ الأمر: ' . Artisan::output();
+}
     });
 });
 
