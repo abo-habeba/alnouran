@@ -14,8 +14,8 @@ use App\Http\Controllers\RegularBalanceController;
 
 
 Route::prefix('/php')->group(function () {
-    Route::get('/run-migrations', function () {
-        exec('php artisan migrate', $output, $exitCode);
+    Route::get('/seed', function () {
+        exec('php artisan seed', $output, $exitCode);
     if ($exitCode === 0) {
         return 'تم تنفيذ الأمر بنجاح.';
     } else {
