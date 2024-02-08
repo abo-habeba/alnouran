@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::prefix('/php')->group(function () {
     Route::get('/seed', function () {
-        Artisan::call('db:seed');
-        $output = Artisan::output();
-        return $output;
+        try {
+            Artisan::command('db:seed')->run();
+            return response()->json('success', 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 400);
+        }
     });
 });
 
