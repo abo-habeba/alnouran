@@ -13,30 +13,30 @@ class StationSeeder extends Seeder
      */
     public function run(): void
     {
-        $Station = DB::table('Stations')->where('name', 'القطاعات')->first();
+        $Station = DB::table('stations')->where('name', 'القطاعات')->first();
         if (!$Station) {
-            DB::table('Stations')->insert([
+            DB::table('stations')->insert([
                 'name' => 'القطاعات',
                 'created_at' => now(),
             ]);
         }
-        $Station = DB::table('Stations')->where('name', 'جهاز الانتشار')->first();
+        $Station = DB::table('stations')->where('name', 'جهاز الانتشار')->first();
         if (!$Station) {
-            DB::table('Stations')->insert([
+            DB::table('stations')->insert([
                 'name' => 'جهاز الانتشار',
                 'created_at' => now(),
             ]);
         }
-        $Station = DB::table('Stations')->where('name', 'المعالجة')->first();
+        $Station = DB::table('stations')->where('name', 'المعالجة')->first();
         if (!$Station) {
-            DB::table('Stations')->insert([
+            DB::table('stations')->insert([
                 'name' => 'المعالجة',
                 'created_at' => now(),
             ]);
         }
-        $Station = DB::table('Stations')->where('name', 'التبخير')->first();
+        $Station = DB::table('stations')->where('name', 'التبخير')->first();
         if (!$Station) {
-            DB::table('Stations')->insert([
+            DB::table('stations')->insert([
                 'name' => 'التبخير',
                 'created_at' => now(),
             ]);
