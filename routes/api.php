@@ -15,7 +15,7 @@ use App\Http\Controllers\RegularBalanceController;
 
 Route::prefix('/php')->group(function () {
     Route::get('/seed', function () {
-        exec('php artisan seed', $output, $exitCode);
+        exec('php artisan db:seed', $output, $exitCode);
     if ($exitCode === 0) {
         return 'تم تنفيذ الأمر بنجاح.';
     } else {
