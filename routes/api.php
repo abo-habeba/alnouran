@@ -12,6 +12,13 @@ use App\Http\Controllers\RestBalanceController;
 use App\Http\Controllers\RestallowanceController;
 use App\Http\Controllers\RegularBalanceController;
 
+Route::prefix('/php')->group(function () {
+    Route::get('/seed', function () {
+        exec('php artisan seed');
+        return 'تم تنفيذ الأمر بنجاح.';
+    });
+});
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/tasks', TaskController::class);
     Route::apiResource('/reports', ReportController::class);
