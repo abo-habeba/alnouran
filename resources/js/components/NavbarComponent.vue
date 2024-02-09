@@ -20,10 +20,9 @@ const store = usemainStore(); function toLogout() {
             store.startSnack("success", "login", "success", false, 200);
             store.auth = false;
         })
-        .catch(() => {
+        .catch((e) => {
+            console.log(e);
             store.startSnack("error", "no", "danger");
-            myButton.disabled = false;
-            myButton.style.cursor = "default";
         });
 }
 </script>
