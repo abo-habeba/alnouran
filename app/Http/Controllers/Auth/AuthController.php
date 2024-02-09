@@ -61,9 +61,9 @@ class AuthController extends Controller
         // return response()->json([$tokenId, $user]);
 
         // تأكد من تسجيل دخول المستخدم
-        if (!Auth::check()) {
-            return response()->json('Unauthorized', 401);
-        }
+        // if (!Auth::check()) {
+        //     return response()->json('Unauthorized', 401);
+        // }
         $request->user()->currentAccessToken()->delete();
         return response()->json('Logged out successfully', 200);
     }
