@@ -20,9 +20,21 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+
         // تسجيل الدخول
-        if (Auth::attempt($credentials)) {
+        // $credentials = $request->only('email', 'password');
+        // $credentials = $request->only('email', 'password');
+        // if (Auth::attempt($credentials)) {
+
+        $credentialsEmail = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ];
+        $credentialsPhone = [
+            'password' => $request->input('phone'),
+            'phone_number' => $request->input('password'),
+        ];
+        if (Auth::attempt($credentialsEmail) || Auth::attempt($credentialsPhone)) {
             // إنشاء رمز مميز
             /** @var User */
             $user = Auth::User();
