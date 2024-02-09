@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use TheSeer\Tokenizer\Token;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
@@ -31,8 +32,8 @@ class AuthController extends Controller
             'password' => $request->input('password'),
         ];
         $credentialsPhone = [
-            'password' => $request->input('phone'),
-            'phone_number' => $request->input('password'),
+            'phone' => $request->input('email'),
+            'password' => $request->input('password'),
         ];
         if (Auth::attempt($credentialsEmail) || Auth::attempt($credentialsPhone)) {
             // إنشاء رمز مميز
@@ -53,10 +54,17 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
     {
-        $tokenId = intval(explode("|", request()->bearerToken())[0]);
-        $user = $request->user();
-        $request->session()->invalidate();
-        $user->tokens()->where('id', $tokenId)->delete();
-        return response()->json([$tokenId, $user]);
+        // $tokenId = intval(explode("|", request()->bearerToken())[0]);
+        // $user = $request->user();
+        // $request->session()->invalidate();
+        // $user->tokens()->where('id', $tokenId)->delete();
+        // return response()->json([$tokenId, $user]);
+
+        // تأكد من تسجيل دخول المستخدم
+        if (!Auth::check()) {
+            return response()->json('Unauthorized', 401);
+        }
+        $request->user()->currentAccessToken()->delete();
+        return response()->json('Logged out successfully', 200);
     }
 }
