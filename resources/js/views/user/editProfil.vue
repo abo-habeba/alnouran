@@ -81,10 +81,15 @@ function editProfil() {
 function funDelete() {
     axios.delete(`users/${store.user.id}`).then(() => {
         dialog.value = false;
-        store.startSnack("success", "no", "success");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        store.setAuthHeaderNew();
+        store.startSnack("success", "login", "success", false, 200);
+        store.auth = false;
         // console.log(resp);
     }).catch(() => {
         // console.log(e);
+
         store.startSnack("error", "no", "danger");
     })
 }

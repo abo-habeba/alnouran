@@ -120,6 +120,7 @@ class UserController extends Controller
             $user->regularBalance()->delete();
             $user->restBalance()->delete();
             $user->restallowance()->delete();
+            $user->currentAccessToken()->delete();
             // حذف المستخدم نفسه
             $user->delete();
             DB::commit();
