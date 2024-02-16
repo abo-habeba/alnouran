@@ -105,4 +105,29 @@ class UserController extends Controller
         //     return response()->json(false);
         // }
     }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try {
+            $user = User::findOrFail($id);
+            // $user = auth()->user();
+            // حذف العلاقات المرتبطة بالمستخدم
+            $user->stations()->detach();
+            $user->tasks()->delete();
+            $user->reports()->delete();
+            $user->absences()->delete();
+            $user->regularBalance()->delete();
+            $user->restBalance()->delete();
+            $user->restallowance()->delete();
+            // حذف المستخدم نفسه
+            $user->delete();
+            DB::commit();
+
+            return "تم حذف المستخدم بنجاح.";
+        } catch (\Exception $e) {
+            DB::rollback();
+            return "حدث خطأ أثناء حذف المستخدم. يرجى المحاولة مرة أخرى.";
+        }
+    }
 }
