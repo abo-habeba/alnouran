@@ -5,7 +5,7 @@
             <v-card-title>
                 الاعدادات
             </v-card-title>
-            <v-card-text>
+            <v-card-text @click="dialog3 = false">
                 <addRegularComponent />
             </v-card-text>
             <v-card-actions>

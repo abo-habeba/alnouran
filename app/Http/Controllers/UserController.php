@@ -106,7 +106,7 @@ class UserController extends Controller
         // }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         DB::beginTransaction();
         try {
@@ -120,7 +120,7 @@ class UserController extends Controller
             $user->regularBalance()->delete();
             $user->restBalance()->delete();
             $user->restallowance()->delete();
-            $user->currentAccessToken()->delete();
+            $request->user()->currentAccessToken()->delete();
             // حذف المستخدم نفسه
             $user->delete();
             DB::commit();
