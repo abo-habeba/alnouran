@@ -51,15 +51,17 @@ window.addEventListener("beforeunload", function (event) {
 });
 </script>
 <style>
+body * {
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    /* font-weight: 700;
+    font-style: normal; */
+}
+
 .clickd {
     cursor: pointer !important;
 }
 
-/* .v-app-bar,
-.v-navigation-drawer {
-    position: fixed !important;
-    top: 0;
-} */
 .popup {
     display: flex;
     background-color: rgba(122, 168, 30, 0.103);

@@ -45,10 +45,4 @@ function clickd() {
     })
 }
 </script>
-<style>
-body {
-    font-family: "Noto Kufi Arabic", sans-serif !important;
-    font-optical-sizing: auto;
-    font-style: normal;
-}
-</style>
+<style></style>
