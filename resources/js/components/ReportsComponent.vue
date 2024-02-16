@@ -12,10 +12,10 @@
                 </div>
             </v-card>
         </v-dialog>
-        <div class="alert alert-info text-center" v-if="store.reports[0] == 'getData'">
+        <div class="alert alert-info text-center" v-if="store.reports == 'getData'">
             {{ $t("getData") }}
         </div>
-        <div class="alert alert-warning text-center" v-else-if="store.reports[0] == 'noData'">
+        <div class="alert alert-warning text-center" v-else-if="store.reports == 'noData'">
             {{ $t("noData") }}
         </div>
         <div v-else>

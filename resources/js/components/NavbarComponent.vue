@@ -1,10 +1,9 @@
 <template>
     <v-app-bar :elevation="2">
         <template v-slot:append>
-            <v-btn icon="mdi-home" to="/"></v-btn>
+            <v-btn prepend-icon="mdi-home" to="/">الرئيسية</v-btn>
         </template>
-        <v-btn color="red" icon="mdi-login" @click="toLogout">
-        </v-btn>
+        <v-btn color="red" icon="mdi-login" @click="toLogout"></v-btn>
     </v-app-bar>
 </template>
 <script setup>

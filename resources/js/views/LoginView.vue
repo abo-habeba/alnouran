@@ -40,7 +40,7 @@ function toLogIn(e) {
             .then((res) => {
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("user", JSON.stringify(res.data.user));
-                // console.log(res);
+                console.log(res);
                 store.user = res.data.user;
                 // console.log(res.data.user);
                 // console.log(res.data.token);

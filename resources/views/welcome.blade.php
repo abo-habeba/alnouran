@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 
-<html dir="rtl" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html dir="rtl" lang="ar">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <title>Laravel</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-    </head>
+</head>
 
-    <body class="antialiased">
-        <div id="app">
-        </div>
-        @vite('resources/js/main.js')
-    </body>
+<body class="antialiased">
+    <div id="app">
+    </div>
+    @vite('resources/js/main.js')
+</body>
 
 </html>

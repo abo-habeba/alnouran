@@ -17,6 +17,42 @@
         </v-form>
         <v-btn color="secondary" class="my-3" @click="editProfil">{{ $t("save") }}</v-btn>
     </div>
+    <v-btn color="red" class="my-3" @click="dialog = !dialog" prepend-icon="mdi-delete"> حذف الحساب نهائيا </v-btn>
+    <v-dialog v-model="dialog" width="auto">
+        <v-card>
+            <v-card-text>
+                هل تريد حذف الحساب بالفعل
+            </v-card-text>
+            <v-card-actions>
+                <v-btn color="primary" variant="text" @click="dialog = false">
+                    لا
+                </v-btn>
+                <v-btn color="primary" variant="text" @click="dialog2 = !dialog2">
+                    نعم
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialog2" width="auto">
+        <v-card>
+            <v-card-title>
+                تاكيد حذف
+            </v-card-title>
+            <v-card-text color="red">
+                <div class="alert alert-danger text-center text-h6"> سيتم حذف جميع البيانات المسجلة نهائيا ولا
+                    تستطيع
+                    استرجاعها </div>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn color="primary" variant="text" @click="dialog2 = false">
+                    لا
+                </v-btn>
+                <v-btn color="primary" variant="text" @click="funDelete()">
+                    نعم
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script setup>
@@ -24,6 +60,8 @@ import { usemainStore } from "@/store/mainStore";
 const store = usemainStore();
 import axios from "axios";
 import { ref } from "vue";
+const dialog = ref(false);
+const dialog2 = ref(false);
 const user = ref(store.user);
 const editPass = ref(false);
 function editProfil() {
@@ -39,6 +77,16 @@ function editProfil() {
         .catch(() => {
             store.startSnack("error", "no", "danger");
         });
+}
+function funDelete() {
+    axios.delete(`users/${store.user.id}`).then(() => {
+        dialog.value = false;
+        store.startSnack("success", "no", "success");
+        // console.log(resp);
+    }).catch(() => {
+        // console.log(e);
+        store.startSnack("error", "no", "danger");
+    })
 }
 </script>
 <style>

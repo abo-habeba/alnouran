@@ -9,7 +9,7 @@ export const usemainStore = defineStore("mainStore", {
         auth: false,
         user: localStorage.user ? JSON.parse(localStorage.user) : false,
         users: ["getData"],
-        reports: ["getData"],
+        reports: "getData",
         absences: '',
         regular: '',
         restallowance: '',
@@ -72,13 +72,13 @@ export const usemainStore = defineStore("mainStore", {
             axios.get(`user/${this.user.id}/reports`)
                 .then((res) => {
                     if (res.data.length == 0) {
-                        this.reports = ["noData"];
+                        this.reports = "noData";
                     } else {
                         this.reports = res.data;
                     }
                 })
                 .catch(() => {
-                    this.reports = ["noData"];
+                    this.reports = "noData";
                     this.startSnack("error", "login", "danger");
                 });
         },

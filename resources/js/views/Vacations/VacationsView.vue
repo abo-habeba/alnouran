@@ -1,26 +1,43 @@
 <template>
+    <v-btn color="primary" size="60px" variant="text" @click="dialog3 = true" prepend-icon="mdi-cog"></v-btn>
+    <v-dialog v-model="dialog3" width="80%">
+        <v-card>
+            <v-card-title>
+                الاعدادات
+            </v-card-title>
+            <v-card-text>
+                <addRegularComponent />
+            </v-card-text>
+            <v-card-actions>
+                <v-btn color="primary" variant="text" @click="dialog3 = false">
+                    اغلاق
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
     <div>
         <AddVacationComponent />
-        <div class="div-balance text-center">
-            <div class="d-f-r box-balance">
-                <div>
-                    <div class="item-balance"> الاعتيادية </div>
-                    <div class="item-balance">{{ store.regular }}</div>
-                </div>
-                <addRegularComponent />
-            </div>
-            <div class="d-f-r box-balance">
-                <div>
-                    <div class="item-balance"> بدل راحة </div>
-                    <div class="item-balance">{{ store.rest }}</div>
-                </div>
-                <router-link to="/rest">
-                    <v-btn color="green" variant="text" icon="mdi-plus"></v-btn>
+        <v-row class="div-balance text-center">
+            <v-col cols="12" sm="4">
+                <router-link to="/vacations">
+                    <div class=" box-balance">
+                        <div class="item-balance"> الاعتيادية </div>
+                        <div class="item-balance">{{ store.regular }}</div>
+                    </div>
                 </router-link>
-            </div>
-        </div>
+            </v-col>
+            <v-col cols="12" sm="4">
+                <router-link to="/rest">
+                    <div class=" box-balance">
+                        <div class="item-balance"> بدل راحة + </div>
+                        <div class="item-balance">{{ store.rest }}</div>
+                    </div>
+                </router-link>
+            </v-col>
+        </v-row>
+
         <hr style="margin: auto" />
-        <router-view></router-view>
+        <!-- <router-view></router-view> -->
     </div>
     <div style="white-space: nowrap; overflow: auto; width: 100%">
         <div v-if="store.absences.length == ''" class="text-center  m-5">{{ $t("noData") }}</div>
@@ -104,6 +121,7 @@ const absenceId = ref(0);
 const absenceDescription = ref(0);
 const dialog = ref(false)
 const dialog2 = ref(false)
+const dialog3 = ref(false)
 onMounted(() => {
     store.getAbsences();
 });
@@ -237,14 +255,12 @@ td {
 .box-balance {
     border-radius: 8px;
     background-color: #0d6efd;
-    width: auto;
     color: white;
-    padding: 2px 10px;
 
-    .mdi-plus {
-        font-size: 50px;
-        font-weight: bold;
-    }
+    // padding: .5% 2%;
+    // .mdi-plus {
+    //     font-size: 18px;
+    // }
 }
 
 .box-absence {
@@ -289,7 +305,6 @@ td {
         }
     }
 }
-
 
 html {
     overflow-y: auto !important;
