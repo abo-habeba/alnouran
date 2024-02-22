@@ -1,13 +1,3 @@
 <template>
-    <div class="popup">
-        <div></div>
-        <slot />
-    </div>
+    <h1>Popup</h1>
 </template>
-<script setup>
-function plog() {
-    console.log("plog");
-}
-// import { usemainStore } from "./store/mainStore";
-// const store = usemainStore();
-</script>

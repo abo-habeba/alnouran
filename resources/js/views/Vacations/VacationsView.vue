@@ -153,7 +153,6 @@ function optionsMenuDots(event, absence) {
         document.addEventListener('click', funAddEvent);
     }
 }
-
 function optionsMenu(absence) {
     event.preventDefault();
     const optionsMenuEl = ref(document.getElementById('optionsMenu'));
@@ -203,9 +202,7 @@ function funDelete() {
         store.getAbsences();
         dialog.value = false;
         store.startSnack("success", "no", "success");
-        // console.log(resp);
     }).catch(() => {
-        // console.log(e);
         store.startSnack("error", "no", "danger");;
     })
     document.getElementById('optionsMenu').style.display = 'none';

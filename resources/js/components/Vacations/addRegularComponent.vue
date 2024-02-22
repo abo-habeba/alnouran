@@ -48,7 +48,7 @@ function saveRegular() {
             dialog.value = false;
         })
         .catch((e) => {
-            console.log(e);
+            // console.log(e);
         });
 }
 

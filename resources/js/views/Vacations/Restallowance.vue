@@ -37,8 +37,14 @@
                     <th>{{ index + 1 }}</th>
                     <td>{{ absence.description }}</td>
                     <td>{{ absence.date }}</td>
-                    <td :class="absence.state == 1 ? 'bg-suc' : 'bg-dang'">
-                        {{ absence.state == 1 ? 'متاح' : 'تم التبديل' }}
+                    <td :class="{
+                        'bg-suc': absence.state == 1,
+                        'bg-warn': absence.state == 5,
+                        'bg-dang': absence.state == 0,
+                    }">
+                        <span v-if="absence.state == 1"> متاح </span>
+                        <span v-if="absence.state == 0"> تم التبديل </span>
+                        <span v-if="absence.state == 5"> النصف فقط </span>
                     </td>
                     <td>{{ store.formatDate(absence.created_at) }}</td>
                     <td><i @click="optionsMenuDots($event, absence)" id="dots-active"
@@ -186,7 +192,6 @@ function funDelete() {
         dialog.value = false;
         store.startSnack("success", "no", "success");
     }).catch((e) => {
-        console.log(e);
         // store.startSnack("error", "no", "danger");
     })
     document.getElementById('optionsMenu').style.display = 'none';
@@ -208,6 +213,10 @@ function funDelete() {
 
     .bg-dang {
         background-color: #dc3545 !important;
+    }
+
+    .bg-warn {
+        background-color: #5d5e55 !important;
     }
 }
 

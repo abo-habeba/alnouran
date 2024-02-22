@@ -1,19 +1,10 @@
 <template>
     <div class="text-center">
-        <v-snackbar
-            location="top"
-            class="text-content"
-            :color="store.coler"
-            v-model="store.snackbar"
-            :timeout="store.timeout"
-        >
+        <v-snackbar location="top" class="text-content" :color="store.coler" v-model="store.snackbar"
+            :timeout="store.timeout">
             {{ $t(store.text) }}
             <template v-slot:actions>
-                <v-btn
-                    color="white"
-                    variant="text"
-                    @click="store.snackbar = false"
-                >
+                <v-btn color="white" variant="text" @click="store.snackbar = false">
                     {{ $t("close") }}
                 </v-btn>
             </template>

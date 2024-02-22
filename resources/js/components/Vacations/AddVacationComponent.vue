@@ -33,6 +33,7 @@
                             <v-text-field label="نهاية الاجازة" type="date" v-model="addRequest.end_date"
                                 variant="outlined"></v-text-field>
                         </div>
+                        <v-checkbox v-model="addRequest.dailyText" label="نص يوم" color="red"></v-checkbox>
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -77,6 +78,7 @@ const activeRest = ref([]);
 const dialog2 = ref(false);
 const absenceEixist = ref('');
 const addRequest = ref({});
+const dailyText = ref();
 const typeRequest = ref([
     { "en": "Regular", "ar": "اعتيادية" },
     { "en": "Rest allowance", "ar": " بدل راحة " },
@@ -89,6 +91,7 @@ const typeRequest = ref([
 ]
 );
 onMounted(() => {
+    addRequest.value.dailyText = false;
     store.getAbsences().then(() => {
         const restallowance = ref(store.restallowance);
         if (restallowance.value) {
@@ -115,25 +118,21 @@ function saveRequest() {
     if (!addRequest.value.Type) {
         addRequest.value.Type = typeRequest.value[0].en;
     }
-    console.log(addRequest.value, 'axios');
-    console.log(addRequest.value.rest_id, 'rest_id');
+    addRequest.value.dailyText = dailyText.value;
     axios
         .post(`absence`, addRequest.value)
         .then((re) => {
             store.getAbsences();
             addRequest.value = ref({});
             dialog.value = false;
-            console.log(re);
         })
-        .catch((e) => {
-            console.log(e);
+        .catch(() => {
             if (Array.isArray(e.response.data)) {
                 absenceEixist.value = e.response.data;
             } else {
                 absenceEixist.value = ' حدث خطا اعد المحاولة';
             }
             dialog2.value = true;
-            // console.log('e.response.data');
         });
 }
 function setField() {

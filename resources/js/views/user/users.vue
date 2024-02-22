@@ -199,20 +199,16 @@ function funDelete() {
         store.getUsers();
         dialog.value = false;
         store.startSnack("success", "no", "success");
-        // console.log(resp);
     }).catch(() => {
-        // console.log(e);
         store.startSnack("error", "no", "danger");;
     })
     document.getElementById('optionsMenu').style.display = 'none';
 }
 
 function editProfil() {
-    // console.log(userActive.value);
     axios
         .put(`users/${userActive.value.id}`, userActive.value)
         .then(() => {
-            console.log("editProfil.then");
             store.startSnack("success", "no", "success");
             dialog3.value = false;
         })

@@ -77,7 +77,6 @@ function getReport() {
         .catch(() => {
             report.value = "noreport";
         });
-    console.log(report);
 }
 onMounted(() => {
     axios

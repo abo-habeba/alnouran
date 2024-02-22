@@ -39,10 +39,5 @@ onMounted(() => {
     store.getUser();
     store.getReports();
 });
-function clickd() {
-    axios.get('Stations').then((res) => {
-        console.log(res.data);
-    })
-}
 </script>
 <style></style>

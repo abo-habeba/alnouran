@@ -68,7 +68,6 @@ function editProfil() {
     axios
         .put(`users/${store.user.id}`, user.value)
         .then(() => {
-            console.log("editProfil.then");
             store.startSnack("success", "no", "success");
             if (user.value.password) {
                 store.logout();
@@ -86,10 +85,7 @@ function funDelete() {
         store.setAuthHeaderNew();
         store.startSnack("success", "login", "success", false, 200);
         store.auth = false;
-        // console.log(resp);
     }).catch(() => {
-        // console.log(e);
-
         store.startSnack("error", "no", "danger");
     })
 }

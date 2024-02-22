@@ -32,9 +32,7 @@ export const usemainStore = defineStore("mainStore", {
                         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
                         this.auth = true;
                     })
-                    .catch((e) => {
-                        console.log(".get(`check`) catch((e)");
-                        console.log(e);
+                    .catch(() => {
                         delete axios.defaults.headers.common["Authorization"];
                         localStorage.removeItem("token");
                         localStorage.removeItem("user");
@@ -62,8 +60,7 @@ export const usemainStore = defineStore("mainStore", {
                     .then((res) => {
                         this.user = res.data;
                     })
-                    .catch((e) => {
-                        console.log(e);
+                    .catch(() => {
                         this.startSnack("error", "login", "danger");
                     });
             }

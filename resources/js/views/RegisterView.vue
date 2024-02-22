@@ -48,7 +48,6 @@ onMounted(() => {
         .get(`Stations`)
         .then((res) => {
             stations.value = res.data;
-            console.log(stations.value);
         })
         .catch(() => {
             stations.value = "noData";
@@ -59,28 +58,12 @@ function toRegister() {
     axios
         .post(`register`, user.value)
         .then(() => {
-            console.log("res.data");
             store.startSnack("success", "login", "success");
         })
         .catch(() => {
             store.startSnack("error", "no", "danger");
         });
 }
-// function submitAdd() {
-//     axios
-//         .post(`Stations`, stationsadd.value)
-//         .then((res) => {
-//             const nwestations = res.data.Stations;
-//             stations.value.push(nwestations);
-//             stationsadd.value = "";
-//             dialog.value = false;
-//             store.startSnack("success", "no", "success");
-//             user.value.station_id = nwestations.id;
-//         })
-//         .catch(() => {
-//             store.startSnack("error", "no", "danger");
-//         });
-// }
 </script>
 <style>
 .register {

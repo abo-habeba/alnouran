@@ -70,7 +70,7 @@ function saveRequest() {
             dialog.value = false;
         })
         .catch((e) => {
-            console.log(e);
+            // console.log(e);
             if (Array.isArray(e.response.data)) {
                 restEixist.value = e.response.data;
             } else {

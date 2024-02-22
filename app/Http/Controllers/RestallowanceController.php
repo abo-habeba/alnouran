@@ -36,7 +36,8 @@ class RestallowanceController extends Controller
         $dated = $request->input('date');
         $exists = Restallowance::where('date', $dated)->where('user_id', Auth::id())->pluck('date');
         if ($exists->isEmpty()) {
-            DB::transaction(function () use ($request) {
+            DB::beginTransaction();
+            try {
                 $description = $request->input('description');
                 $user_id = Auth::id();
                 $dated = $request->input('date');
@@ -51,8 +52,12 @@ class RestallowanceController extends Controller
                 $user->restBalance()->update([
                     'balance' => $restBalance->balance + 1,
                 ]);
+                DB::commit();
                 return $restallowance;
-            });
+            } catch (\Exception $e) {
+                DB::rollback();
+                return "حدث خطأ أثناء حذف المستخدم. يرجى المحاولة مرة أخرى.";
+            }
         } else {
             return response()->json($exists, 409);
         }

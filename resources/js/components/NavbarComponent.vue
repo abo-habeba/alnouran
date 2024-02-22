@@ -19,8 +19,7 @@ const store = usemainStore(); function toLogout() {
             store.startSnack("success", "login", "success", false, 200);
             store.auth = false;
         })
-        .catch((e) => {
-            console.log(e);
+        .catch(() => {
             store.startSnack("error", "no", "danger");
         });
 }
