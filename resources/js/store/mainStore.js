@@ -14,6 +14,7 @@ export const usemainStore = defineStore("mainStore", {
         regular: '',
         restallowance: '',
         rest: '',
+        printLog: '',
         snackbar: false,
         redirect: false,
         text: " ",

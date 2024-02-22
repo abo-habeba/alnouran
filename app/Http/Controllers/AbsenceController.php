@@ -69,12 +69,14 @@ class AbsenceController extends Controller
      */
     public function store(Request $request)
     {
-        $dailyText = request()->dailyText;
+        // return request();
+        $dailyFife = request()->dailyFife;
+        // return $dailyFife;
         $startDate = Carbon::parse(request()->start_date);
         $endDate = Carbon::parse(request()->end_date);
         $dates = $startDate->daysUntil($endDate)->toArray();
         $exists = Absence::whereIn('date', $dates)->where('user_id', Auth::id())->pluck('date');
-        if ($exists->isEmpty() || $dailyText) {
+        if ($exists->isEmpty() || $dailyFife) {
             DB::beginTransaction();
             try {
                 $description = request()->description;
@@ -112,8 +114,7 @@ class AbsenceController extends Controller
                             ]);
                             array_push($absences, $absence);
                         }
-                        if ($dailyText) {
-
+                        if ($dailyFife == true) {
                             if ($restallowance->state == 5) {
                                 $restallowance->update([
                                     'state' => 0,
@@ -136,7 +137,6 @@ class AbsenceController extends Controller
                                 'balance' => $restBalance->balance - 1,
                             ]);
                         }
-                        return $absences;
                     }
                 } elseif ($Type == 'Regular' ||  $Type == 'Casual') {
                     foreach ($dates as $date) {
@@ -150,7 +150,7 @@ class AbsenceController extends Controller
                     }
                     // ($Type == 'Regular' ||  $Type == 'Casual')
                     $regularBalance = $user->regularBalance;
-                    if ($dailyText) {
+                    if ($dailyFife == true) {
                         $user->regularBalance()->update([
                             'balance' => $regularBalance->balance - 0.5,
                         ]);
@@ -159,7 +159,6 @@ class AbsenceController extends Controller
                             'balance' => $regularBalance->balance - count($absences),
                         ]);
                     }
-                    return $absences;
                 } else {
                     foreach ($dates as $date) {
                         $absence = Absence::create([

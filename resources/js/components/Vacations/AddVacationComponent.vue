@@ -33,7 +33,7 @@
                             <v-text-field label="نهاية الاجازة" type="date" v-model="addRequest.end_date"
                                 variant="outlined"></v-text-field>
                         </div>
-                        <v-checkbox v-model="addRequest.dailyText" label="نص يوم" color="red"></v-checkbox>
+                        <v-checkbox v-model="dailyFife" label=" نص يوم " color="red"></v-checkbox>
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -67,6 +67,22 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
+
+    <!-- <v-dialog v-model="dialog5" width="100%">
+        <v-card>
+            <v-card-title>
+                print Log
+            </v-card-title>
+            <v-card-text>
+                {{ store.printLog }}
+            </v-card-text>
+            <v-card-actions>
+                <v-btn color="primary" variant="text" @click="dialog5 = false">
+                    اغلاق
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog> -->
 </template>
 <script setup>
 import axios from "axios";
@@ -76,9 +92,10 @@ import { onMounted, ref } from "vue";
 const dialog = ref(false);
 const activeRest = ref([]);
 const dialog2 = ref(false);
+// const dialog5 = ref(false);
 const absenceEixist = ref('');
+const dailyFife = ref(false);
 const addRequest = ref({});
-const dailyText = ref();
 const typeRequest = ref([
     { "en": "Regular", "ar": "اعتيادية" },
     { "en": "Rest allowance", "ar": " بدل راحة " },
@@ -91,17 +108,18 @@ const typeRequest = ref([
 ]
 );
 onMounted(() => {
-    addRequest.value.dailyText = false;
+
     store.getAbsences().then(() => {
         const restallowance = ref(store.restallowance);
         if (restallowance.value) {
-            const filteractiveRest = ref(restallowance.value.filter(obj => obj.state == 1));
+            const filteractiveRest = ref(restallowance.value.filter(obj => obj.state == 1 || obj.state == 5));
             activeRest.value = filteractiveRest.value;
         }
     });
 });
 
 function saveRequest() {
+    addRequest.value.dailyFife = dailyFife.value;
     if (addRequest.value.Type == 'Rest allowance') {
         addRequest.value.end_date = addRequest.value.start_date;
     }
@@ -118,16 +136,19 @@ function saveRequest() {
     if (!addRequest.value.Type) {
         addRequest.value.Type = typeRequest.value[0].en;
     }
-    addRequest.value.dailyText = dailyText.value;
     axios
         .post(`absence`, addRequest.value)
         .then((re) => {
             store.getAbsences();
             addRequest.value = ref({});
             dialog.value = false;
+            // store.printLog = re.data;
+            // dialog5.value = true;
         })
-        .catch(() => {
-            if (Array.isArray(e.response.data)) {
+        .catch((er) => {
+            // store.printLog = er.response;
+            // dialog5.value = true;
+            if (Array.isArray(er.response.data)) {
                 absenceEixist.value = e.response.data;
             } else {
                 absenceEixist.value = ' حدث خطا اعد المحاولة';
