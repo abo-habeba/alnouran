@@ -31,9 +31,9 @@ import { ref } from "vue";
 import axios from "axios";
 const userLog = ref({});
 function toLogIn(e) {
-    const myButton = e.currentTarget;
-    myButton.disabled = true;
-    myButton.style.cursor = "progress";
+    // const myButton = e.currentTarget;
+    // myButton.disabled = true;
+    // myButton.style.cursor = "progress";
     axios.get("csrf-cookie").then(() => {
         axios
             .post(`login`, userLog.value)
@@ -54,8 +54,8 @@ function toLogIn(e) {
                 } else {
                     store.startSnack("error", "no", "danger");
                 }
-                myButton.disabled = false;
-                myButton.style.cursor = "default";
+                // myButton.disabled = false;
+                // myButton.style.cursor = "default";
             });
     });
 }
