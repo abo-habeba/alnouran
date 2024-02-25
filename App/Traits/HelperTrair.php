@@ -76,4 +76,45 @@ trait HelperTrait
             $this->updateBalance($user->regularBalance, '-', count($absences));
         }
     }
+
+
+
+    // public function FunctionName() : Returntype {
+    //     if ($exists->isEmpty() || $dailyFife) {
+    //         if (count($exists) <= 1) {
+    //             DB::beginTransaction();
+    //             try {
+    //                 $Type = request()->Type;
+    //                 $rest_id = request()->rest_id;
+    //                 /** Types of vacations
+    //                  *
+    //                  * اعتيادية	Regular
+    //                  * بدل راحة	Rest allowance
+    //                  * عارضة	Casual
+    //                  * اجازة عمرة	Umrah leave
+    //                  * تجنيد	Recruitment
+    //                  * اجازة وضع	Maternity leave
+    //                  * اجازة تعويضية	Compensatory leave
+    //                  * اخري	Other
+    //                  */
+    //                 if ($Type == 'Rest allowance') {
+    //                     $this->addAbsenceTypeRest($dailyFife, $rest_id);
+    //                 } elseif ($Type == 'Regular' ||  $Type == 'Casual') {
+    //                     $this->addAbsenceTypeRegular($dailyFife);
+    //                 } else {
+    //                     $absences = $this->saveAbsences(request());
+    //                 }
+    //                 DB::commit();
+    //                 return $absences;
+    //             } catch (\Exception $e) {
+    //                 DB::rollback();
+    //                 return "حدث خطأ أثناء حذف المستخدم. يرجى المحاولة مرة أخرى.";
+    //             }
+    //         } else {
+    //             return response()->json($exists, 409);
+    //         }
+    //     } else {
+    //         return response()->json($exists, 409);
+    //     }
+    // }
 }
