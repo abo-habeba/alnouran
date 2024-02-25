@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Absence;
 use Illuminate\Http\Request;
 use App\Models\Restallowance;
@@ -11,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Traits\HelperTrait;
 use Illuminate\Support\Facades\Auth;
-use Termwind\Components\Dd;
 
 class AbsenceController extends Controller
 {
