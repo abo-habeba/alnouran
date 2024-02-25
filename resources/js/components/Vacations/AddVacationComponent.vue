@@ -14,6 +14,7 @@
                     </div>
 
                     <v-form class="my-3">
+                        <v-checkbox v-model="dailyFife" label=" نص يوم " color="red"></v-checkbox>
                         <v-select label="نوع الاجازة" :items="typeRequest" item-title="ar" item-value="en"
                             v-model="addRequest.Type" variant="outlined" :rules="[(v) => !!v || 'هذا الحقل مطلوب ']">
                         </v-select>
@@ -28,12 +29,13 @@
                             </v-select>
                         </div>
                         <v-text-field :label="addRequest.Type == 'Rest allowance' ? ' تاريخ الاجازة' : '  بداية الاجازه '"
-                            type="date" v-model="addRequest.start_date" variant="outlined"></v-text-field>
+                            type="date" v-model="addRequest.start_date" variant="outlined">
+                        </v-text-field>
                         <div v-if="addRequest.Type != 'Rest allowance'">
                             <v-text-field label="نهاية الاجازة" type="date" v-model="addRequest.end_date"
                                 variant="outlined"></v-text-field>
                         </div>
-                        <v-checkbox v-model="dailyFife" label=" نص يوم " color="red"></v-checkbox>
+
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -108,7 +110,6 @@ const typeRequest = ref([
 ]
 );
 onMounted(() => {
-
     store.getAbsences().then(() => {
         const restallowance = ref(store.restallowance);
         if (restallowance.value) {
@@ -142,14 +143,11 @@ function saveRequest() {
             store.getAbsences();
             addRequest.value = ref({});
             dialog.value = false;
-            // store.printLog = re.data;
-            // dialog5.value = true;
         })
         .catch((er) => {
-            // store.printLog = er.response;
-            // dialog5.value = true;
+            // console.log(er.response.data);
             if (Array.isArray(er.response.data)) {
-                absenceEixist.value = e.response.data;
+                absenceEixist.value = er.response.data;
             } else {
                 absenceEixist.value = ' حدث خطا اعد المحاولة';
             }
