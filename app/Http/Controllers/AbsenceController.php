@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Restallowance;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use app\Traits\HelperTrait;
+use App\Traits\HelperTrait;
 use Illuminate\Support\Facades\Auth;
 use Termwind\Components\Dd;
 
