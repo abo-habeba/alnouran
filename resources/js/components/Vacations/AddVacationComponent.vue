@@ -110,7 +110,6 @@ const typeRequest = ref([
 ]
 );
 onMounted(() => {
-
     store.getAbsences().then(() => {
         const restallowance = ref(store.restallowance);
         if (restallowance.value) {
@@ -144,14 +143,11 @@ function saveRequest() {
             store.getAbsences();
             addRequest.value = ref({});
             dialog.value = false;
-            // store.printLog = re.data;
-            // dialog5.value = true;
         })
         .catch((er) => {
-            // store.printLog = er.response;
-            // dialog5.value = true;
+            // console.log(er.response.data);
             if (Array.isArray(er.response.data)) {
-                absenceEixist.value = e.response.data;
+                absenceEixist.value = er.response.data;
             } else {
                 absenceEixist.value = ' حدث خطا اعد المحاولة';
             }

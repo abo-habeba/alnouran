@@ -145,7 +145,7 @@ function optionsMenuDots(event, absence) {
 
         if (target.id != dotsActive.id && optionsMenu.style.display == 'block') {
             optionsMenu.style.display = 'none';
-            // document.removeEventListener('click', funAddEvent);
+            document.removeEventListener('click', funAddEvent);
         }
     }
     // إضافة المراقبة
@@ -172,7 +172,7 @@ function optionsMenu(absence) {
 
         if (!optionsMenu.contains(target) && optionsMenu.style.display === 'block') {
             optionsMenu.style.display = 'none';
-            // document.removeEventListener('click', funAddEvent);
+            document.removeEventListener('click', funAddEvent);
         }
     }
     // إضافة المراقبة
