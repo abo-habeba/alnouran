@@ -14,8 +14,16 @@ use Illuminate\Support\Facades\Auth;
 class AbsenceController extends Controller
 {
     use HelperTrait;
-    /**
-     * Display a listing of the resource.
+    /** Types of vacations
+     *
+     * اعتيادية	Regular
+     * بدل راحة	Rest allowance
+     * عارضة	Casual
+     * اجازة عمرة	Umrah leave
+     * تجنيد	Recruitment
+     * اجازة وضع	Maternity leave
+     * اجازة تعويضية	Compensatory leave
+     * اخري	Other
      */
     public function index()
     {
@@ -63,9 +71,6 @@ class AbsenceController extends Controller
             ->get();
         return $absences;
     }
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $dailyFife = request()->dailyFife;
@@ -79,47 +84,10 @@ class AbsenceController extends Controller
                 try {
                     $Type = request()->Type;
                     $rest_id = request()->rest_id;
-                    /** Types of vacations
-                     *
-                     * اعتيادية	Regular
-                     * بدل راحة	Rest allowance
-                     * عارضة	Casual
-                     * اجازة عمرة	Umrah leave
-                     * تجنيد	Recruitment
-                     * اجازة وضع	Maternity leave
-                     * اجازة تعويضية	Compensatory leave
-                     * اخري	Other
-                     */
                     if ($Type == 'Rest allowance') {
-                        // $this->addAbsenceTypeRest($dailyFife, $rest_id);
-                        /** @var User */
-                        $user = Auth::User();
-                        $restallowance = Restallowance::findOrFail($rest_id);
-                        if ($restallowance) {
-                            $absences = $this->saveAbsences(request());
-                            if ($dailyFife == true) {
-                                if ($restallowance->state == 5) {
-                                    $this->resetAllownesState($restallowance, 0);
-                                } else {
-                                    $this->resetAllownesState($restallowance, 5);
-                                }
-                                // $restBalance = Auth::user()->restBalance;
-                                $this->updateBalance($user->restBalance, '-', 0.5);
-                            } else {
-                                $this->updateBalance($user->restBalance, '-', 1);
-                            }
-                            return $absences;
-                        }
+                        $this->addAbsenceTypeRest($dailyFife, $rest_id);
                     } elseif ($Type == 'Regular' ||  $Type == 'Casual') {
-                        // $this->addAbsenceTypeRegular($dailyFife);
-                        /** @var User */
-                        $user = Auth::User();
-                        $absences = $this->saveAbsences(request());
-                        if ($dailyFife == true) {
-                            $this->updateBalance($user->regularBalance, '-', 0.5);
-                        } else {
-                            $this->updateBalance($user->regularBalance, '-', count($absences));
-                        }
+                        $this->addAbsenceTypeRegular($dailyFife);
                     } else {
                         $absences = $this->saveAbsences(request());
                     }

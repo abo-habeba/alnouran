@@ -76,9 +76,6 @@ trait HelperTrait
             $this->updateBalance($user->regularBalance, '-', count($absences));
         }
     }
-
-
-
     // public function FunctionName() : Returntype {
     //     if ($exists->isEmpty() || $dailyFife) {
     //         if (count($exists) <= 1) {
