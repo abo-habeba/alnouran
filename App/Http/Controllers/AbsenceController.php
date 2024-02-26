@@ -78,24 +78,25 @@ class AbsenceController extends Controller
         $endDate = Carbon::parse(request()->end_date);
         $dates = $startDate->daysUntil($endDate)->toArray();
         $exists = Absence::whereIn('date', $dates)->where('user_id', Auth::id())->pluck('date');
+        // return ['$exists->isEmpty()' => $exists->isEmpty(), '$dailyFife' => $dailyFife, 'if 1' => $exists->isEmpty() || $dailyFife ? 'tmam' : 'no', 'if 2' => count($exists) <= 1 ? 'tmam' : 'no', 'count($exists) <= 1' => count($exists) <= 1, 'count($exists)' => count($exists)];
         if ($exists->isEmpty() || $dailyFife) {
+            // return count($exists);
             if (count($exists) <= 1) {
                 DB::beginTransaction();
                 try {
                     $Type = request()->Type;
                     $rest_id = request()->rest_id;
                     if ($Type == 'Rest allowance') {
-                        $this->addAbsenceTypeRest($dailyFife, $rest_id);
+                        $this->addAbsenceTypeRest($dailyFife, $rest_id, request());
                     } elseif ($Type == 'Regular' ||  $Type == 'Casual') {
-                        $this->addAbsenceTypeRegular($dailyFife);
+                        $this->addAbsenceTypeRegular($dailyFife, request());
                     } else {
                         $absences = $this->saveAbsences(request());
                     }
                     DB::commit();
-                    return $absences;
                 } catch (\Exception $e) {
-                    DB::rollback();
-                    return "حدث خطأ أثناء حذف المستخدم. يرجى المحاولة مرة أخرى.";
+                    // DB::rollback();
+                    return response()->json("حدث خطأ أثناء تنفيذ العملية . يرجى المحاولة مرة أخرى.", 409);
                 }
             } else {
                 return response()->json($exists, 409);

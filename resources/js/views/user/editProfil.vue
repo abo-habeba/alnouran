@@ -90,7 +90,7 @@ function funDelete() {
     })
 }
 </script>
-<style>
+<style scoped>
 .btn-password {
     color: white !important;
     background-color: #ff5722 !important;

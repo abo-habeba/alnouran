@@ -53,7 +53,7 @@ function toLogIn(e) {
     });
 }
 </script>
-<style>
+<style scoped>
 .login {
     max-width: 500px;
     margin: 5% auto;

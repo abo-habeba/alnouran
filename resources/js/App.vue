@@ -47,16 +47,152 @@ window.addEventListener("beforeunload", function (event) {
     }
 });
 </script>
-<style>
+<style lang="scss">
+html {
+    overflow-y: auto !important;
+}
+
 body * {
     font-family: "Noto Kufi Arabic", sans-serif !important;
     font-optical-sizing: auto;
-    /* font-weight: 700;
-    font-style: normal; */
 }
 
 .clickd {
     cursor: pointer !important;
+}
+
+td {
+    user-select: none;
+}
+
+.active {
+
+    td,
+    th {
+        background-color: #0d6dfd52 !important;
+        color: #4fce06 !important;
+    }
+}
+
+.box-fixed {
+    position: sticky !important;
+    top: 73px;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+
+    * {
+        position: unset !important;
+    }
+}
+
+.div-balance {
+    padding: 10px 3px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    letter-spacing: 2px;
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}
+
+.box-balance-active {
+    border-radius: 8px;
+    background-color: white;
+    color: #0d6efd;
+}
+
+.box-balance {
+    border-radius: 8px;
+    background-color: #0d6efd;
+    color: white;
+}
+
+.box-absence {
+    td {
+        .dots-active {
+            text-align: center;
+            display: block;
+            font-weight: bold !important;
+            background-color: transparent;
+        }
+    }
+
+    .bg-suc {
+        background-color: darkgreen !important;
+    }
+
+    .bg-dang {
+        background-color: #dc3545 !important;
+    }
+
+    .bg-warn {
+        background-color: #5d5e55 !important;
+    }
+}
+
+#optionsMenu {
+    position: fixed;
+    width: fit-content;
+    border-radius: 6px;
+    text-align: center;
+    z-index: 9999;
+    top: 0px;
+    border: 1px solid gray;
+    overflow: hidden;
+    display: none;
+
+    .v-list-item {
+        border-bottom: 1px solid gray;
+
+        &:last-child {
+            width: 100%;
+            border-bottom: none;
+        }
+
+        * {
+            padding: 0px;
+            margin: 0px;
+            padding-inline-start: 6px;
+            padding-inline-end: 6px;
+        }
+    }
+}
+
+.div-balance {
+    padding: 10px 3px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    letter-spacing: 2px;
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}
+
+%test {
+    position: absolute;
+    content: '';
+    transition: all .5s;
+}
+
+.box-balance-regular {
+    border-radius: 8px;
+    background-color: #0d6efd;
+    color: white;
+}
+
+.box-balance-rest {
+    border-radius: 8px;
+    background-color: #0d6efd;
+    color: white;
 }
 
 .popup {

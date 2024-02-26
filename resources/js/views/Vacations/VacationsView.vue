@@ -19,12 +19,10 @@
         <AddVacationComponent />
         <v-row class="div-balance text-center">
             <v-col cols="12" sm="4">
-                <router-link to="/vacations">
-                    <div class=" box-balance">
-                        <div class="item-balance"> الاعتيادية </div>
-                        <div class="item-balance">{{ store.regular }}</div>
-                    </div>
-                </router-link>
+                <div class=" box-balance">
+                    <div class="item-balance"> الاعتيادية </div>
+                    <div class="item-balance">{{ store.regular }}</div>
+                </div>
             </v-col>
             <v-col cols="12" sm="4">
                 <router-link to="/rest">
@@ -211,99 +209,4 @@ function funDelete() {
 //     document.getElementById('optionsMenu').style.display = 'none';
 // }
 </script>
-<style lang="scss">
-.active {
-    td {
-        background-color: #0d6dfd52 !important;
-        color: #4fce06 !important;
-    }
-}
-
-.box-fixed {
-    position: sticky !important;
-    top: 73px;
-    z-index: 9999;
-    width: 100%;
-    height: 100%;
-}
-
-.box-fixed * {
-    position: unset !important;
-}
-
-td {
-    user-select: none;
-}
-
-.div-balance {
-    padding: 10px 3px;
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    letter-spacing: 2px;
-
-    a {
-        text-decoration: none;
-        color: white;
-    }
-}
-
-.box-balance {
-    border-radius: 8px;
-    background-color: #0d6efd;
-    color: white;
-
-    // padding: .5% 2%;
-    // .mdi-plus {
-    //     font-size: 18px;
-    // }
-}
-
-.box-absence {
-    td {
-        font-weight: bold;
-        font-size: 20px;
-
-        .dots-active {
-            text-align: center;
-            display: block;
-            font-weight: bold !important;
-            font-size: 20px;
-            background-color: transparent;
-        }
-    }
-}
-
-#optionsMenu {
-    position: fixed;
-    width: fit-content;
-    border-radius: 6px;
-    text-align: center;
-    z-index: 9999;
-    top: 0px;
-    border: 1px solid gray;
-    overflow: hidden;
-    display: none;
-
-    .v-list-item {
-        border-bottom: 1px solid gray;
-
-        &:last-child {
-            width: 100%;
-            border-bottom: none;
-        }
-
-        * {
-            padding: 0px;
-            margin: 0px;
-            padding-inline-start: 6px;
-            padding-inline-end: 6px;
-        }
-    }
-}
-
-html {
-    overflow-y: auto !important;
-}
-</style>
+<style lang="scss"></style>

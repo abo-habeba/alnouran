@@ -18,7 +18,7 @@ class Absence extends Model
 
     public static function saveItem($data)
     {
-        return Absence::updateOrCreate([isset($data['id']) ? $data['id'] : -1], $data);
+        return Absence::Create($data);
     }
 
 

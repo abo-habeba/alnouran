@@ -5,6 +5,7 @@ namespace App\Traits;
 use Carbon\Carbon;
 use App\Models\Absence;
 use App\Models\Restallowance;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 trait HelperTrait
@@ -18,10 +19,10 @@ trait HelperTrait
         return $restallowance->state;
     }
 
-    public function updateBalance($classBalance, $operation, $balance)
+    public function updateBalance($classBalance, $balance)
     {
-        $classBalance()->update([
-            'balance' => $classBalance->balance . $operation . $balance,
+        $classBalance->update([
+            'balance' => $classBalance->balance - $balance,
         ]);
     }
 
@@ -44,36 +45,35 @@ trait HelperTrait
         return $absences;
     }
 
-    public function addAbsenceTypeRest($dailyFife, $rest_id)
+    public function addAbsenceTypeRest($dailyFife, $rest_id, $reques)
     {
         /** @var User */
         $user = Auth::User();
         $restallowance = Restallowance::findOrFail($rest_id);
         if ($restallowance) {
-            $absences = $this->saveAbsences(request());
+            $absences = $this->saveAbsences($reques);
             if ($dailyFife == true) {
                 if ($restallowance->state == 5) {
                     $this->resetAllownesState($restallowance, 0);
                 } else {
                     $this->resetAllownesState($restallowance, 5);
                 }
-                // $restBalance = Auth::user()->restBalance;
-                $this->updateBalance($user->restBalance, '-', 0.5);
+                $this->updateBalance($user->restBalance, 0.5);
             } else {
-                $this->updateBalance($user->restBalance, '-', 1);
+                $this->updateBalance($user->restBalance, 1);
             }
             return $absences;
         }
     }
-    public function addAbsenceTypeRegular($dailyFife)
+    public function addAbsenceTypeRegular($dailyFife, $reques)
     {
         /** @var User */
         $user = Auth::User();
-        $absences = $this->saveAbsences(request());
+        $absences = $this->saveAbsences($reques);
         if ($dailyFife == true) {
-            $this->updateBalance($user->regularBalance, '-', 0.5);
+            $this->updateBalance($user->regularBalance, 0.5);
         } else {
-            $this->updateBalance($user->regularBalance, '-', count($absences));
+            $this->updateBalance($user->regularBalance, count($absences));
         }
     }
     // public function FunctionName() : Returntype {
