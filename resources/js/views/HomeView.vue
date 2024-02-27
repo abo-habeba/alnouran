@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto my-8" width="100%" elevation="16">
+    <v-card to="/user/edit" class="mx-auto" width="100%" elevation="2">
         <v-card-item>
             <v-card-title>
                 {{ store.user.name }}
@@ -8,7 +8,8 @@
                 {{ store.user.email }}
             </v-card-subtitle>
             <v-card-title>
-                <h5 v-for="(station, i) in store.user.stations" :key="i">{{ station }}</h5>
+                <span v-for="(station, i) in store.user.stations" :key="i"> <span v-if="store.user.stations.length >= 2"> &
+                    </span>{{ station.name }} </span>
             </v-card-title>
         </v-card-item>
     </v-card>
