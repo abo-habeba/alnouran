@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 use App\Models\RegularBalance;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -78,7 +76,7 @@ class UserController extends Controller
     public function show($userId)
     {
         $user = User::findOrFail($userId);
-        return $user->load('stations.reports.user', 'stations.reports.comments');
+        return $user->load('stations.reports.user', 'stations.reports.comments', 'absences', 'restBalance', 'restallowance');
     }
     public function getUserReports($userId)
     {
@@ -105,7 +103,6 @@ class UserController extends Controller
         //     return response()->json(false);
         // }
     }
-
     public function destroy(Request $request, $id)
     {
         DB::beginTransaction();
