@@ -4,7 +4,7 @@
         <AddVRestallowanceComponent />
         <v-row class="div-balance m-5 text-center">
             <v-col cols="12" sm="4">
-                <div class="box-balance-regular">
+                <div class="box-balance-white">
                     <router-link to="/vacations">
                         <div class="balance-regular">
                             <div class="item-balance"> الاجازات </div>
@@ -14,7 +14,7 @@
                 </div>
             </v-col>
             <v-col cols="12" sm="4">
-                <div class="box-balance-rest">
+                <div class="box-balance-blue">
                     <div class="balance-rest">
                         <div class="item-balance"> البدلات </div>
                         <div class="item-balance">{{ store.rest }}</div>

@@ -19,14 +19,14 @@
         <AddVacationComponent />
         <v-row class="div-balance text-center">
             <v-col cols="12" sm="4">
-                <div class=" box-balance">
+                <div class="box-balance-blue">
                     <div class="item-balance"> الاعتيادية </div>
                     <div class="item-balance">{{ store.regular }}</div>
                 </div>
             </v-col>
             <v-col cols="12" sm="4">
                 <router-link to="/rest">
-                    <div class=" box-balance">
+                    <div class="box-balance-white">
                         <div class="item-balance"> بدل راحة + </div>
                         <div class="item-balance">{{ store.rest }}</div>
                     </div>

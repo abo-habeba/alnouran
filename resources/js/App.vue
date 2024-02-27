@@ -183,13 +183,17 @@ td {
     transition: all .5s;
 }
 
-.box-balance-regular {
+.box-balance-white {
     border-radius: 8px;
-    background-color: #0d6efd;
-    color: white;
+    background-color: white;
+    color: #0d6efd;
+
+    * {
+        color: #0d6efd;
+    }
 }
 
-.box-balance-rest {
+.box-balance-blue {
     border-radius: 8px;
     background-color: #0d6efd;
     color: white;
