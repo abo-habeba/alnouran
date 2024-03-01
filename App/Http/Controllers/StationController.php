@@ -42,7 +42,7 @@ class StationController extends Controller
     public function show(string $id)
     {
         $Station = Station::find($id);
-        $Station->tasks;
+        $Station->load('users', 'reports', 'tasks');
 
         if ($Station) {
             return response()->json([

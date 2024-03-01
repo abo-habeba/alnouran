@@ -1,16 +1,17 @@
 <template>
-    <v-card to="/user/edit" class="mx-auto" width="100%" elevation="2">
-        <v-card-item>
+    <v-card class="mx-auto" width="100%" elevation="2">
+        <routerLink to="/user/edit">
             <v-card-title>
                 {{ store.user.name }}
             </v-card-title>
             <v-card-subtitle>
                 {{ store.user.email }}
             </v-card-subtitle>
-            <v-card-title>
-                <span v-for="(station, i) in store.user.stations" :key="i"> <span v-if="store.user.stations.length >= 2"> &
-                    </span>{{ station.name }} </span>
-            </v-card-title>
+        </routerLink>
+        <v-card-item>
+            <router-link class="mx-2" :to="`/Stations/${station.id}`" v-for="(station, i) in store.user.stations"
+                :key="i">{{ station.name }}
+            </router-link>
         </v-card-item>
     </v-card>
     <v-row class="div-balance text-center">
@@ -45,13 +46,16 @@
 <script setup>
 import { usemainStore } from "@/store/mainStore";
 const store = usemainStore();
-import { onMounted, ref } from "vue";
-import axios from "axios";
-const dialog = ref();
+import { onMounted } from "vue";
 onMounted(() => {
     store.getAbsences();
     store.getUser();
     store.getReports();
 });
+console.log(store.user);
 </script>
-<style></style>
+<style scoped>
+a {
+    text-decoration: none;
+}
+</style>

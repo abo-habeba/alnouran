@@ -4,6 +4,7 @@ import AuthView from "../views/AuthView.vue";
 import Register from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import StationsView from "../views/StationsView.vue";
+import StationView from "../views/stations/StationView.vue";
 import userEdit from "../views/user/editProfil.vue";
 import Users from "../views/user/users.vue";
 import ReportView from "../views/reports/ReportView.vue";
@@ -27,6 +28,13 @@ const routes = [
             },
         ],
     },
+    ,
+    {
+        path: "/station",
+        name: "station",
+        component: StationView,
+        meta: { title: "Station" },
+    },
     {
         path: "/user/edit",
         name: "userEdit",
@@ -40,16 +48,16 @@ const routes = [
         meta: { title: "Rest allowance" },
     },
     {
-        path: "/report/:id",
-        name: "report",
-        component: ReportView,
-        meta: { title: "Report" },
-    },
-    {
         path: "/reports",
         name: "reports",
         component: ReportsView,
         meta: { title: "Reports" },
+    },
+    {
+        path: "/report/:id",
+        name: "report",
+        component: ReportView,
+        meta: { title: "Report" },
     },
     {
         path: "/users",
