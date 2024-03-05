@@ -23,9 +23,8 @@ import SnackbarComponent from "./components/SnackbarComponent.vue";
 // import FooterComponent from "./components/FooterComponent.vue";
 import { usemainStore } from "./store/mainStore";
 const store = usemainStore();
-console.log(window.location.origin);
 const BASE_URL = window.location.origin + "/api/";
-console.log(BASE_URL);
+console.log(window.location.origin, "&&", BASE_URL);
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.token}`;
 onMounted(() => {
@@ -66,7 +65,6 @@ td {
 }
 
 .active {
-
     td,
     th {
         background-color: #0d6dfd52 !important;
@@ -179,8 +177,8 @@ td {
 
 %test {
     position: absolute;
-    content: '';
-    transition: all .5s;
+    content: "";
+    transition: all 0.5s;
 }
 
 .box-balance-white {

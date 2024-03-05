@@ -48,11 +48,11 @@ export const usemainStore = defineStore("mainStore", {
         },
         startSnack(text, urlDirect, coler = "success", snack = true, timeout = 2000) {
             this.text = text;
-            this.coler = coler;
             this.urlDirec = urlDirect;
-            this.timeout = timeout;
+            this.coler = coler;
             this.snackbar = snack;
             this.redirect = true;
+            this.timeout = timeout;
         },
         getUser() {
             if (this.user.id) {

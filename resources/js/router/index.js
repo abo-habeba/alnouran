@@ -30,7 +30,7 @@ const routes = [
     },
     ,
     {
-        path: "/station",
+        path: "/station/:id",
         name: "station",
         component: StationView,
         meta: { title: "Station" },

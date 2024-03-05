@@ -43,7 +43,7 @@ function toLogIn(e) {
                 store.auth = true;
                 store.startSnack("success", "home", "success", false, 200);
             })
-            .catch(() => {
+            .catch((e) => {
                 if (e.response.data.error == "Error in email or password.") {
                     store.startSnack("emailOrPassword", "no", "danger");
                 } else {

@@ -9,34 +9,43 @@
             </v-card-subtitle>
         </routerLink>
         <v-card-item>
-            <router-link class="mx-2" :to="`/Stations/${station.id}`" v-for="(station, i) in store.user.stations"
-                :key="i">{{ station.name }}
+            <router-link
+                class="mx-2"
+                :to="`/station/${station.id}`"
+                v-for="(station, i) in store.user.stations"
+                :key="i"
+                >{{ station.name }}
             </router-link>
         </v-card-item>
     </v-card>
     <v-row class="div-balance text-center">
         <v-col cols="12" sm="4">
             <router-link to="/vacations">
-                <div class=" box-balance">
-                    <div class="item-balance"> الاعتيادية </div>
+                <div class="box-balance">
+                    <div class="item-balance">الاعتيادية</div>
                     <div class="item-balance">{{ store.regular }}</div>
                 </div>
             </router-link>
         </v-col>
         <v-col cols="12" sm="4">
             <router-link to="/rest">
-                <div class=" box-balance">
-                    <div class="item-balance"> بدل راحة </div>
+                <div class="box-balance">
+                    <div class="item-balance">بدل راحة</div>
                     <div class="item-balance">{{ store.rest }}</div>
                 </div>
             </router-link>
         </v-col>
         <v-col cols="12" sm="4">
             <router-link to="/reports">
-                <div class=" box-balance">
-                    <div class="item-balance"> التقارير </div>
+                <div class="box-balance">
+                    <div class="item-balance">التقارير</div>
                     <div class="item-balance">
-                        {{ store.reports == 'getData' || store.reports == 'noData' ? 0 : store.reports.length }}
+                        {{
+                            store.reports == "getData" ||
+                            store.reports == "noData"
+                                ? 0
+                                : store.reports.length
+                        }}
                     </div>
                 </div>
             </router-link>
@@ -52,7 +61,6 @@ onMounted(() => {
     store.getUser();
     store.getReports();
 });
-console.log(store.user);
 </script>
 <style scoped>
 a {

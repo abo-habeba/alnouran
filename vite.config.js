@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import vue from "@vitejs/plugin-vue";
 import vuetify from "vite-plugin-vuetify";
-import TurboConsole from 'unplugin-turbo-console/vite'
 const host = "alnouran.test";
 export default defineConfig({
     plugins: [
@@ -19,7 +18,6 @@ export default defineConfig({
             },
         }),
         vuetify({ autoImport: true }),
-        TurboConsole({})
     ],
     resolve: {
         alias: {
