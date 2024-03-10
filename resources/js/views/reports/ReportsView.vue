@@ -25,11 +25,11 @@
                             :rules="[(v) => !!v || 'This field is required']"
                         ></v-textarea>
                         <v-select
-                            :label="$t('SelectPartment')"
-                            :rules="[(v) => !!v || 'This field is required']"
+                            label=" اختر المحطة "
                             :items="stations"
                             item-title="name"
                             item-value="id"
+                            auto-select-first
                             v-model="newReport.station_id"
                         ></v-select>
                     </v-form>
@@ -79,6 +79,7 @@ onMounted(() => {
         .get(`Stations?current_user=${store.user.id}`)
         .then((res) => {
             stations.value = res.data;
+            newReport.value.station_id = stations.value[0].id;
         })
         .catch(() => {
             store.startSnack("error", "no", "danger");

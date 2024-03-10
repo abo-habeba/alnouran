@@ -1,22 +1,57 @@
 <template>
-    <v-navigation-drawer :class="rail == false ? 'navbar-width' : ' '" v-model="drawer" :rail="rail" permanent
-        @click="rail = false">
+    <v-navigation-drawer
+        :class="rail == false ? 'navbar-width' : ' '"
+        v-model="drawer"
+        :rail="rail"
+        permanent
+        @click="rail = false"
+    >
         <v-list>
             <v-list-item nav>
                 <template v-slot:append>
-                    <v-btn variant="text" :icon="!rail ? 'mdi-close' : 'mdi-menu'" @click.stop="rail = !rail"></v-btn>
+                    <v-btn
+                        variant="text"
+                        :icon="!rail ? 'mdi-close' : 'mdi-menu'"
+                        @click.stop="rail = !rail"
+                    ></v-btn>
                 </template>
-                <v-list-item prepend-icon="mdi-account" :title="store.user.name" nav to="/user/edit"></v-list-item>
+                <v-list-item
+                    prepend-icon="mdi-account"
+                    :title="store.user.name"
+                    nav
+                    to="/user/edit"
+                ></v-list-item>
             </v-list-item>
         </v-list>
         <v-list v-model:opened="open">
-            <v-list-item prepend-icon=" mdi-account-details" :title="$t('Vacations')" to="/vacations"></v-list-item>
-            <v-list-item prepend-icon="mdi-bug" :title="$t('reports')" to="/reports"></v-list-item>
-            <v-list-item v-if="store.user.roles == 'admin'" prepend-icon="mdi-account-group" title="المستخدمين"
-                to="/users"></v-list-item>
+            <v-list-item
+                prepend-icon=" mdi-account-details"
+                :title="$t('Vacations')"
+                to="/vacations"
+            ></v-list-item>
+            <v-list-item
+                prepend-icon="mdi-bug"
+                :title="$t('reports')"
+                to="/reports"
+            ></v-list-item>
+            <v-list-item
+                v-if="store.user.roles == 'admin'"
+                prepend-icon="mdi-target-variant"
+                title=" المحطات "
+                to="/stations"
+            ></v-list-item>
+            <v-list-item
+                v-if="store.user.roles == 'admin'"
+                prepend-icon="mdi-account-group"
+                title="المستخدمين"
+                to="/users"
+            ></v-list-item>
         </v-list>
     </v-navigation-drawer>
-    <div @click="rail = !rail" :class="pageWidth <= 765 && !rail ? 'transBox' : ''"></div>
+    <div
+        @click="rail = !rail"
+        :class="pageWidth <= 765 && !rail ? 'transBox' : ''"
+    ></div>
 </template>
 <script setup>
 import { usemainStore } from "@/store/mainStore";

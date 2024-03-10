@@ -3,7 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import AuthView from "../views/AuthView.vue";
 import Register from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
-import StationsView from "../views/StationsView.vue";
+import StationsView from "../views/stations/StationsView.vue";
 import StationView from "../views/stations/StationView.vue";
 import userEdit from "../views/user/editProfil.vue";
 import Users from "../views/user/users.vue";
@@ -19,16 +19,13 @@ const routes = [
         name: "home",
         component: HomeView,
         meta: { title: "Home" },
-        children: [
-            {
-                path: "stations",
-                name: "stations",
-                component: StationsView,
-                meta: { title: "Stations" },
-            },
-        ],
     },
-    ,
+    {
+        path: "/stations",
+        name: "stations",
+        component: StationsView,
+        meta: { title: "Stations" },
+    },
     {
         path: "/station/:id",
         name: "station",

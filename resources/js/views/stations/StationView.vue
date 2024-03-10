@@ -1,5 +1,61 @@
 <template>
     <div>
+        <!-- Delete Report -->
+        <v-dialog v-model="dialogDelete">
+            <v-card>
+                <v-card-title class="text-center m-4">{{
+                    $t("confirm")
+                }}</v-card-title>
+                <div class="mx-auto">
+                    <v-btn
+                        class="m-5"
+                        color="green"
+                        text
+                        @click="deleteReport()"
+                        >{{ $t("yes") }}</v-btn
+                    >
+                    <v-btn
+                        class="m-5"
+                        color="red"
+                        text
+                        @click="dialogDelete = false"
+                        >{{ $t("no") }}</v-btn
+                    >
+                </div>
+            </v-card>
+        </v-dialog>
+        <!-- Update Report -->
+        <v-dialog min-width="70%" v-model="dialogUpdate" width="auto">
+            <v-card>
+                <v-card-text>
+                    <h1 class="h1 my-4 text-center">تعديل التقرير</h1>
+                    <v-form class="my-3">
+                        <v-textarea
+                            variant="outlined"
+                            :rows="1"
+                            auto-grow
+                            v-model="reportVar.body"
+                            :label="$t('addReport')"
+                            :rules="[(v) => !!v || 'This field is required']"
+                        ></v-textarea>
+                        <v-select
+                            :label="$t('SelectPartment')"
+                            :rules="[(v) => !!v || 'This field is required']"
+                            :items="store.user.stations"
+                            item-title="name"
+                            item-value="id"
+                            v-model="reportVar.station_id"
+                        ></v-select>
+                    </v-form>
+                    <v-btn color="green" @click="updateReport" class="mt-2">
+                        حفظ
+                    </v-btn>
+                </v-card-text>
+                <v-btn color="primary" block @click="dialogUpdate = false">{{
+                    $t("close")
+                }}</v-btn>
+            </v-card>
+        </v-dialog>
         <v-tabs v-model="tab" align-tabs="center" color="deep-purple-accent-4">
             <v-tab
                 v-for="(station, i) in store.user.stations"
@@ -22,7 +78,6 @@
                 >
                     لا يوجد تقارير
                 </h5>
-
                 <v-card
                     v-else
                     color="grey-lighten-2"
@@ -54,6 +109,15 @@
                             <span class="m-1">{{
                                 report.comments.length
                             }}</span>
+                            <div
+                                v-if="report.user.id == store.user.id"
+                                class="float-right mr-4"
+                            >
+                                <span
+                                    class="clickd mdi mdi-file-edit-outline"
+                                    @click="update(report)"
+                                ></span>
+                            </div>
                             <div
                                 v-if="report.user.id == store.user.id"
                                 class="float-right mx-4"
@@ -124,28 +188,51 @@ import axios from "axios";
 import moment from "moment";
 moment.locale(localStorage.language + "-dz");
 const stationIN = ref({});
-const dialog = ref(false);
-const tab = ref(0);
-const stationsNav = ref(router.params.id);
-console.log(stationsNav.value);
-onMounted(() => {
-    axios
-        .get(`Stations/${router.params.id}`)
-        .then((res) => {
-            stationIN.value = res.data;
-            console.log(stationIN.value);
-        })
-        .catch(() => {
-            stationIN.value = "المحطة غير موجوده";
-        });
-    console.log(store.user.stations);
+const reportVar = ref(" ");
+const dialogDelete = ref(false);
+const dialogUpdate = ref(false);
+const tab = ref(router.params.id ? router.params.id : 0);
+// onMounted(() => {
+//     store.getUser();
+//     axios
+//         .get(
+//             `Stations/${
+//                 router.params.id ? router.params.id : store.user.stations[0].id
+//             }`
+//         )
+//         .then((res) => {
+//             stationIN.value = res.data;
+//             console.log(stationIN.value);
+//         })
+//         .catch(() => {
+//             stationIN.value = "المحطة غير موجوده";
+//         });
+// });
+import { onMounted } from "vue";
+
+// ...
+
+onMounted(async () => {
+    await store.getUser();
+
+    try {
+        const res = await axios.get(
+            `Stations/${
+                router.params.id ? router.params.id : store.user.stations[0].id
+            }`
+        );
+        stationIN.value = res.data;
+        console.log(stationIN.value);
+    } catch (error) {
+        stationIN.value = "المحطة غير موجودة";
+    }
 });
+
 function gitStation(station) {
     axios
         .get(`Stations/${station.id}`)
         .then((res) => {
             stationIN.value = res.data;
-            console.log(stationIN.value);
         })
         .catch(() => {
             stationIN.value = "المحطة غير موجوده";
@@ -174,13 +261,31 @@ function addComment(station) {
             store.startSnack("error", "no", "danger");
         });
 }
-function deleted() {
-    dialog.value = true;
+function update(report) {
+    dialogUpdate.value = true;
+    reportVar.value = report;
+}
+function updateReport() {
+    axios
+        .patch(`reports/${reportVar.value.id}`, reportVar.value)
+        .then(() => {
+            store.getReports();
+            dialogUpdate.value = false;
+            store.startSnack("success", "no", "success");
+            reportVar.value = "";
+        })
+        .catch(() => {
+            store.startSnack("error", "no", "danger");
+        });
+}
+function deleted(id) {
+    reportId.value = id;
+    dialogDelete.value = true;
 }
 function deleteReport() {
-    axios.delete(`reports/${router.params.id}`).then(() => {
-        dialog.value = false;
-        store.startSnack("success", "back", "success");
+    axios.delete(`reports/${reportId.value}`).then(() => {
+        dialogDelete.value = false;
+        store.startSnack("success", "no", "success");
         store.getReports();
     });
 }
