@@ -192,38 +192,38 @@ const reportVar = ref(" ");
 const dialogDelete = ref(false);
 const dialogUpdate = ref(false);
 const tab = ref(router.params.id ? router.params.id : 0);
-// onMounted(() => {
-//     store.getUser();
-//     axios
-//         .get(
-//             `Stations/${
-//                 router.params.id ? router.params.id : store.user.stations[0].id
-//             }`
-//         )
-//         .then((res) => {
-//             stationIN.value = res.data;
-//             console.log(stationIN.value);
-//         })
-//         .catch(() => {
-//             stationIN.value = "المحطة غير موجوده";
-//         });
-// });
-
-onMounted(async () => {
-    await store.getUser();
-
-    try {
-        const res = await axios.get(
+onMounted(() => {
+    store.getUser();
+    axios
+        .get(
             `Stations/${
                 router.params.id ? router.params.id : store.user.stations[0].id
             }`
-        );
-        stationIN.value = res.data;
-        console.log(stationIN.value);
-    } catch (error) {
-        stationIN.value = "المحطة غير موجودة";
-    }
+        )
+        .then((res) => {
+            stationIN.value = res.data;
+            console.log(stationIN.value);
+        })
+        .catch(() => {
+            stationIN.value = "المحطة غير موجوده";
+        });
 });
+
+// onMounted(async () => {
+//     await store.getUser();
+
+//     try {
+//         const res = await axios.get(
+//             `Stations/${
+//                 router.params.id ? router.params.id : store.user.stations[0].id
+//             }`
+//         );
+//         stationIN.value = res.data;
+//         console.log(stationIN.value);
+//     } catch (error) {
+//         stationIN.value = "المحطة غير موجودة";
+//     }
+// });
 
 function gitStation(station) {
     axios
