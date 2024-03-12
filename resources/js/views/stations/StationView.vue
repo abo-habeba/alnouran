@@ -208,9 +208,6 @@ const tab = ref(router.params.id ? router.params.id : 0);
 //             stationIN.value = "المحطة غير موجوده";
 //         });
 // });
-import { onMounted } from "vue";
-
-// ...
 
 onMounted(async () => {
     await store.getUser();
