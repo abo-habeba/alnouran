@@ -60,7 +60,7 @@ import axios from "axios";
 import moment from "moment";
 moment.locale(localStorage.language + "-dz");
 const newTypePreparation = ref({user_id:`${store.user.id}`});
-const dialogAddTypePreparation = ref(falsex);
+const dialogAddTypePreparation = ref(false);
 const stations = ref('');
 onMounted(() => {
     console.log(newTypePreparation.value);
