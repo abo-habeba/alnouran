@@ -121,7 +121,7 @@ export const usemainStore = defineStore("mainStore", {
                     this.typePreparation = res.data;
                 })
                 .catch((e) => {
-                    this.startSnack("error", "login", "danger");
+                    this.startSnack("error", "no", "danger");
             });
         },
         formatDate(date, format = 'YYYY-MM-DD') {
