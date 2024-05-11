@@ -15,7 +15,7 @@
                         اضافة تحضيرة
                     </v-card-title>
                     <v-row>
-                        <v-col class="castm_col" cols="12">
+                        <v-col style="padding: 0px;" class="castm_col" cols="12">
                             <v-select
                                 label=" نوع التحضيرة  "
                                 :items="store.typePreparation"
@@ -26,7 +26,7 @@
                             >
                             </v-select>
                         </v-col>
-                        <v-col class="castm_col" cols="12">
+                        <v-col style="padding: 0px;" class="castm_col" cols="12">
                             <v-select
                                 label=" اختر المحطة "
                                 :items="stations"
@@ -37,7 +37,7 @@
                             >
                             </v-select>
                         </v-col>
-                        <v-col class="castm_col" cols="6">
+                        <v-col style="padding: 0px 0px 0 3px;" class="castm_col" cols="6">
                             <v-text-field
                                 type="datetime-local"
                                 variant="outlined"
@@ -47,7 +47,7 @@
                             >
                             </v-text-field>
                         </v-col>
-                        <v-col class="castm_col" cols="6">
+                        <v-col style="padding: 0 3px 0 0;" class="castm_col" cols="6">
                             <v-text-field
                                 type="number"
                                 variant="outlined"
@@ -57,7 +57,7 @@
                             >
                             </v-text-field>
                         </v-col>
-                        <v-col class="castm_col" cols="6">
+                        <v-col style="padding: 0 0 0 3px;" class="castm_col" cols="6">
                             <v-text-field
                                 type="number"
                                 variant="outlined"
@@ -67,7 +67,7 @@
                             >
                             </v-text-field>
                         </v-col>
-                        <v-col class="castm_col" cols="6">
+                        <v-col style="padding: 0 3px 0 0;" class="castm_col" cols="6">
                             <v-text-field
                                 type="number"
                                 variant="outlined"
@@ -77,7 +77,7 @@
                             >
                             </v-text-field>
                         </v-col>
-                        <v-col class="castm_col" cols="6">
+                        <v-col style="padding: 0px;" class="castm_col" cols="6">
                             <div class="label_quantity">
                                 <div>
                                     <h3>كيلو</h3>
@@ -94,7 +94,7 @@
                             >
                             </v-text-field> -->
                         </v-col>
-                        <v-col class="castm_col" cols="6">
+                        <v-col style="padding: 0px;" class="castm_col" cols="6">
                             <div class="label_quantity">
                                 <div>
                                     <h3>سم</h3>
@@ -120,8 +120,8 @@
                             >
                             </v-text-field>
                         </v-col>
-                        <v-col class="castm_col" cols="12">
-                            <p>الوردية</p>
+                        <v-col style="padding: 0px;" class="castm_col" cols="12">
+                            <p style="padding: 0; margin: 0;">الوردية</p>
                             <v-radio-group inline v-model="timeOfDay">
                                 <v-radio
                                     label=" الاولي "
@@ -135,14 +135,14 @@
                         </v-col>
                         <div class="mx-auto">
                             <v-btn
-                                class="m-3"
+                                class="mx-3"
                                 color="green"
                                 text
                                 @click="addPreparation()"
                                 >{{ $t("yes") }}</v-btn
                             >
                             <v-btn
-                                class="m-3"
+                                class="mx-3"
                                 color="red"
                                 text
                                 @click="dialogAddPreparation = false"
@@ -243,11 +243,11 @@ function addPreparation() {
 
 <style lang="scss">
 .v_row {
+    *{
+        padding: 0 !important;
+    }
     .castm_col {
-        padding-top: 12px !important;
-        padding-right: 12px !important;
-        padding-bottom: 12px !important;
-        padding-left: 12px !important;
+        padding: 0 !important;
     }
 }
 

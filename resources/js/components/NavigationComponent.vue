@@ -47,7 +47,7 @@
                 to="/users"
             ></v-list-item>
             <v-list-item
-                prepend-icon="mdi-account-group"
+                prepend-icon="mdi-bowl-mix-outline"
                 title=" التحضيرات "
                 to="/preparation"
             ></v-list-item>
