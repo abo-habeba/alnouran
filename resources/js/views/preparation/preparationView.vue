@@ -28,14 +28,14 @@
                         ></v-select>
                 <div class="mx-auto">
                     <v-btn
-                        class="m-5"
+                        class="mx-3"
                         color="green"
                         text
                         @click="addTypePreparation()"
                         >{{ $t("yes") }}</v-btn
                     >
                     <v-btn
-                        class="m-5"
+                        class="mx-3"
                         color="red"
                         text
                         @click="dialogAddTypePreparation = false"
@@ -60,7 +60,7 @@ import axios from "axios";
 import moment from "moment";
 moment.locale(localStorage.language + "-dz");
 const newTypePreparation = ref({user_id:`${store.user.id}`});
-const dialogAddTypePreparation = ref(false);
+const dialogAddTypePreparation = ref(falsex);
 const stations = ref('');
 onMounted(() => {
     console.log(newTypePreparation.value);
