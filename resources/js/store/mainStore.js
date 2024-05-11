@@ -14,6 +14,7 @@ export const usemainStore = defineStore("mainStore", {
         regular: '',
         restallowance: '',
         rest: '',
+        typePreparation: '',
         printLog: '',
         snackbar: false,
         redirect: false,
@@ -111,6 +112,16 @@ export const usemainStore = defineStore("mainStore", {
             });
             return axios.get(`restallowance`).then((res) => {
                 this.restallowance = res.data;
+            });
+        },
+        getTypePre() {
+            axios
+                .get(`typePre`)
+                .then((res) => {
+                    this.typePreparation = res.data;
+                })
+                .catch((e) => {
+                    this.startSnack("error", "login", "danger");
             });
         },
         formatDate(date, format = 'YYYY-MM-DD') {

@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Restallowance::class);
     }
+
+    public function preparations()
+    {
+        return $this->hasMany(Preparation::class);
+    }
 }

@@ -11,6 +11,7 @@ import ReportView from "../views/reports/ReportView.vue";
 import ReportsView from "../views/reports/ReportsView.vue";
 import VacationsView from "../views/Vacations/VacationsView.vue";
 import restallowance from "../views/Vacations/Restallowance.vue";
+import typePreparationView from "../views/preparation/preparationView.vue";
 import NotFound from "../views/NotFound.vue";
 
 const routes = [
@@ -67,6 +68,12 @@ const routes = [
         name: "vacations",
         component: VacationsView,
         meta: { title: "Vacations" },
+    },
+    {
+        path: "/preparation",
+        name: "preparation",
+        component: typePreparationView,
+        meta: { title: "Preparation" },
     },
     {
         path: "/auth",

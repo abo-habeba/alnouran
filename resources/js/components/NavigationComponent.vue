@@ -46,6 +46,11 @@
                 title="المستخدمين"
                 to="/users"
             ></v-list-item>
+            <v-list-item
+                prepend-icon="mdi-account-group"
+                title=" التحضيرات "
+                to="/preparation"
+            ></v-list-item>
         </v-list>
     </v-navigation-drawer>
     <div

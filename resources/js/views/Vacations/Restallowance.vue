@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="box-absence" v-for="(absence, index) in store.restallowance" @click="ActiveClass(absence)"
+                <tr class="box-absence" v-for="(absence, index) in store.restallowance" :key="absence.id" @click="ActiveClass(absence)"
                     @contextmenu="optionsMenu(absence)" :id="'id-' + absence.id">
                     <th>{{ index + 1 }}</th>
                     <td>{{ absence.description }}</td>

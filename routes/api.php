@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\RestBalanceController;
 use App\Http\Controllers\RestallowanceController;
 use App\Http\Controllers\RegularBalanceController;
+use App\Http\Controllers\TypePreparationController;
+use App\Http\Controllers\PreparationController;
 use Illuminate\Support\Facades\Artisan;
 
 
@@ -31,6 +33,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/regular', RegularBalanceController::class);
     Route::apiResource('/rest', RestBalanceController::class);
     Route::apiResource('/restallowance', RestallowanceController::class);
+    Route::apiResource('/typePre', TypePreparationController::class);
+    Route::apiResource('/Pre', PreparationController::class);
     ////////
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
