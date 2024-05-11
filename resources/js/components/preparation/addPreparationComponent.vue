@@ -15,7 +15,7 @@
                         اضافة تحضيرة
                     </v-card-title>
                     <v-row>
-                        <v-col cols="6">
+                        <v-col cols="12">
                             <v-select
                                 label=" نوع التحضيرة  "
                                 :items="store.typePreparation"
@@ -26,7 +26,7 @@
                             >
                             </v-select>
                         </v-col>
-                        <v-col cols="6">
+                        <v-col cols="12">
                             <v-select
                                 label=" اختر المحطة "
                                 :items="stations"
