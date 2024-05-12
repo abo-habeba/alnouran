@@ -63,7 +63,6 @@ const newTypePreparation = ref({user_id:`${store.user.id}`});
 const dialogAddTypePreparation = ref(false);
 const stations = ref('');
 onMounted(() => {
-    console.log(newTypePreparation.value);
     axios
         .get(`Stations?current_user=${store.user.id}`)
         .then((res) => {
@@ -88,7 +87,7 @@ function addTypePreparation() {
         .then(() => {
             newTypePreparation.value = "";
             dialogAddTypePreparation.value = false;
-
+            store.getTypePre();
         })
         .catch(() => {
             store.startSnack("error", "no", "danger");

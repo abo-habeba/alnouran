@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('ppm');
             $table->decimal('quantity', 8, 2);
             $table->integer('cont_hours');
-            $table->date('actual_time');
+            $table->dateTime('actual_time');
             $table->integer('slices_ton');
             $table->string('shift');
             $table->text('note')->nullable();

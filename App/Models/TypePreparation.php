@@ -18,7 +18,7 @@ class TypePreparation extends Model
     ];
     public function latestPreparationActual()
     {
-        return $this->hasOne(Preparation::class, 'typePreparation_id')->latest('actual_time');
+        return $this->hasOne(Preparation::class, 'typePreparation_id')->latest();
     }
     public function preparations()
     {
