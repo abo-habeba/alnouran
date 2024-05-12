@@ -144,5 +144,6 @@ a {
  text-align: center;
  position: absolute;
  display: block;
+ z-index: 1;
 }
 </style>
