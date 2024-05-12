@@ -27,40 +27,20 @@
     </div>
    </router-link>
   </v-col>
-  <!-- <v-col cols="12" sm="4">
-            <router-link to="/rest">
-                <div class="box-balance">
-                    <div class="item-balance">بدل راحة</div>
-                    <div class="item-balance">{{ store.rest }}</div>
-                </div>
-            </router-link>
-        </v-col> -->
-  <!-- <v-col cols="12" sm="4">
-
-            <router-link to="/reports">
-                <div class="box-balance">
-                    <div class="item-balance">التقارير</div>
-                    <div class="item-balance">
-                        {{
-                            store.reports == "getData" ||
-                            store.reports == "noData"
-                                ? 0
-                                : store.reports.length
-                        }}
-                    </div>
-                </div>
-            </router-link>
-        </v-col> -->
-
-  <v-col v-for="typePrep in typePreparationData" :key="typePrep.id">
-    
+  <v-col cols="12" xs="6" sm="8" md="3" v-for="typePrep in typePreparationData" :key="typePrep.id">
    <v-card class="p-3" v-if="typePreparationData">
     <div class="preparation_box">
      <div class="percentage">
       <p>{{ typePrep.name }}</p>
       <p>% {{ percentageResalt(100 - typePrep.percentage) }}</p>
      </div>
-     <div :style="{ height: 100 - typePrep.percentage + '%' }" class="preparation_fill"></div>
+     <div
+      :style="{
+       height: 100 - typePrep.percentage + '%',
+       'background-color': 100 - typePrep.percentage <= 20 ? 'red' : '#14cc14',
+      }"
+      class="preparation_fill"
+     ></div>
     </div>
     <div class="my-3">
      <p>عدد الساعات</p>
@@ -133,8 +113,13 @@ a {
  position: absolute;
  bottom: 0px;
  width: 100%;
- background-color: #14cc14;
  box-sizing: unset;
+}
+.pre_fill_red {
+ background-color: red;
+}
+.pre_fill_green {
+ background-color: #14cc14;
 }
 .percentage {
  position: absolute;
