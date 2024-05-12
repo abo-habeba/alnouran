@@ -52,8 +52,9 @@
             </router-link>
         </v-col> -->
 
-  <div v-if="typePreparationData">
-   <v-col cols="4" v-for="typePrep in typePreparationData" :key="typePrep.id">
+  <v-col v-for="typePrep in typePreparationData" :key="typePrep.id">
+    
+   <v-card class="p-3" v-if="typePreparationData">
     <div class="preparation_box">
      <div class="percentage">
       <p>{{ typePrep.name }}</p>
@@ -62,13 +63,13 @@
      <div :style="{ height: 100 - typePrep.percentage + '%' }" class="preparation_fill"></div>
     </div>
     <div class="my-3">
-     <h4>عدد الساعات</h4>
-     <h5>{{ typePrep.cont_hours }}</h5>
-     <h4>وقت التحضير</h4>
-     <h5>{{ typePrep.actual_time }}</h5>
+     <p>عدد الساعات</p>
+     <p>{{ typePrep.cont_hours }}</p>
+     <p>وقت التحضير</p>
+     <p>{{ typePrep.actual_time }}</p>
     </div>
-   </v-col>
-  </div>
+   </v-card>
+  </v-col>
  </v-row>
 </template>
 <script setup>
