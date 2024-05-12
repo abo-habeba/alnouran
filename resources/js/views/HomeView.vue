@@ -1,4 +1,5 @@
 <template>
+    <!-- <speedDialComponent/> -->
  <v-card class="mx-auto" width="100%" elevation="2">
   <routerLink to="/user/edit">
    <v-card-title>
@@ -26,6 +27,9 @@
      <div class="item-balance">{{ store.regular }}</div>
     </div>
    </router-link>
+  </v-col>
+  <v-col cols="5">
+    <addPreparationComponent/>
   </v-col>
   <v-col cols="12" xs="6" sm="8" md="3" v-for="typePrep in typePreparationData" :key="typePrep.id">
    <v-card class="p-3" v-if="typePreparationData">
@@ -55,6 +59,8 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import { usemainStore } from '@/store/mainStore';
+// import speedDialComponent from '../components/speedDialComponent.vue';
+import addPreparationComponent from '../components/preparation/addPreparationComponent.vue';
 const store = usemainStore();
 const typePreparationData = ref([]);
 
