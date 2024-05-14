@@ -186,7 +186,7 @@ const store = usemainStore();
 import { onMounted, ref } from "vue";
 import axios from "axios";
 import moment from "moment";
-moment.locale(localStorage.language + "-dz");
+moment.locale("ar");
 const stationIN = ref({});
 const reportVar = ref(" ");
 const dialogDelete = ref(false);

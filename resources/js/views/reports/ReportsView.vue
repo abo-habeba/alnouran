@@ -51,6 +51,7 @@ import { usemainStore } from "@/store/mainStore";
 const store = usemainStore();
 import { onMounted, ref } from "vue";
 import axios from "axios";
+import moment from 'moment';
 const stations = ref(["getData"]);
 const newReport = ref({});
 const dialog = ref();

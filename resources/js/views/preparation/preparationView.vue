@@ -58,7 +58,7 @@ const store = usemainStore();
 import { onMounted, ref } from "vue";
 import axios from "axios";
 import moment from "moment";
-moment.locale(localStorage.language + "-dz");
+moment.locale("ar");
 const newTypePreparation = ref({user_id:`${store.user.id}`});
 const dialogAddTypePreparation = ref(false);
 const stations = ref('');

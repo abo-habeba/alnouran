@@ -1,5 +1,5 @@
 import moment from 'moment';
-moment.locale(localStorage.language + '-dz');
+moment.locale("ar");
 import axios from 'axios';
 import { defineStore } from 'pinia';
 export const usemainStore = defineStore('mainStore', {
@@ -15,6 +15,7 @@ export const usemainStore = defineStore('mainStore', {
   restallowance: '',
   rest: '',
   typePreparation: '',
+  addPreparation: false,
   printLog: '',
   snackbar: false,
   redirect: false,

@@ -113,7 +113,7 @@
                     ></span>
                 </div>
                 <div
-                    v-if="report.user.id == store.user.id"
+                    v-if="report.user.id == store.user.id || store.user.roles == 'admin'"
                     class="comment-length float-right mx-4"
                 >
                     <span
@@ -144,7 +144,7 @@ const store = usemainStore();
 import { onMounted, ref } from "vue";
 import axios from "axios";
 import moment from "moment";
-moment.locale(localStorage.language + "-dz");
+moment.locale("ar");
 const report = ref("getData");
 const reportVar = ref(" ");
 const dialogDlete = ref(false);

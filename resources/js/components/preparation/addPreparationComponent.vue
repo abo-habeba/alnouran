@@ -135,11 +135,12 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watchEffect } from 'vue';
+import { onMounted, ref, watchEffect, defineProps } from 'vue';
 import { usemainStore } from '../../store/mainStore';
 import axios from 'axios';
 import moment from 'moment';
-moment.locale(localStorage.language + '-dz');
+// const now = moment();
+//  return  moment("2024-05-15T08:12:39.000000Z").diff(now, 'hour');
 const store = usemainStore();
 const newPreparation = ref({});
 const dialogAddPreparation = ref(false);
@@ -186,12 +187,7 @@ onMounted(() => {
   timeOfDay.value = 'الثانية';
  }
 });
-function timeSinceReport(time) {
- return moment(time).fromNow();
-}
-function date(d) {
- return moment(d).format('dddd :- h:mm A - MM/DD ');
-}
+
 function shangePrep(x) {
  typePreparation.value = x;
  if (x.latest_preparation_actual != null) {
@@ -206,10 +202,10 @@ function addPreparation() {
  axios
   .post(`Pre`, newPreparation.value)
   .then(() => {
-   console.log(newPreparation.value);
+    dialogAddPreparation.value = false;
+   getTypePreFun();
    newPreparation.value = '';
    typePreparation.value = '';
-   dialogAddPreparation.value = false;
    store.startSnack('success', 'no', 'success');
   })
   .catch(e => {

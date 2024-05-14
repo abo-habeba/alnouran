@@ -27,12 +27,6 @@ const vuetify = createVuetify({
     components,
     directives,
 });
-// let language = navigator.language.slice(0, 2);
-// localStorage.setItem("language", language);
-// window.onlanguagechange = () => {
-//     language = navigator.language.slice(0, 2);
-//     localStorage.setItem("language", navigator.language.slice(0, 2));
-// };
 const i18n = createI18n({
     locale: 'ar',
     messages: {
