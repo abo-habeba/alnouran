@@ -1,72 +1,75 @@
 <template>
- <!-- <speedDialComponent/> -->
- <v-card class="mx-auto" width="100%" elevation="2">
-  <routerLink to="/user/edit">
-   <v-card-title>
-    {{ store.user.name }}
-   </v-card-title>
-   <v-card-subtitle>
-    {{ store.user.email }}
-   </v-card-subtitle>
-  </routerLink>
-  <v-card-item>
-   <router-link
-    class="mx-2"
-    :to="`/station/${station.id}`"
-    v-for="(station, i) in store.user.stations"
-    :key="i"
-    >{{ station.name }}
-   </router-link>
-  </v-card-item>
- </v-card>
- <v-row class="div-balance text-center">
-  <v-col cols="12">
-   <router-link to="/vacations">
-    <div class="box-balance">
-     <div class="item-balance">الاعتيادية</div>
-     <div class="item-balance">{{ store.regular }}</div>
-    </div>
-   </router-link>
-  </v-col>
- </v-row>
- <v-row>
-  <v-col cols="5">
+ <div style="position: relative;">
+  <div class="addPreparation">
    <addPreparationComponent />
-  </v-col>
- </v-row>
- <v-row>
-  <v-col cols="12" xs="6" sm="8" md="4" lg="4" v-for="typePrep in typePreparationData" :key="typePrep.id">
-   <v-card class="p-3" v-if="typePreparationData">
-    <div class="preparation_box">
-     <div class="percentage">
-      <p>{{ typePrep.name }}</p>
-      <p>% {{ percentageResalt(100 - typePrep.percentage) }}</p>
+  </div>
+  <!-- <speedDialComponent/> -->
+  <v-card class="mx-auto" width="100%" elevation="2">
+   <routerLink to="/user/edit">
+    <v-card-title>
+     {{ store.user.name }}
+    </v-card-title>
+    <v-card-subtitle>
+     {{ store.user.email }}
+    </v-card-subtitle>
+   </routerLink>
+   <v-card-item>
+    <router-link
+     class="mx-2"
+     :to="`/station/${station.id}`"
+     v-for="(station, i) in store.user.stations"
+     :key="i"
+     >{{ station.name }}
+    </router-link>
+   </v-card-item>
+  </v-card>
+  <v-row class="div-balance text-center">
+   <v-col cols="12">
+    <router-link to="/vacations">
+     <div class="box-balance">
+      <div class="item-balance">الاعتيادية</div>
+      <div class="item-balance">{{ store.regular }}</div>
      </div>
-     <div
-      :style="{
-       height: 100 - typePrep.percentage + '%',
-       'background-color': 100 - typePrep.percentage <= 20 ? 'red' : '#14cc14',
-      }"
-      class="preparation_fill"
-     ></div>
-    </div>
-    <div class="mt-3">
-     <v-chip class="ma-2" color="primary" label>
-      <span class="p-1">{{ typePrep.cont_hours }}</span> <span class="p-1"> ساعة </span>
-     </v-chip>
-     <v-chip class="ma-2" color="primary" label>
-      <span class="p-1"> منذ </span>
-      <span class="p-1">{{ timeSinceReport(typePrep.actual_time) }}</span>
-      <span class="p-1"> ساعة </span>
-     </v-chip>
-     <v-chip class="ma-2" color="primary" label>
-      <span class="p-1"> وقت التحضير </span>
-      <span class="p-1">{{ date(typePrep.actual_time) }}</span>
-     </v-chip>
-    </div>
-   </v-card>
-  </v-col>
- </v-row>
+    </router-link>
+   </v-col>
+  </v-row>
+  <v-row>
+   <v-col cols="5"> </v-col>
+  </v-row>
+  <v-row>
+   <v-col cols="12" xs="6" sm="8" md="4" v-for="typePrep in typePreparationData" :key="typePrep.id">
+    <v-card class="p-3" v-if="typePreparationData">
+     <div class="preparation_box">
+      <div class="percentage">
+       <p>{{ typePrep.name }}</p>
+       <p>% {{ percentageResalt(100 - typePrep.percentage) }}</p>
+      </div>
+      <div
+       :style="{
+        height: 100 - typePrep.percentage + '%',
+        'background-color': 100 - typePrep.percentage <= 20 ? 'red' : '#14cc14',
+       }"
+       class="preparation_fill"
+      ></div>
+     </div>
+     <div class="mt-3">
+      <v-chip class="ma-2" color="primary" label>
+       <span class="p-1">{{ typePrep.cont_hours }}</span> <span class="p-1"> ساعة </span>
+      </v-chip>
+      <v-chip class="ma-2" color="primary" label>
+       <span class="p-1"> منذ </span>
+       <span class="p-1">{{ timeSinceReport(typePrep.actual_time) }}</span>
+       <span class="p-1"> ساعة </span>
+      </v-chip>
+      <v-chip class="ma-2" color="primary" label>
+       <span class="p-1"> وقت التحضير </span>
+       <span class="p-1">{{ date(typePrep.actual_time) }}</span>
+      </v-chip>
+     </div>
+    </v-card>
+   </v-col>
+  </v-row>
+ </div>
 </template>
 <script setup>
 import moment from 'moment';
@@ -131,6 +134,12 @@ function typePreparFunc() {
 }
 </script>
 <style scoped>
+.addPreparation {
+ position: fixed;
+ top: 90%;
+ left: 67%;
+ z-index: 999;
+}
 a {
  text-decoration: none;
 }
