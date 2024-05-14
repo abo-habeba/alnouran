@@ -35,7 +35,7 @@
   </v-col>
  </v-row>
  <v-row>
-  <v-col cols="12" xs="6" sm="8" md="3" v-for="typePrep in typePreparationData" :key="typePrep.id">
+  <v-col cols="12" xs="6" sm="8" md="4" v-for="typePrep in typePreparationData" :key="typePrep.id">
    <v-card class="p-3" v-if="typePreparationData">
     <div class="preparation_box">
      <div class="percentage">
