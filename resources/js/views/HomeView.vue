@@ -49,17 +49,22 @@
        class="preparation_fill"
       ></div>
      </div>
-     <div class="mt-3">
-      <v-chip class="ma-2" color="primary" label>
+     <div class="mt-2">
+      <v-chip class="ma-1" color="primary" label>
        <span class="p-1">{{ typePrep.cont_hours }}</span> <span class="p-1"> ساعة </span>
       </v-chip>
-      <v-chip class="ma-2" color="primary" label>
+      <v-chip class="ma-1" color="primary" label>
        <span class="p-1"> منذ </span>
        <span class="p-1">{{ timeSinceReport(typePrep.actual_time) }}</span>
        <span class="p-1"> ساعة </span>
       </v-chip>
-      <v-chip class="ma-2" color="primary" label>
-       <span class="p-1"> وقت التحضير </span><br>
+      <v-chip class="ma-1" color="primary" label>
+       <span class="p-1"> متبقي </span>
+       <span class="p-1">{{ typePrep.cont_hours - timeSinceReport(typePrep.actual_time) }}</span>
+       <span class="p-1"> ساعة </span>
+      </v-chip>
+      <!-- <v-chip color="primary" label> <span class="p-1"> وقت التحضير </span> </v-chip> -->
+      <v-chip color="primary" label>
        <span class="p-1">{{ date(typePrep.actual_time) }}</span>
       </v-chip>
      </div>
@@ -88,7 +93,7 @@ function percentageResalt(percentage) {
 function timeSinceReport(time) {
  //  return moment(time).fromNow();
  const now = moment();
- return -moment(time).diff(now, 'hours');
+ return -moment(time).diff(now, 'hours', true).toFixed(2);
 }
 function date(d) {
  return moment(d).format('dddd :- h:mm A - MM/DD ');
@@ -98,6 +103,7 @@ onMounted(() => {
  store.getUser();
  store.getReports();
  typePreparFunc();
+
 });
 
 function typePreparFunc() {
