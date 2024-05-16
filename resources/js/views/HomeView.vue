@@ -37,6 +37,7 @@
    <v-col cols="12" xs="6" sm="8" md="4" v-for="typePrep in typePreparationData" :key="typePrep.id">
     <v-card class="p-3" v-if="typePreparationData">
      <div class="preparation_box">
+      <p>{{ typePrep.user_name }}</p>
       <div class="percentage">
        <p>{{ typePrep.name }}</p>
        <p>% {{ percentageResalt(100 - typePrep.percentage) }}</p>
@@ -49,7 +50,15 @@
        class="preparation_fill"
       ></div>
      </div>
-     <div class="mt-2">
+     <div class="mt-2 d-flex">
+      <v-chip class="ma-1" color="primary" label>
+       <span class="p-1"> تم الانشاء </span>
+       <span class="p-1">{{ date(typePrep.created_at) }}</span>
+      </v-chip>
+      <v-chip class="ma-1" v-if="typePrep.created_at != typePrep.updated_at" color="primary" label>
+       <span class="p-1"> تم التحديث </span>
+       <span class="p-1">{{ date(typePrep.updated_at) }}</span>
+      </v-chip>
       <v-chip class="ma-1" color="primary" label>
        <span class="p-1">{{ typePrep.cont_hours }}</span> <span class="p-1"> ساعة </span>
       </v-chip>
@@ -64,8 +73,11 @@
        <span class="p-1"> ساعة </span>
       </v-chip>
       <!-- <v-chip color="primary" label> <span class="p-1"> وقت التحضير </span> </v-chip> -->
-      <v-chip color="primary" label>
-       <span class="p-1">{{ date(typePrep.actual_time) }}</span>
+      <v-chip class="ma-1" color="primary" label>
+       <span style="text-wrap: wrap;" class="p-1">{{ date(typePrep.actual_time) }}</span>
+      </v-chip>
+      <v-chip class="ma-1" color="primary" label>
+       <span class="p-1">{{ typePrep.user_name }}</span> <span class="p-1"> بواسطة </span>
       </v-chip>
      </div>
     </v-card>
@@ -80,6 +92,7 @@ import { usemainStore } from '@/store/mainStore';
 import addPreparationComponent from '../components/preparation/addPreparationComponent.vue';
 const store = usemainStore();
 const typePreparationData = ref([]);
+
 
 const dateN = new Date(); // الحصول على التاريخ والوقت الحاليين
 const hoursToAdd = 1; // عدد الساعات المراد إضافتها
@@ -116,8 +129,11 @@ function typePreparFunc() {
    const newPreparationData = {
     id: store.typePreparation[i].id,
     name: store.typePreparation[i].name,
+    updated_at: store.typePreparation[i].updated_at,
+    created_at: store.typePreparation[i].created_at,
     actual_time: store.typePreparation[i].latest_preparation_actual.actual_time,
     cont_hours: store.typePreparation[i].latest_preparation_actual.cont_hours,
+    user_name: store.typePreparation[i].latest_preparation_actual.user.name,
     hoursDifference: calculateHoursDifference(
      store.typePreparation[i].latest_preparation_actual.actual_time
     ).toFixed(2),
@@ -141,7 +157,7 @@ function typePreparFunc() {
 <style scoped>
 .addPreparation {
  position: fixed;
- top: 90%;
+ top: 85%;
  left: 67%;
  z-index: 999;
 }
@@ -179,5 +195,10 @@ a {
  position: absolute;
  display: block;
  z-index: 1;
+}
+.d-flex {
+ display: flex !important;
+ align-content: stretch;
+ flex-wrap: wrap;
 }
 </style>

@@ -28,7 +28,7 @@ class TypePreparationController extends Controller
         }
         $stationIds = $stations->pluck('id');
         $typePreparations = TypePreparation::whereIn('station_id', $stationIds)->get();
-        $typePreparations->load('latestPreparationActual');
+        $typePreparations->load('latestPreparationActual.user');
         return $typePreparations;
     }
 
