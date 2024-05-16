@@ -20,7 +20,7 @@
     "src": "resources/js/assets/Report.png"
   },
   "resources/js/main.css": {
-    "file": "assets/main-d5775cdd.css",
+    "file": "assets/main-f676f948.css",
     "src": "resources/js/main.css"
   },
   "resources/js/main.js": {
@@ -32,9 +32,9 @@
       "assets/materialdesignicons-webfont-61e8aba5.ttf"
     ],
     "css": [
-      "assets/main-d5775cdd.css"
+      "assets/main-f676f948.css"
     ],
-    "file": "assets/main-0341f72d.js",
+    "file": "assets/main-c517d70b.js",
     "isEntry": true,
     "src": "resources/js/main.js"
   },
