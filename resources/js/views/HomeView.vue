@@ -74,10 +74,11 @@
       </v-chip>
       <!-- <v-chip color="primary" label> <span class="p-1"> وقت التحضير </span> </v-chip> -->
       <v-chip class="ma-1" color="primary" label>
-       <span style="text-wrap: wrap;" class="p-1">{{ date(typePrep.actual_time) }}</span>
+       <span style="text-wrap: wrap" class="p-1">{{ date(typePrep.actual_time) }}</span>
       </v-chip>
       <v-chip v-if="typePrep.user_name" class="ma-1" color="primary" label>
-       <span class="p-1">{{ typePrep.user_name }}</span> <span class="p-1"> بواسطة </span>
+       <span class="p-1"> بواسطة </span>
+       <span class="p-1">{{ typePrep.user_name }}</span>
       </v-chip>
      </div>
     </v-card>
