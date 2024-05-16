@@ -7,6 +7,7 @@ import StationsView from "../views/stations/StationsView.vue";
 import StationView from "../views/stations/StationView.vue";
 import userEdit from "../views/user/editProfil.vue";
 import Users from "../views/user/users.vue";
+import UserView from "../views/user/user.vue";
 import ReportView from "../views/reports/ReportView.vue";
 import ReportsView from "../views/reports/ReportsView.vue";
 import VacationsView from "../views/Vacations/VacationsView.vue";
@@ -62,6 +63,11 @@ const routes = [
         name: "users",
         component: Users,
         meta: { title: "Users" },
+    },{
+        path: "/user/:id",
+        name: "user",
+        component: UserView,
+        meta: { title: "User" },
     },
     {
         path: "/vacations",

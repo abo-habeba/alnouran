@@ -46,14 +46,14 @@
    {{ $t('noData') }}
   </div>
   <div v-else>
-   <v-card color="grey-lighten-2" class="my-3 p-3" v-for="(report, i) in store.reports" :key="i">
+   <v-card class="my-3" v-for="(report, i) in store.reports" :key="i">
     <router-link class="nav-link" :to="`/report/${report.id}`">
      <div id="textShare">
       <v-card-title>
        <v-chip class="float-start">{{ report.user.name }}</v-chip>
        <v-chip class="float-end">{{ report.station.name }}</v-chip>
       </v-card-title>
-      <v-card-text class="my-2 text-content">{{ report.body }}</v-card-text>
+      <pre class="my-2 text-content">{{ report.body }}</pre>
       <v-chip class="m-1">{{ date(report.created_at) }}</v-chip>
       <v-chip class="m-1">{{ timeSinceReport(report.created_at) }}</v-chip>
      </div>
@@ -64,7 +64,10 @@
      <div v-if="report.user.id == store.user.id" class="float-right mr-4">
       <span class="clickd mdi mdi-file-edit-outline" @click="update(report)"></span>
      </div>
-     <div v-if="report.user.id == store.user.id" class="float-right mx-4">
+     <div
+      v-if="report.user.id == store.user.id || store.user.roles == 'admin'"
+      class="float-right mx-4"
+     >
       <span class="clickd mdi mdi-delete-outline" @click="deleted(report.id)"></span>
      </div>
      <span class="mx-3 clickd mdi mdi-share-outline" @click="share(report)"></span>
@@ -183,7 +186,7 @@ function addComment(report) {
 </style>
 <style>
 #textShare {
- background-color: #f5f5f5;
+ /* background-color: #f5f5f5; */
  border-radius: 6px;
 }
 </style>

@@ -33,7 +33,7 @@ import SnackbarComponent from './components/SnackbarComponent.vue';
 import { usemainStore } from './store/mainStore';
 const store = usemainStore();
 const BASE_URL = window.location.origin + '/api/';
-console.log(window.location.origin, '&&', BASE_URL);
+// console.log(window.location.origin, '&&', BASE_URL);
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 onMounted(() => {

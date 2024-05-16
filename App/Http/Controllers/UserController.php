@@ -76,7 +76,7 @@ class UserController extends Controller
     public function show($userId)
     {
         $user = User::findOrFail($userId);
-        return $user->load('stations.reports.user', 'stations.reports.comments', 'absences', 'restBalance', 'restallowance');
+        return $user->load('stations.reports.user', 'stations.reports.comments.user', 'absences', 'restBalance', 'restallowance','regularBalance');
     }
     public function getUserReports($userId)
     {

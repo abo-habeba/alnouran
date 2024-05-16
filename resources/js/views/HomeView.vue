@@ -1,5 +1,5 @@
 <template>
- <div style="position: relative;">
+ <div style="position: relative">
   <div class="addPreparation">
    <addPreparationComponent />
   </div>
@@ -34,9 +34,6 @@
    </v-col>
   </v-row>
   <v-row>
-   <v-col cols="5"> </v-col>
-  </v-row>
-  <v-row>
    <v-col cols="12" xs="6" sm="8" md="4" v-for="typePrep in typePreparationData" :key="typePrep.id">
     <v-card class="p-3" v-if="typePreparationData">
      <div class="preparation_box">
@@ -47,7 +44,7 @@
       <div
        :style="{
         height: 100 - typePrep.percentage + '%',
-        'background-color': 100 - typePrep.percentage <= 20 ? 'red' : '#14cc14',
+        'background-color': 100 - typePrep.percentage <= 10 ? 'red' : '#14cc14',
        }"
        class="preparation_fill"
       ></div>
@@ -62,7 +59,7 @@
        <span class="p-1"> ساعة </span>
       </v-chip>
       <v-chip class="ma-2" color="primary" label>
-       <span class="p-1"> وقت التحضير </span>
+       <span class="p-1"> وقت التحضير </span><br>
        <span class="p-1">{{ date(typePrep.actual_time) }}</span>
       </v-chip>
      </div>
@@ -84,9 +81,7 @@ const hoursToAdd = 1; // عدد الساعات المراد إضافتها
 const oneHourInMilliseconds = 3600000; // تحويل ساعة إلى مللي ثانية
 dateN.setTime(dateN.getTime() + hoursToAdd * oneHourInMilliseconds);
 const now = moment();
-console.log(dateN);
 const diff = moment(dateN).diff(now, 'hours');
-console.log(diff);
 function percentageResalt(percentage) {
  return percentage.toFixed();
 }

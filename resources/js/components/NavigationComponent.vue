@@ -83,9 +83,10 @@ const handleResize = () => {
 };
 </script>
 <style>
-.navbar-width {
+/* .navbar-width {
     width: fit-content !important;
-}
+} 
+*/
 
 .v-navigation-drawer {
     position: fixed !important;
