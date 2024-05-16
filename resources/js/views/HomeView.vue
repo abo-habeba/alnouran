@@ -92,7 +92,7 @@ import { usemainStore } from '@/store/mainStore';
 import addPreparationComponent from '../components/preparation/addPreparationComponent.vue';
 const store = usemainStore();
 const typePreparationData = ref([]);
-
+console.log(typePreparationData);
 
 const dateN = new Date(); // الحصول على التاريخ والوقت الحاليين
 const hoursToAdd = 1; // عدد الساعات المراد إضافتها
@@ -144,6 +144,7 @@ function typePreparFunc() {
     ).toFixed(2),
    };
    typePreparationData.value.push(newPreparationData);
+   console.log(typePreparationData);
   }
   function calculateHoursDifference(actualTime) {
    const dataTime = new Date(actualTime);
