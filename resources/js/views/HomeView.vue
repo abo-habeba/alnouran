@@ -55,12 +55,12 @@
       </v-chip>
       <v-chip class="ma-1" color="primary" label>
        <span class="p-1"> منذ </span>
-       <span class="p-1">{{ timeSinceReport(typePrep.actual_time) }}</span>
+       <span class="p-1">{{ timeSince(typePrep.actual_time) }}</span>
        <span class="p-1"> ساعة </span>
       </v-chip>
       <v-chip class="ma-1" color="primary" label>
        <span class="p-1"> متبقي </span>
-       <span class="p-1">{{ (typePrep.cont_hours - timeSinceReport(typePrep.actual_time).toFixed(2)) }}</span>
+       <span class="p-1">{{ timeSince2(typePrep.actual_time, typePrep.cont_hours) }}</span>
        <span class="p-1"> ساعة </span>
       </v-chip>
       <!-- <v-chip color="primary" label> <span class="p-1"> وقت التحضير </span> </v-chip> -->
@@ -90,10 +90,15 @@ const diff = moment(dateN).diff(now, 'hours');
 function percentageResalt(percentage) {
  return percentage.toFixed();
 }
-function timeSinceReport(time) {
+function timeSince(time) {
  //  return moment(time).fromNow();
  const now = moment();
  return -moment(time).diff(now, 'hours', true).toFixed(2);
+}
+function timeSince2(actual_time, cont_hours) {
+ const now = moment();
+ const actua_time = -moment(actual_time).diff(now, 'hours', true);
+ return (cont_hours - actua_time).toFixed(2);
 }
 function date(d) {
  return moment(d).format('dddd :- h:mm A - MM/DD ');
@@ -103,7 +108,6 @@ onMounted(() => {
  store.getUser();
  store.getReports();
  typePreparFunc();
-
 });
 
 function typePreparFunc() {
