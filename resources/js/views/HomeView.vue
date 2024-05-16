@@ -60,7 +60,7 @@
       </v-chip>
       <v-chip class="ma-1" color="primary" label>
        <span class="p-1"> متبقي </span>
-       <span class="p-1">{{ typePrep.cont_hours - timeSinceReport(typePrep.actual_time) }}</span>
+       <span class="p-1">{{ (typePrep.cont_hours - timeSinceReport(typePrep.actual_time).toFixed(2)) }}</span>
        <span class="p-1"> ساعة </span>
       </v-chip>
       <!-- <v-chip color="primary" label> <span class="p-1"> وقت التحضير </span> </v-chip> -->
