@@ -15,8 +15,6 @@
        :rows="1"
        auto-grow
        v-model="newReport.body"
-       @keydown.enter="handleEnterKey"
-       @focus="handlefocus"
        :label="$t('addReport')"
        :rules="[v => !!v || 'This field is required']"
       ></v-textarea>
@@ -45,17 +43,17 @@ import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import moment from 'moment';
 const stations = ref(['getData']);
-function handleEnterKey(event) {
- if (event.key === 'Enter') {
-  // تنفيذ السلوك الذي تريده عند الضغط على زر Enter هنا
-  console.log('تم الضغط على زر Enter!');
-  event.preventDefault();
-  newReport.value.body += '\n=>  ';
- }
-}
-function handlefocus() {
- newReport.value.body = '=>  ';
-}
+// function handleEnterKey(event) {
+//  if (event.key === 'Enter') {
+//   // تنفيذ السلوك الذي تريده عند الضغط على زر Enter هنا
+//   console.log('تم الضغط على زر Enter!');
+//   event.preventDefault();
+//   newReport.value.body += '\n=>  ';
+//  }
+// }
+// function handlefocus() {
+//  newReport.value.body = '=>  ';
+// }
 const newReport = ref({});
 const dialog = ref();
 function addReport() {

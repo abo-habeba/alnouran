@@ -54,7 +54,7 @@
       <v-chip class="float-start">{{ report.user.name }}</v-chip>
       <v-chip class="float-end">{{ report.station.name }}</v-chip>
      </v-card-title>
-     <v-card-text color="grey-lighten-4" class="my-2 text-content">{{ report.body }}</v-card-text>
+     <pre class="my-2 text-content">{{ report.body }}</pre>
      <v-chip class="m-1">{{ date(report.created_at) }}</v-chip>
      <v-chip class="m-1">{{ timeSinceReport(report.created_at) }}</v-chip>
     </div>

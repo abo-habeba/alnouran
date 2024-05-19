@@ -1,134 +1,176 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import AuthView from "../views/AuthView.vue";
-import Register from "../views/RegisterView.vue";
-import LoginView from "../views/LoginView.vue";
-import StationsView from "../views/stations/StationsView.vue";
-import StationView from "../views/stations/StationView.vue";
-import userEdit from "../views/user/editProfil.vue";
-import Users from "../views/user/users.vue";
-import UserView from "../views/user/user.vue";
-import ReportView from "../views/reports/ReportView.vue";
-import ReportsView from "../views/reports/ReportsView.vue";
-import VacationsView from "../views/Vacations/VacationsView.vue";
-import restallowance from "../views/Vacations/Restallowance.vue";
-import typePreparationView from "../views/preparation/preparationView.vue";
-import NotFound from "../views/NotFound.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import AuthView from '../views/AuthView.vue';
+import Register from '../views/RegisterView.vue';
+import LoginView from '../views/LoginView.vue';
+import StationsView from '../views/stations/StationsView.vue';
+import StationView from '../views/stations/StationView.vue';
+import userEdit from '../views/user/editProfil.vue';
+import Users from '../views/user/users.vue';
+import UserView from '../views/user/user.vue';
+import ReportView from '../views/reports/ReportView.vue';
+import ReportsView from '../views/reports/ReportsView.vue';
+import VacationsView from '../views/Vacations/VacationsView.vue';
+import restallowance from '../views/Vacations/Restallowance.vue';
+import typePreparationView from '../views/preparation/preparationView.vue';
+import NotFound from '../views/NotFound.vue';
+import appView from '../views/appView.vue';
 
 const routes = [
-    {
-        path: "/",
-        name: "home",
-        component: HomeView,
-        meta: { title: "Home" },
-    },
-    {
-        path: "/stations",
-        name: "stations",
-        component: StationsView,
-        meta: { title: "Stations" },
-    },
-    {
-        path: "/station/:id",
-        name: "station",
-        component: StationView,
-        meta: { title: "Station" },
-    },
-    {
-        path: "/user/edit",
-        name: "userEdit",
-        component: userEdit,
-        meta: { title: "User Edit" },
-    },
-    {
-        path: "/rest",
-        name: "rest",
-        component: restallowance,
-        meta: { title: "Rest allowance" },
-    },
-    {
-        path: "/reports",
-        name: "reports",
-        component: ReportsView,
-        meta: { title: "Reports" },
-    },
-    {
-        path: "/report/:id",
-        name: "report",
-        component: ReportView,
-        meta: { title: "Report" },
-    },
-    {
-        path: "/users",
-        name: "users",
-        component: Users,
-        meta: { title: "Users" },
-    },{
-        path: "/user/:id",
-        name: "user",
-        component: UserView,
-        meta: { title: "User" },
-    },
-    {
-        path: "/vacations",
-        name: "vacations",
-        component: VacationsView,
-        meta: { title: "Vacations" },
-    },
-    {
-        path: "/preparation",
-        name: "preparation",
-        component: typePreparationView,
-        meta: { title: "Preparation" },
-    },
-    {
-        path: "/auth",
-        name: "auth",
-        component: AuthView,
-        meta: { title: "Auth" },
-        children: [
-            {
-                path: "register",
-                name: "register",
-                component: Register,
-                meta: { title: "Register" },
-            },
-            {
-                path: "login",
-                name: "login",
-                component: LoginView,
-                meta: { title: "Log In" },
-            },
-        ],
-    },
-    {
-        path: "/:path(.*)*",
-        name: "notfound",
-        component: NotFound,
-    },
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView,
+    meta: { title: 'Home' },
+  },
+  {
+    path: '/appDaow',
+    name: 'appDaow',
+    component: appView,
+    meta: { title: 'App Daow' },
+  },
+  {
+    path: '/stations',
+    name: 'stations',
+    component: StationsView,
+    meta: { title: 'Stations' },
+  },
+  {
+    path: '/station/:id',
+    name: 'station',
+    component: StationView,
+    meta: { title: 'Station' },
+  },
+  {
+    path: '/user/edit',
+    name: 'userEdit',
+    component: userEdit,
+    meta: { title: 'User Edit' },
+  },
+  {
+    //rest
+    path: '/rest',
+    name: 'rest',
+    component: restallowance,
+    meta: { title: 'Rest allowance' },
+  },
+  {
+    //reports
+    path: '/reports',
+    name: 'reports',
+    component: ReportsView,
+    meta: { title: 'Reports' },
+  },
+  {
+    ///report/:id
+    path: '/report/:id',
+    name: 'report',
+    component: ReportView,
+    meta: { title: 'Report' },
+  },
+  {
+    //users
+    path: '/users',
+    name: 'users',
+    component: Users,
+    meta: { title: 'Users' },
+  },
+  {
+    ///user/:id
+    path: '/user/:id',
+    name: 'user',
+    component: UserView,
+    meta: { title: 'User' },
+  },
+  {
+    //vacations
+    path: '/vacations',
+    name: 'vacations',
+    component: VacationsView,
+    meta: { title: 'Vacations' },
+  },
+  {
+    //preparation
+    path: '/preparation',
+    name: 'preparation',
+    component: typePreparationView,
+    meta: { title: 'Preparation' },
+  },
+  {
+    //auth
+    path: '/auth',
+    name: 'auth',
+    component: AuthView,
+    meta: { title: 'Auth' },
+    children: [
+      {
+        path: 'register',
+        name: 'register',
+        component: Register,
+        meta: { title: 'Register' },
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: LoginView,
+        meta: { title: 'Log In' },
+      },
+    ],
+  },
+  {
+    path: '/:path(.*)*',
+    name: 'notfound',
+    component: NotFound,
+  },
 ];
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  history: createWebHistory(),
+  routes,
 });
 
+// router.beforeEach((to, from, next) => {
+//  document.title = to.meta.title || 'atsh';
+//  const token = localStorage.getItem('token');
+//  if (to.name === 'app') {
+//   next();
+//   return;
+//  }
+//  if (token) {
+//   // التوكن موجود، يتم توجيه المستخدم إلى الصفحة الرئيسية
+//   if (to.name === 'login' || to.name === 'register' || to.name === 'auth') {
+//    next({ name: 'home' });
+//   } else {
+//    next();
+//   }
+//  } else {
+//   // التوكن غير موجود، يتم توجيه المستخدم إلى صفحة تسجيل الدخول
+//   if (to.name !== 'auth' && to.name !== 'login' && to.name !== 'register') {
+//    next({ name: 'login' });
+//   } else {
+//    next();
+//   }
+//  }
+// });
 router.beforeEach((to, from, next) => {
-    document.title = to.meta.title || "atsh";
-    const token = localStorage.getItem("token");
+  document.title = to.meta.title || 'atsh';
+  const token = localStorage.getItem('token');
+  if (to.name === 'appDaow') {
+    return next();
+  } else {
     if (token) {
-        // التوكن موجود، يتم توجيه المستخدم إلى الصفحة الرئيسية
-        if (to.name === "login" || to.name === "register" || to.name === "auth") {
-            next({ name: "home" });
-        } else {
-            next();
-        }
+      if (to.name === 'login' || to.name === 'register' || to.name === 'auth') {
+        next({ name: 'home' });
+      } else {
+        next();
+      }
     } else {
-        // التوكن غير موجود، يتم توجيه المستخدم إلى صفحة تسجيل الدخول
-        if (to.name !== "auth" && to.name !== "login" && to.name !== "register") {
-            next({ name: "login" });
-        } else {
-            next();
-        }
+      if (to.name !== 'auth' && to.name !== 'login' && to.name !== 'register') {
+        next({ name: 'login' });
+      } else {
+        next();
+      }
     }
+  }
 });
+
 export default router;

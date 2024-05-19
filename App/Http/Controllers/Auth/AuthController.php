@@ -52,19 +52,32 @@ class AuthController extends Controller
             ], 401);
         }
     }
-    public function logout(Request $request)
-    {
-        // $tokenId = intval(explode("|", request()->bearerToken())[0]);
-        // $user = $request->user();
-        // $request->session()->invalidate();
-        // $user->tokens()->where('id', $tokenId)->delete();
-        // return response()->json([$tokenId, $user]);
+    // public function logout(Request $request)
+    // {
+       
+    //     $request->user()->currentAccessToken()->delete();
+    //     return response()->json('Logged out successfully', 200);
+    // }
 
-        // تأكد من تسجيل دخول المستخدم
-        // if (!Auth::check()) {
-        //     return response()->json('Unauthorized', 401);
-        // }
-        $request->user()->currentAccessToken()->delete();
-        return response()->json('Logged out successfully', 200);
-    }
+    
+// public function logout(Request $request)
+// {
+//     // الحصول على المستخدم الحالي
+//     $user = $request->user();
+
+//     // حذف جميع التوكنات للمستخدم الحالي
+//     $user->tokens()->delete();
+
+//     return response()->json(['message' => 'Successfully logged out'], 200);
+// }
+public function logout(Request $request)
+{
+    // الحصول على التوكن الحالي من خلال الكائن Request
+    $token = $request->user()->currentAccessToken();
+
+    // حذف التوكن الحالي
+    $token->delete();
+
+    return response()->json(['message' => 'Successfully logged out'], 200);
+}
 }
