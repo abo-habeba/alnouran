@@ -32,6 +32,7 @@ export const usemainStore = defineStore('mainStore', {
     axios
      .get(`check`)
      .then(res => {
+      console.log(res);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       this.auth = true;
      })

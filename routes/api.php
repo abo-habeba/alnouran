@@ -39,6 +39,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user/{userID}/reports', [UserController::class, 'getUserReports']);
     Route::get('/check', [UserController::class, 'authCheck']);
+    Route::get('/check2', [UserController::class, 'authCheck2']);
 });
 
 Route::apiResource('/Stations', StationController::class);

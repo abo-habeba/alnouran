@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\RegularBalance;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -88,20 +89,11 @@ class UserController extends Controller
     public function authCheck(Request $request)
     {
         return 'authCheck ok';
-        // $user = $request->user();
-        // $requestTokenId = intval(explode("|", request()->bearerToken())[0]);
-        // $tokenId = $user->tokens()->where('id', $requestTokenId)->first();
-        // if ($tokenId) {
-        //     if ($tokenId->id == $requestTokenId) {
-        //         return response()->json(true);
-        //     } else {
-        //         $request->session()->invalidate();
-        //         return response()->json(false);
-        //     }
-        // } else {
-        //     $request->session()->invalidate();
-        //     return response()->json(false);
-        // }
+    }
+    public function authCheck2(Request $request)
+    {
+        $user = Auth::User();
+        return $user;
     }
     public function destroy(Request $request, $id)
     {
