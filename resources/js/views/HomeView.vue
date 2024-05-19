@@ -70,7 +70,7 @@
         </router-link>
       </v-card-item>
     </v-card>
-    <v-row class="div-balance text-center">
+    <!-- <v-row class="div-balance text-center">
       <v-col cols="12">
         <router-link to="/vacations">
           <div class="box-balance">
@@ -79,7 +79,7 @@
           </div>
         </router-link>
       </v-col>
-    </v-row>
+    </v-row> -->
     <v-row>
       <v-col cols="12" v-for="typePrep in typePreparationData" :key="typePrep.id">
         <v-card class="p-39j" v-if="typePreparationData">

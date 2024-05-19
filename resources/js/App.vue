@@ -6,7 +6,7 @@
       <NavigationComponent v-if="store.auth" />
       <v-main>
         <v-container>
-          <v-btn @click="authCheck2" class="mt-2"> authCheck2 </v-btn>
+          <!-- <v-btn @click="authCheck2" class="mt-2"> authCheck2 </v-btn> -->
           <router-view />
         </v-container>
       </v-main>

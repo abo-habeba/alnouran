@@ -26,7 +26,7 @@
       <v-btn @click="toLogIn" class="mt-2">
         {{ $t('LogIn') }}
       </v-btn>
-      <v-btn @click="authCheck2" class="mt-2"> authCheck2 </v-btn>
+      <!-- <v-btn @click="authCheck2" class="mt-2"> authCheck2 </v-btn> -->
     </div>
     <div>
       <span>{{ $t('dontAccount') }}</span>
