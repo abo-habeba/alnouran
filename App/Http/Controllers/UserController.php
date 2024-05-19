@@ -11,6 +11,7 @@ use App\Models\RegularBalance;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -77,7 +78,7 @@ class UserController extends Controller
     public function show($userId)
     {
         $user = User::findOrFail($userId);
-        return $user->load('stations.reports.user', 'stations.reports.comments.user', 'absences', 'restBalance', 'restallowance','regularBalance');
+        return $user->load('stations.reports.user', 'stations.reports.comments.user', 'absences', 'restBalance', 'restallowance', 'regularBalance');
     }
     public function getUserReports($userId)
     {
@@ -92,8 +93,19 @@ class UserController extends Controller
     }
     public function authCheck2(Request $request)
     {
-        $user = Auth::User();
-        return $user;
+        // $user = Auth::User();
+        // return $user;
+        $token = $request->bearerToken();
+
+        // التحقق من صلاحية التوكن
+        $accessToken = PersonalAccessToken::findToken($token);
+
+        if (!$accessToken || !$accessToken->tokenable) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        // التوكن صالح، يمكنك تنفيذ العمليات الأخرى هنا
+        return response()->json(['message' => 'Token is valid']);
     }
     public function destroy(Request $request, $id)
     {
