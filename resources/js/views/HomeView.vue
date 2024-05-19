@@ -80,7 +80,7 @@
         </router-link>
       </v-col>
     </v-row> -->
-    <v-row>
+    <v-row class="my-3">
       <v-col cols="12" v-for="typePrep in typePreparationData" :key="typePrep.id">
         <v-card class="p-39j" v-if="typePreparationData">
           <div class="preparation_box">
