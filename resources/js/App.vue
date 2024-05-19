@@ -57,7 +57,7 @@ window.addEventListener('beforeunload', function (event) {
 });
 function authCheck2() {
   axios
-    .get('authCheck2')
+    .get('check2')
     .then(res => {
       console.log(res);
     })

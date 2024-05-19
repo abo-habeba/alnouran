@@ -42,7 +42,7 @@ import axios from 'axios';
 const userLog = ref({});
 function authCheck2() {
   axios
-    .get('authCheck2')
+    .get('check2')
     .then(res => {
       console.log(res);
     })
