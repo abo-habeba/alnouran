@@ -95,16 +95,17 @@ class UserController extends Controller
     {
         // $user = Auth::User();
         // return $user;
-        $token = $request->bearerToken();
+        // $token = $request->bearerToken();
 
-        // التحقق من صلاحية التوكن
-        $accessToken = PersonalAccessToken::findToken($token);
+        // // التحقق من صلاحية التوكن
+        // $accessToken = PersonalAccessToken::findToken($token);
 
-        if (!$accessToken || !$accessToken->tokenable) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
+        // if (!$accessToken || !$accessToken->tokenable) {
+        //     return response()->json(['message' => 'Unauthorized'], 401);
+        // }
 
-        // التوكن صالح، يمكنك تنفيذ العمليات الأخرى هنا
+        // // التوكن صالح، يمكنك تنفيذ العمليات الأخرى هنا
+        // return response()->json(['message' => 'Token is valid']);
         return response()->json(['message' => 'Token is valid']);
     }
     public function destroy(Request $request, $id)
