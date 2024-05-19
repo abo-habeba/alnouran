@@ -91,7 +91,7 @@ class UserController extends Controller
     {
         return 'authCheck ok';
     }
-    public function authCheck2(Request $request)
+    public function authCheck2()
     {
         // $user = Auth::User();
         // return $user;
