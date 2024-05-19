@@ -1,7 +1,12 @@
 <template>
+  <v-dialog v-model="dialogedit">
+    <v-card class="p-3">
+      <v-card-title> جار العمل علي تعديل التحضرة </v-card-title>
+    </v-card>
+  </v-dialog>
   <v-dialog v-model="dialogOpenIn">
     <v-card class="p-3">
-      <v-card-title>{{ PreparationData.name }}</v-card-title>
+      <v-card-title><span> تفاصيل تحضيرة </span> {{ PreparationData.name }}</v-card-title>
       <v-chip class="ma-1" color="primary" label>
         <span class="p-1">{{ PreparationData.cont_hours }}</span> <span class="p-1"> ساعة </span>
       </v-chip>
@@ -86,6 +91,13 @@
               variant="text"
               @click="openInFun(typePrep)"
             ></v-btn>
+            <v-btn
+              class="ma-3 btnEdit"
+              color="red-lighten-6"
+              icon="mdi-text-box-edit-outline"
+              variant="text"
+              @click="editInFun()"
+            ></v-btn>
             <div class="percentage">
               <p>{{ typePrep.user_name }}</p>
               <p>{{ typePrep.name }}</p>
@@ -126,6 +138,7 @@ const store = usemainStore();
 const typePreparationData = ref([]);
 const PreparationData = ref('');
 const dialogOpenIn = ref(false);
+const dialogedit = ref(false);
 const hoursToAdd = 1; // عدد الساعات المراد إضافتها
 const dateN = new Date(); // الحصول على التاريخ والوقت الحاليين
 const oneHourInMilliseconds = 3600000; // تحويل ساعة إلى مللي ثانية
@@ -135,6 +148,9 @@ const diff = moment(dateN).diff(now, 'hours');
 function openInFun(typePrep) {
   PreparationData.value = typePrep;
   dialogOpenIn.value = true;
+}
+function editInFun() {
+  dialogedit.value = true;
 }
 function percentageResalt(percentage) {
   return percentage.toFixed();
@@ -242,6 +258,12 @@ a {
 .open-in {
   position: absolute;
   top: -9%;
+  right: -3%;
+  z-index: 9;
+}
+.btnEdit {
+  position: absolute;
+  top: 25%;
   right: -3%;
   z-index: 9;
 }
