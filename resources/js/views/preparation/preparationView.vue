@@ -109,8 +109,10 @@ onMounted(() => {
       store.startSnack('error', 'no', 'danger');
     });
   store.getTypePre('preparations.user').then(() => {
+    console.log(store.preparations);
     typePreparationAll.value = store.preparations;
-    // store.overlay = false;
+    console.log(typePreparationAll.value);
+    store.overlay = false;
   });
 });
 function timeSinceReport(time) {
