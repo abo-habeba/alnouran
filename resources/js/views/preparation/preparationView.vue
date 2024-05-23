@@ -108,8 +108,8 @@ onMounted(() => {
     .catch(() => {
       store.startSnack('error', 'no', 'danger');
     });
-    axios.get(`typePre?relation=preparations.user`).then((res) => {
-    console.log(store.preparations);
+  axios.get(`typePre?relation=preparations.user`).then(res => {
+    // console.log(store.preparations);
     typePreparationAll.value = res.data;
     console.log(typePreparationAll.value);
     store.overlay = false;
