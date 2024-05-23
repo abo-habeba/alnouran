@@ -128,9 +128,11 @@ export const usemainStore = defineStore('mainStore', {
         try {
           if ((relation = 'latestPreparationActual.user')) {
             this.typePreparation = response.data;
+            console.log(this.typePreparation);
           }
           if ((relation = 'preparations.user')) {
             this.preparations = response.data;
+            console.log(this.preparations);
           }
           resolve(response.data);
         } catch (error) {
