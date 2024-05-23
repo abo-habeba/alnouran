@@ -1,9 +1,43 @@
 <template>
+  <!-- start progress -->
+  <!-- <v-card v-for="{ src, title, subtitle } in cards" :key="title" max-width="800" rounded="lg" theme="dark">
+
+          <v-skeleton-loader :loading="loading" height="240" type="image, list-item-two-line">
+            <v-responsive>
+              <v-img :src="src" class="rounded-lg mb-2" height="184" cover></v-img>
+              <v-list-item :subtitle="subtitle" :title="title" class="px-0"></v-list-item>
+            </v-responsive>
+          </v-skeleton-loader>
+      <br />
+      <v-chip prepend-icon="mdi-check-circle" size="large" variant="text" border>
+        <template v-slot:prepend>
+          <v-icon color="disabled"></v-icon>
+        </template>
+        <span class="text-subtitle-1">
+          Homemade Dulce de Leche Ice Cream with Chocolate Chips
+        </span>
+      </v-chip>
+  </v-card> -->
+  <!-- end progress -->
+  <!-- start progress -->
+  <v-overlay v-model="overlay">
+    <div class="overlay-box">
+      <v-progress-circular
+        :size="150"
+        :width="7"
+        color="purple"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+  </v-overlay>
+  <!-- end progress -->
+  <!-- start dialogedit -->
   <v-dialog v-model="dialogedit">
     <v-card class="p-3">
       <v-card-title> جار العمل علي تعديل التحضرة </v-card-title>
     </v-card>
   </v-dialog>
+  <!-- end dialogedit -->
   <v-dialog v-model="dialogOpenIn">
     <v-card class="p-3">
       <v-card-title><span> تفاصيل تحضيرة </span> {{ PreparationData.name }}</v-card-title>
@@ -33,16 +67,16 @@
       </v-chip>
       <v-chip class="ma-1" color="primary" label>
         <span class="p-1"> تم الانشاء </span>
-        <span class="p-1">{{ date(PreparationData.created_at) }}</span>
+        <span class="p-1">{{ date(PreparationData.created) }}</span>
       </v-chip>
       <v-chip
         class="ma-1"
-        v-if="PreparationData.created_at != PreparationData.updated_at"
+        v-if="PreparationData.created != PreparationData.updated"
         color="primary"
         label
       >
         <span class="p-1"> تم التحديث </span>
-        <span class="p-1">{{ date(PreparationData.updated_at) }}</span>
+        <span class="p-1">{{ date(PreparationData.updated) }}</span>
       </v-chip>
     </v-card>
   </v-dialog>
@@ -51,7 +85,7 @@
       <addPreparationComponent />
     </div>
     <!-- <speedDialComponent/> -->
-    <v-card class="mx-auto" width="100%" elevation="2">
+    <v-card class="mx-auto" width="100%" variant="tonal" elevation="9">
       <routerLink to="/user/edit">
         <v-card-title>
           {{ store.user.name }}
@@ -82,7 +116,7 @@
     </v-row> -->
     <v-row class="my-3">
       <v-col cols="12" v-for="typePrep in typePreparationData" :key="typePrep.id">
-        <v-card class="p-39j" v-if="typePreparationData">
+        <v-card class="p-39j" elevation="5" v-if="typePreparationData">
           <div class="preparation_box">
             <v-btn
               class="ma-3 open-in"
@@ -134,11 +168,13 @@ import moment from 'moment';
 import { onMounted, ref, computed } from 'vue';
 import { usemainStore } from '@/store/mainStore';
 import addPreparationComponent from '../components/preparation/addPreparationComponent.vue';
+import { tr } from 'vuetify/locale';
 const store = usemainStore();
 const typePreparationData = ref([]);
 const PreparationData = ref('');
 const dialogOpenIn = ref(false);
 const dialogedit = ref(false);
+const overlay = ref(true);
 const hoursToAdd = 1; // عدد الساعات المراد إضافتها
 const dateN = new Date(); // الحصول على التاريخ والوقت الحاليين
 const oneHourInMilliseconds = 3600000; // تحويل ساعة إلى مللي ثانية
@@ -176,13 +212,13 @@ onMounted(() => {
 });
 
 function typePreparFunc() {
-  store.getTypePre().then(() => {
+  store.getTypePre('latestPreparationActual.user').then(() => {
     for (let i = 0; i < store.typePreparation.length; i++) {
       const newPreparationData = {
         id: store.typePreparation[i].id,
         name: store.typePreparation[i].name,
-        updated_at: store.typePreparation[i].updated_at,
-        created_at: store.typePreparation[i].created_at,
+        updated: store.typePreparation[i].latest_preparation_actual.updated_at,
+        created: store.typePreparation[i].latest_preparation_actual.created_at,
         actual_time: store.typePreparation[i].latest_preparation_actual.actual_time,
         cont_hours: store.typePreparation[i].latest_preparation_actual.cont_hours,
         user_name: store.typePreparation[i].latest_preparation_actual.user.name,
@@ -198,7 +234,7 @@ function typePreparFunc() {
         ).toFixed(2),
       };
       typePreparationData.value.push(newPreparationData);
-      console.log(typePreparationData);
+      overlay.value = false;
     }
     function calculateHoursDifference(actualTime) {
       const dataTime = new Date(actualTime);
@@ -210,6 +246,15 @@ function typePreparFunc() {
 }
 </script>
 <style scoped>
+.overlay-box {
+  width: 100vw;
+  height: 100vh;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
 .addPreparation {
   position: fixed;
   top: 85%;

@@ -22,7 +22,7 @@ class TypePreparation extends Model
     }
     public function preparations()
     {
-        return $this->hasMany(Preparation::class);
+        return $this->hasMany(Preparation::class, 'typePreparation_id');
     }
     public function user()
     {

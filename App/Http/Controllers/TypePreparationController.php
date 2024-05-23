@@ -28,9 +28,11 @@ class TypePreparationController extends Controller
         if ($stations->isEmpty()) {
             return ['لا يوجد محطات مرتبطة بالمستخدم'];
         }
+        $relations = request()->relation;
+        // 'latestPreparationActual.user'
         $stationIds = $stations->pluck('id');
         $typePreparations = TypePreparation::whereIn('station_id', $stationIds)->get();
-        $typePreparations->load('latestPreparationActual.user');
+        $typePreparations->load($relations);
         return $typePreparations;
     }
 

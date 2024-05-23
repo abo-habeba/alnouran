@@ -15,6 +15,7 @@ export const usemainStore = defineStore('mainStore', {
   restallowance: '',
   rest: '',
   typePreparation: '',
+  preparations: '',
   addPreparation: false,
   printLog: '',
   snackbar: false,
@@ -118,11 +119,21 @@ export const usemainStore = defineStore('mainStore', {
     this.restallowance = res.data;
    });
   },
-  async getTypePre() {
-   const response = await axios.get(`typePre`);
+  async getTypePre(relation) {
+    // relation=latestPreparationActual.user
+    // or
+    // relation=preparations.user
+   const response = await axios.get(`typePre?relation=${relation}`);
    return new Promise((resolve, reject) => {
     try {
-     this.typePreparation = response.data;
+      if (relation='latestPreparationActual.user') {
+        
+        this.typePreparation = response.data;
+      }
+      if (relation='preparations.user') {
+        
+        this.preparations = response.data;
+      }
      resolve(response.data);
     } catch (error) {
      this.startSnack('error', 'no', 'danger');
