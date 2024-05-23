@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 export const usemainStore = defineStore('mainStore', {
  state: () => ({
   passToggle: true,
-  popup: false,
+  overlay: true,
   auth: false,
   user: localStorage.user ? JSON.parse(localStorage.user) : false,
   users: ['getData'],

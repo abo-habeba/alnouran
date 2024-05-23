@@ -3,7 +3,7 @@
     <!-- New Preparation -->
     <addPreparationComponent />
     <!-- New Type Preparation -->
-    <v-btn class="m-1" color="red" text @click="dialogAddTypePreparation = true"
+    <v-btn class="m-2" color="red" text @click="dialogAddTypePreparation = true"
       >اضافة نوع تحضيرة
     </v-btn>
     <v-dialog v-model="dialogAddTypePreparation">
@@ -43,10 +43,14 @@
         </div>
       </v-card>
     </v-dialog>
-    <div v-if="typePreparationAll">
+    <div v-if="!store.overlay">
       <!-- strt -->
-      <v-expansion-panels >
-        <v-expansion-panel variant="popout" v-for="typePrep in typePreparationAll" :key="typePrep.id">
+      <v-expansion-panels>
+        <v-expansion-panel
+          variant="popout"
+          v-for="typePrep in typePreparationAll"
+          :key="typePrep.id"
+        >
           <v-expansion-panel-title>{{ typePrep.name }}</v-expansion-panel-title>
           <v-expansion-panel-text>
             <v-table height="300px" fixed-header>
@@ -94,6 +98,7 @@ const dialogAddTypePreparation = ref(false);
 const stations = ref('');
 const typePreparationAll = ref('');
 onMounted(() => {
+  store.overlay = true;
   axios
     .get(`Stations?current_user=${store.user.id}`)
     .then(res => {
@@ -105,6 +110,7 @@ onMounted(() => {
     });
   store.getTypePre('preparations.user').then(() => {
     typePreparationAll.value = store.preparations;
+    // store.overlay = false;
   });
 });
 function timeSinceReport(time) {

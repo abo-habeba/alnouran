@@ -1,7 +1,6 @@
 <template>
   <!-- start progress -->
   <!-- <v-card v-for="{ src, title, subtitle } in cards" :key="title" max-width="800" rounded="lg" theme="dark">
-
           <v-skeleton-loader :loading="loading" height="240" type="image, list-item-two-line">
             <v-responsive>
               <v-img :src="src" class="rounded-lg mb-2" height="184" cover></v-img>
@@ -18,18 +17,6 @@
         </span>
       </v-chip>
   </v-card> -->
-  <!-- end progress -->
-  <!-- start progress -->
-  <v-overlay v-model="overlay">
-    <div class="overlay-box">
-      <v-progress-circular
-        :size="150"
-        :width="7"
-        color="purple"
-        indeterminate
-      ></v-progress-circular>
-    </div>
-  </v-overlay>
   <!-- end progress -->
   <!-- start dialogedit -->
   <v-dialog v-model="dialogedit">
@@ -121,7 +108,7 @@
             <v-btn
               class="ma-3 open-in"
               color="red-lighten-6"
-              icon="mdi-open-in-new"
+              icon="mdi-eye-outline"
               variant="text"
               @click="openInFun(typePrep)"
             ></v-btn>
@@ -168,13 +155,11 @@ import moment from 'moment';
 import { onMounted, ref, computed } from 'vue';
 import { usemainStore } from '@/store/mainStore';
 import addPreparationComponent from '../components/preparation/addPreparationComponent.vue';
-import { tr } from 'vuetify/locale';
 const store = usemainStore();
 const typePreparationData = ref([]);
 const PreparationData = ref('');
 const dialogOpenIn = ref(false);
 const dialogedit = ref(false);
-const overlay = ref(true);
 const hoursToAdd = 1; // عدد الساعات المراد إضافتها
 const dateN = new Date(); // الحصول على التاريخ والوقت الحاليين
 const oneHourInMilliseconds = 3600000; // تحويل ساعة إلى مللي ثانية
@@ -234,7 +219,7 @@ function typePreparFunc() {
         ).toFixed(2),
       };
       typePreparationData.value.push(newPreparationData);
-      overlay.value = false;
+      store.overlay = false;
     }
     function calculateHoursDifference(actualTime) {
       const dataTime = new Date(actualTime);
@@ -246,15 +231,6 @@ function typePreparFunc() {
 }
 </script>
 <style scoped>
-.overlay-box {
-  width: 100vw;
-  height: 100vh;
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-}
 .addPreparation {
   position: fixed;
   top: 85%;

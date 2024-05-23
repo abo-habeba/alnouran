@@ -5,10 +5,24 @@
       <NavbarComponent v-if="store.auth" />
       <NavigationComponent v-if="store.auth" />
       <v-main>
-        <v-container>
-          <!-- <v-btn @click="authCheck2" class="mt-2"> authCheck2 </v-btn> -->
-          <router-view />
-        </v-container>
+        <div class="box-main">
+          <!-- start progress -->
+          <v-overlay v-model="store.overlay">
+            <div class="overlay-box">
+              <v-progress-circular
+                :size="150"
+                :width="7"
+                color="purple"
+                indeterminate
+              ></v-progress-circular>
+            </div>
+          </v-overlay>
+          <!-- end progress -->
+          <v-container>
+            <!-- <v-btn @click="authCheck2" class="mt-2"> authCheck2 </v-btn> -->
+            <router-view />
+          </v-container>
+        </div>
       </v-main>
     </v-layout>
   </v-app>
@@ -22,6 +36,7 @@ window.onlanguagechange = () => {
 };
 moment.locale(`${localStorage.lang}-dz`);
 import 'moment/dist/locale/ar-dz';
+// import overlayComponent from './components/overlayComponent.vue';
 import moment from 'moment';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
@@ -75,11 +90,41 @@ body * {
   font-family: 'Noto Kufi Arabic', sans-serif !important;
   font-optical-sizing: auto;
 }
-
+.box-main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.v-overlay-container {
+  * {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    background-color: white;
+  }
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  z-index: 99;
+}
 .clickd {
   cursor: pointer !important;
 }
-
+.v-main {
+  position: relative !important;
+}
 td {
   user-select: none;
 }
