@@ -118,7 +118,7 @@
       </v-col>
     </v-row> -->
     <v-row class="my-3">
-      <v-col cols="12" v-for="typePrep in typePreparationData" :key="typePrep.id">
+      <v-col cols="12" md="4" v-for="typePrep in typePreparationData" :key="typePrep.id">
         <v-card class="p-39j" elevation="5" v-if="typePreparationData">
           <div class="btn_action">
             <v-btn
