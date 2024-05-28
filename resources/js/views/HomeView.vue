@@ -29,7 +29,27 @@
     <v-card class="p-3">
       <v-card-title><span> تفاصيل تحضيرة </span> {{ PreparationData.name }}</v-card-title>
       <v-chip class="ma-1" color="primary" label>
+        <span class="p-1"> وقت التحضير </span>
+        <span style="text-wrap: wrap" class="p-1">{{ date(PreparationData.actual_time) }}</span>
+      </v-chip>
+      <v-chip class="ma-1" color="primary" label>
         <span class="p-1">{{ PreparationData.cont_hours }}</span> <span class="p-1"> ساعة </span>
+      </v-chip>
+      <v-chip class="ma-1" color="primary" label>
+        <span class="p-1">{{ PreparationData.ppm }}</span>
+        <span class="p-1"> ppm </span>
+      </v-chip>
+      <v-chip class="ma-1" color="primary" label>
+        <span class="p-1">{{ PreparationData.slices_ton }}</span>
+        <span class="p-1"> طن شرائح </span>
+      </v-chip>
+      <v-chip class="ma-1" color="primary" label>
+        <span class="p-1">{{ PreparationData.quantity }}</span>
+        <span class="p-1"> كيلو خام </span>
+      </v-chip>
+      <v-chip class="ma-1" color="primary" label>
+        <span class="p-1"> الوردية </span>
+        <span class="p-1">{{ PreparationData.shift }}</span>
       </v-chip>
       <v-chip class="ma-1" color="primary" label>
         <span class="p-1"> منذ </span>
@@ -43,11 +63,7 @@
         }}</span>
         <span class="p-1"> ساعة </span>
       </v-chip>
-      <!-- <v-chip color="primary" label>  </v-chip> -->
-      <v-chip class="ma-1" color="primary" label>
-        <span class="p-1"> وقت التحضير </span>
-        <span style="text-wrap: wrap" class="p-1">{{ date(PreparationData.actual_time) }}</span>
-      </v-chip>
+
       <v-chip v-if="PreparationData.user_name" class="ma-1" color="primary" label>
         <span class="p-1"> بواسطة </span>
         <span class="p-1">{{ PreparationData.user_name }}</span>
@@ -104,23 +120,26 @@
     <v-row class="my-3">
       <v-col cols="12" v-for="typePrep in typePreparationData" :key="typePrep.id">
         <v-card class="p-39j" elevation="5" v-if="typePreparationData">
-          <div class="preparation_box">
+          <div class="btn_action">
             <v-btn
-              class="ma-3 open-in"
               color="red-lighten-6"
               icon="mdi-eye-outline"
               variant="text"
               @click="openInFun(typePrep)"
             ></v-btn>
             <v-btn
-              class="ma-3 btnEdit"
               color="red-lighten-6"
               icon="mdi-text-box-edit-outline"
               variant="text"
               @click="editInFun()"
             ></v-btn>
+          </div>
+          <div class="box_details p-1">
+            <p>ppm {{ typePrep.ppm }}</p>
+            <p>{{ typePrep.user_name }}</p>
+          </div>
+          <div class="preparation_box">
             <div class="percentage">
-              <p>{{ typePrep.user_name }}</p>
               <p>{{ typePrep.name }}</p>
               <p>% {{ percentageResalt(100 - typePrep.percentage) }}</p>
             </div>
@@ -204,6 +223,11 @@ function typePreparFunc() {
         name: store.typePreparation[i].name,
         updated: store.typePreparation[i].latest_preparation_actual.updated_at,
         created: store.typePreparation[i].latest_preparation_actual.created_at,
+
+        ppm: store.typePreparation[i].latest_preparation_actual.ppm,
+        shift: store.typePreparation[i].latest_preparation_actual.shift,
+        quantity: store.typePreparation[i].latest_preparation_actual.quantity,
+        slices_ton: store.typePreparation[i].latest_preparation_actual.slices_ton,
         actual_time: store.typePreparation[i].latest_preparation_actual.actual_time,
         cont_hours: store.typePreparation[i].latest_preparation_actual.cont_hours,
         user_name: store.typePreparation[i].latest_preparation_actual.user.name,
@@ -250,6 +274,7 @@ a {
   border-radius: 0 0 20px 20px;
   overflow: hidden;
 }
+
 .preparation_fill {
   position: absolute;
   bottom: 0px;
@@ -276,18 +301,25 @@ a {
   align-items: center;
   flex-wrap: wrap;
 }
-.open-in {
-  position: absolute;
-  top: -9%;
-  right: -3%;
+.btn_action {
+  display: flex !important;
   z-index: 9;
-}
-.btnEdit {
+  flex-direction: column;
+  align-items: center;
   position: absolute;
-  top: 25%;
-  right: -3%;
-  z-index: 9;
+  top: 3px;
+  right: 9px;
 }
+.box_details {
+  display: flex !important;
+  z-index: 9;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 3px;
+  left: 9px;
+}
+
 .d-flex {
   display: flex !important;
   align-content: stretch;

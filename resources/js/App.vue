@@ -1,4 +1,11 @@
 <template>
+  <v-dialog v-model="dialogIntrnet">
+    <v-card class="p-3">
+      <v-card-title style="background-color: red; color: white; text-align: center">
+        لا يتوفر اتصال بالانترنت
+      </v-card-title>
+    </v-card>
+  </v-dialog>
   <v-app>
     <v-layout class="rounded rounded-md">
       <SnackbarComponent />
@@ -6,8 +13,8 @@
       <NavigationComponent v-if="store.auth" />
       <v-main>
         <!-- <div v-if="store.overlay" class="box-main"> -->
-          <!-- start progress -->
-          <!-- <v-overlay v-model="store.overlay">
+        <!-- start progress -->
+        <!-- <v-overlay v-model="store.overlay">
               <v-progress-circular
                 :size="150"
                 :width="7"
@@ -15,7 +22,7 @@
                 indeterminate
               ></v-progress-circular>
           </v-overlay> -->
-          <!-- end progress -->
+        <!-- end progress -->
         <!-- </div> -->
         <v-container>
           <!-- <v-btn @click="authCheck2" class="mt-2"> authCheck2 </v-btn> -->
@@ -26,6 +33,7 @@
   </v-app>
 </template>
 <script setup>
+import { ref } from 'vue';
 let language = navigator.language.slice(0, 2);
 localStorage.setItem('lang', language);
 window.onlanguagechange = () => {
@@ -44,9 +52,20 @@ import NavigationComponent from './components/NavigationComponent.vue';
 import SnackbarComponent from './components/SnackbarComponent.vue';
 // import FooterComponent from "./components/FooterComponent.vue";
 import { usemainStore } from './store/mainStore';
+import { fa } from 'vuetify/iconsets/fa4';
+const dialogIntrnet = ref(false);
 const router = useRouter();
 const store = usemainStore();
 const BASE_URL = window.location.origin + '/api/';
+
+window.addEventListener('online', function () {
+  dialogIntrnet.value = false;
+});
+
+window.addEventListener('offline', function () {
+  dialogIntrnet.value = true;
+});
+
 // console.log(window.location.origin, '&&', BASE_URL);
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
