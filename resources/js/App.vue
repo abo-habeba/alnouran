@@ -107,43 +107,11 @@ body * {
   font-family: 'Noto Kufi Arabic', sans-serif !important;
   font-optical-sizing: auto;
 }
-// .box-main {
-//   // position: relative;
-//   width: 100%;
-//   height: 100%;
-// }
-.v-overlay-container {
-  // * {
-  //   width: 100%;
-  //   height: 100%;
-  //   display: flex !important;
-  //   flex-direction: column;
-  //   justify-content: center;
-  //   align-items: center;
-  //   // z-index: 999;
-  //   background-color: #d1cbcb;
-  //   position: absolute;
-  // }
-  // position: absolute;
-  // width: 100%;
-  // height: 100%;
-  // top: 0;
-  // bottom: 0;
-  // right: 0;
-  // left: 0;
-  // display: flex !important;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-  // background-color: d1cbcb;
-  // z-index: ;
-}
+
 .clickd {
   cursor: pointer !important;
 }
-// .v-main {
-//   position: relative !important;
-// }
+
 td {
   user-select: none;
 }

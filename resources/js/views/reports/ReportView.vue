@@ -48,13 +48,13 @@
    {{ $t('noReport') }}
   </div>
   <div v-else>
-   <v-card color="grey-lighten-2 p-3">
+   <v-card color=" p-3">
     <div id="textShare">
      <v-card-title>
       <v-chip class="float-start">{{ report.user.name }}</v-chip>
       <v-chip class="float-end">{{ report.station.name }}</v-chip>
      </v-card-title>
-     <pre class="my-2 text-content">{{ report.body }}</pre>
+     <v-card-text class="my-2 text-content">{{ report.body }}</v-card-text>
      <v-chip class="m-1">{{ date(report.created_at) }}</v-chip>
      <v-chip class="m-1">{{ timeSinceReport(report.created_at) }}</v-chip>
     </div>
@@ -195,5 +195,8 @@ window.addEventListener('beforeunload', function (event) {
 <style scoped>
 .comment-length {
  font-size: 25px;
+}
+.text-content{
+  white-space: pre;
 }
 </style>

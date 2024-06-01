@@ -183,8 +183,6 @@ function addComment(report) {
 .report-actions span {
  font-size: 25px;
 }
-</style>
-<style>
 #textShare {
  /* background-color: #f5f5f5; */
  border-radius: 6px;

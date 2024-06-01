@@ -33,7 +33,7 @@ export const usemainStore = defineStore('mainStore', {
         axios
           .get(`check`)
           .then(res => {
-            console.log(res);
+            // console.log(res);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             this.auth = true;
           })
@@ -128,11 +128,11 @@ export const usemainStore = defineStore('mainStore', {
         try {
           if ((relation = 'latestPreparationActual.user')) {
             this.typePreparation = response.data;
-            console.log(this.typePreparation);
+            // console.log(this.typePreparation);
           }
           if ((relation = 'preparations.user')) {
             this.preparations = response.data;
-            console.log(this.preparations);
+            // console.log(this.preparations);
           }
           resolve(response.data);
         } catch (error) {

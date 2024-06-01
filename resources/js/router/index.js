@@ -33,7 +33,7 @@ const routes = [
     path: '/stations',
     name: 'stations',
     component: StationsView,
-    meta: { title: 'Stations' },
+    meta: { title: 'Stations', titleAr: 'المحطات', show: false },
   },
   {
     path: '/station/:id',
@@ -48,19 +48,20 @@ const routes = [
     meta: { title: 'User Edit' },
   },
   {
-    //rest
-    path: '/rest',
-    name: 'rest',
-    component: restallowance,
-    meta: { title: 'Rest allowance' },
-  },
-  {
     //reports
     path: '/reports',
     name: 'reports',
     component: ReportsView,
-    meta: { title: 'Reports' },
+    meta: { title: 'Reports', titleAr: 'التقارير', show: true },
   },
+  {
+    //rest
+    path: '/rest',
+    name: 'rest',
+    component: restallowance,
+    meta: { title: 'Rest allowance', titleAr: 'بدل راحة', show: true },
+  },
+
   {
     ///report/:id
     path: '/report/:id',
@@ -87,14 +88,14 @@ const routes = [
     path: '/vacations',
     name: 'vacations',
     component: VacationsView,
-    meta: { title: 'Vacations' },
+    meta: { title: 'Vacations', titleAr: 'الاجازات', show: true },
   },
   {
     //preparation
     path: '/preparation',
     name: 'preparation',
     component: typePreparationView,
-    meta: { title: 'Preparation' },
+    meta: { title: 'Preparation', titleAr: 'التحضيرات', show: true },
   },
   {
     //auth
@@ -121,6 +122,7 @@ const routes = [
     path: '/:path(.*)*',
     name: 'notfound',
     component: NotFound,
+    meta: { title: 'Not Found' },
   },
 ];
 const router = createRouter({

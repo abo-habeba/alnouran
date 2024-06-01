@@ -1,24 +1,4 @@
 <template>
-  <!-- start progress -->
-  <!-- <v-card v-for="{ src, title, subtitle } in cards" :key="title" max-width="800" rounded="lg" theme="dark">
-          <v-skeleton-loader :loading="loading" height="240" type="image, list-item-two-line">
-            <v-responsive>
-              <v-img :src="src" class="rounded-lg mb-2" height="184" cover></v-img>
-              <v-list-item :subtitle="subtitle" :title="title" class="px-0"></v-list-item>
-            </v-responsive>
-          </v-skeleton-loader>
-      <br />
-      <v-chip prepend-icon="mdi-check-circle" size="large" variant="text" border>
-        <template v-slot:prepend>
-          <v-icon color="disabled"></v-icon>
-        </template>
-        <span class="text-subtitle-1">
-          Homemade Dulce de Leche Ice Cream with Chocolate Chips
-        </span>
-      </v-chip>
-  </v-card> -->
-  <!-- end progress -->
-  <!-- start dialogedit -->
   <v-dialog v-model="dialogedit">
     <v-card class="p-3">
       <v-card-title> جار العمل علي تعديل التحضرة </v-card-title>
@@ -92,21 +72,31 @@
       <routerLink to="/user/edit">
         <v-card-title>
           {{ store.user.name }}
+          <v-card-subtitle>
+            {{ store.user.email }}
+          </v-card-subtitle>
         </v-card-title>
-        <v-card-subtitle>
-          {{ store.user.email }}
-        </v-card-subtitle>
       </routerLink>
-      <v-card-item>
-        <router-link
-          class="mx-2"
-          :to="`/station/${station.id}`"
-          v-for="(station, i) in store.user.stations"
-          :key="i"
-          >{{ station.name }}
-        </router-link>
-      </v-card-item>
+      <router-link
+        :to="`/station/${station.id}`"
+        v-for="(station, i) in store.user.stations"
+        :key="i"
+      >
+        <v-chip class="m-1">
+          {{ station.name }}
+        </v-chip>
+      </router-link>
     </v-card>
+    <!-- slide-group link  -->
+    <v-slide-group class="mt-4" show-arrows>
+      <v-slide-group-item v-for="(routerList, i) in routerLists" :key="i">
+        <router-link v-if="routerList.meta.show" :to="routerList.path"
+          ><v-chip color="primary" variant="outlined" class="m-1">
+            {{ routerList.meta.titleAr }}</v-chip
+          ></router-link
+        >
+      </v-slide-group-item>
+    </v-slide-group>
     <!-- <v-row class="div-balance text-center">
       <v-col cols="12">
         <router-link to="/vacations">
@@ -171,9 +161,12 @@
 </template>
 <script setup>
 import moment from 'moment';
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref } from 'vue';
 import { usemainStore } from '@/store/mainStore';
 import addPreparationComponent from '../components/preparation/addPreparationComponent.vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const routerLists = router.getRoutes();
 const store = usemainStore();
 const typePreparationData = ref([]);
 const PreparationData = ref('');
