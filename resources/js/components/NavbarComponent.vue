@@ -13,10 +13,8 @@
   </v-app-bar>
 </template>
 <script setup>
-// https://webhooks.hostinger.com/deploy/98d1c4308f554fe0002bbd17db48f23e
 // import { usemainStore } from '@/store/mainStore';
 // const store = usemainStore();
-// Add Dark Mode
 import { useTheme } from 'vuetify';
 const theme = useTheme();
 import { ref } from 'vue';

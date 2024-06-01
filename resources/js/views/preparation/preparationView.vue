@@ -54,7 +54,7 @@
           <v-expansion-panel-title>{{ typePrep.name }}</v-expansion-panel-title>
           <v-expansion-panel-text>
             <v-table height="300px" fixed-header>
-              <thead>
+              <thead class="preparationTable">
                 <tr>
                   <th class="text-left">وقت التحطيرة</th>
                   <th class="text-left">طن الشرائح</th>
@@ -65,7 +65,7 @@
                   <th class="text-left">بواسطة</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="preparationTableBoody">
                 <tr v-for="preparation in typePrep.preparations" :key="preparation.id">
                   <td>{{ date(preparation.actual_time) }}</td>
                   <td>{{ preparation.slices_ton }}</td>
@@ -136,7 +136,18 @@ function addTypePreparation() {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.preparationTableBoody {
+  tr {
+    &:hover {
+      td {
+        background-color: blue!important;
+      }
+    }
+  }
+}
+
+
 .v-table__wrapper td,
 .v-table__wrapper th {
   white-space: nowrap;
