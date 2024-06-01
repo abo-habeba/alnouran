@@ -13,9 +13,10 @@
   </v-app-bar>
 </template>
 <script setup>
-// Add Dark Mode
+
 // import { usemainStore } from '@/store/mainStore';
 // const store = usemainStore();
+// Add Dark Mode
 import { useTheme } from 'vuetify';
 const theme = useTheme();
 import { ref } from 'vue';
