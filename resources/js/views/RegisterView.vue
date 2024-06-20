@@ -65,7 +65,7 @@ function toRegister() {
         });
 }
 </script>
-<style>
+<style scoped>
 .register {
     margin: 5% auto;
 }
