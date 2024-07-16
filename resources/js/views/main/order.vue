@@ -86,10 +86,13 @@
               </li>
             </ul>
             <br />
-            <h4 v-if="item.length > 0">إجمالي الفلوس {{ sumSubItems(index, key) }}</h4>
+            <h4 v-if="item.length > 0">اجمالي {{ key }} {{ sumSubItems(index, key) }}</h4>
           </div>
+          <h1>إجمالي الكل : {{ totalSum() }}</h1>
         </v-col>
       </v-row>
+
+      <span class="mx-3 clickd mdi mdi-share-outline" @click="share(report)"></span>
     </v-card>
   </v-container>
 </template>
@@ -108,6 +111,15 @@ function share(report) {
     text: textShare + '\n',
   };
   navigator.share(obComment);
+}
+function totalSum() {
+  let total = 0;
+  mainItems.value.forEach(mainItem => {
+    Object.values(mainItem).forEach(item => {
+      total += item.reduce((acc, cur) => acc + cur, 0);
+    });
+  });
+  return total;
 }
 // دالة لإضافة بند جديد
 function addItem(keyName) {
