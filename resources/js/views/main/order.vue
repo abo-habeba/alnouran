@@ -1,204 +1,260 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
-        <h1>طلب مشتريات</h1>
-      </v-col>
-    </v-row>
-
-    <!-- إضافة بند جديد -->
-    <v-row>
-      <v-col cols="12">
-        <v-card class="pa-3 d-f-row">
-          <v-text-field
-            type="text"
-            variant="outlined"
-            label="اسم البند"
-            v-model="subItemKey"
-          ></v-text-field>
-          <v-btn class="ma-3" @click="addItem(subItemKey)" color="success"> إضافة بند </v-btn>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row v-for="(mainItem, mainIndex) in mainItems" :key="mainIndex">
-      <v-col cols="12">
-        <v-card class="ma-3">
-          <v-card-title>
-            <h3>{{ Object.keys(mainItem)[0] }}</h3>
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="8">
-                <v-text-field
-                  type="text"
-                  variant="outlined"
-                  :label="` إضافة ${Object.keys(mainItem)[0]}`"
-                  v-model="newSubItem"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="4">
-                <v-btn @click="addSubItem(mainIndex, Object.keys(mainItem)[0])" color="success">
-                  {{ `إضافة ${Object.keys(mainItem)[0]}` }}
-                </v-btn>
-              </v-col>
-            </v-row>
-            <v-list>
-              <ul v-for="(it, index) in mainItem[Object.keys(mainItem)[0]]" :key="index">
-                <li class="d-f-row">
-                  <span
-                    style="
-                      display: inline-block;
-                      font-size: 25px;
-                      font-weight: bold;
-                      padding: 5px 10px;
-                      border: blue solid 1px;
-                      border-radius: 7px;
-                    "
-                    >{{ it }}</span
-                  >
-                  <v-btn
-                    color="red"
-                    @click="removeSubItem(mainIndex, Object.keys(mainItem)[0], index)"
-                  >
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
-                </li>
-              </ul>
-            </v-list>
-            <v-btn @click="removeMainItem(mainIndex)" color="red">
-              {{ `حذف ${Object.keys(mainItem)[0]}` }}
-            </v-btn>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <!-- عرض الإحصائيات -->
-    <v-card class="ma-3 pa-2" id="textShare">
-      <v-row v-for="(mainItem, index) in mainItems" :key="index">
-        <v-col cols="12">
-          <div v-for="(item, key) in mainItem" :key="key">
-            <h2>{{ key }}</h2>
-            <ul v-for="(it, index) in item" :key="index">
-              <li class="d-f-row">
-                <span class="box-item">{{ it }}</span>
-              </li>
-            </ul>
-            <br />
-            <h4 v-if="item.length > 0">اجمالي {{ key }} {{ sumSubItems(index, key) }}</h4>
-          </div>
-          <h1>إجمالي الكل : {{ totalSum() }}</h1>
+  <v-app>
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="6">
+          <!-- إضافة صنف جديد -->
+          <v-card class="pa-3">
+            <h2>إضافة بند</h2>
+            <div class="d-f-wor">
+              <v-text-field v-model="newCategoryName" label="اسم الصنف"></v-text-field>
+              <v-btn color="primary" @click="addCategory">إضافة صنف</v-btn>
+            </div>
+          </v-card>
         </v-col>
       </v-row>
+      <v-row>
+        <v-expansion-panels>
+          <v-expansion-panel
+            v-for="(category, categoryIndex) in categories"
+            :key="categoryIndex"
+            cols="12"
+          >
+            <v-expansion-panel-title>{{ category.categoryName }}</v-expansion-panel-title>
+            <!-- <div class="d-f-wor"></div> -->
+            <v-expansion-panel-text>
+              <v-btn color="error" @click="removeCategory(categoryIndex)">حذف الصنف</v-btn>
+              <v-card class="mt-3 pa-">
+                <!-- إضافة مشتري جديد داخل الصنف -->
+                <v-card class="mt- pa-">
+                  <h3>إضافة صنف</h3>
+                  <v-row class="d-f-wor2">
+                    <v-col class="">
+                      <v-text-field
+                        @focus="handleFocus"
+                        @blur="handleBlur"
+                        density="compact"
+                        v-model="newCustomerName"
+                        label="اسم المشتري"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col class="">
+                      <v-text-field
+                        @focus="handleFocus"
+                        @blur="handleBlur"
+                        type="number"
+                        density="compact"
+                        v-model="newCustomerAmount"
+                        label="السعر"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col class="">
+                      <v-text-field
+                        @focus="handleFocus"
+                        @blur="handleBlur"
+                        density="compact"
+                        v-model="newCustomerDescription"
+                        label="الوصف"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-btn color="primary" @click="addCustomer(categoryIndex)">إضافة مشتري</v-btn>
+                </v-card>
+                <div v-if="category.customers.length > 0">
+                  <v-table>
+                    <thead>
+                      <tr>
+                        <th class="text-left">الاسم</th>
+                        <th class="text-left">السعر</th>
+                        <th class="text-left">الوصف</th>
+                        <th class="text-left">#</th>
+                        <!-- <th class="text-left">#</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(customer, customerIndex) in category.customers"
+                        :key="customerIndex"
+                      >
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.amount }}</td>
+                        <td>{{ customer.description }}</td>
+                        <td>
+                          <v-btn color="error" @click="removeCustomer(categoryIndex, customerIndex)"
+                            >x</v-btn
+                          >
+                        </td>
+                        <!-- <td>
+                      <v-btn color="primary" @click="editCustomer(categoryIndex, customerIndex)"
+                        >تعديل</v-btn
+                      >
+                    </td> -->
+                      </tr>
+                    </tbody>
+                  </v-table>
+                </div>
+                <p v-else>لا توجد بيانات</p>
+              </v-card>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-row>
 
-      <span class="mx-3 clickd mdi mdi-share-outline" @click="share(report)"></span>
-    </v-card>
-  </v-container>
+      <v-row>
+        <v-card class="mt-3 w-100 px-5" v-if="categories.length > 0">
+          <div id="textShare">
+            <div v-for="(category, categoryIndex) in categories" :key="categoryIndex">
+              <h2>{{ category.categoryName }}</h2>
+              <ul
+                class="ul-display"
+                v-for="(customer, customerIndex) in category.customers"
+                :key="customerIndex"
+              >
+                <!-- عرض البيانات -->
+                <li>
+                  <span>{{ customer.amount }} </span> <span> {{ customer.description }} </span>
+                </li>
+              </ul>
+            </div>
+            <p>المبلغ الاجمالي : {{ totalAmount }}</p>
+            <p>إجمالي عدد الأصناف: {{ totalCategories }}</p>
+          </div>
+          <v-btn color="success" @click="share()">مشاركة</v-btn>
+        </v-card>
+        <p v-else>لا توجد بيانات</p>
+      </v-row>
+
+      <!-- عرض الإحصائيات -->
+      <!-- <v-row>
+        <v-col cols="12">
+          <v-card class="mt-3 pa-3">
+            <h2>الإحصائيات</h2>
+          </v-card>
+        </v-col>
+      </v-row> -->
+    </v-container>
+  </v-app>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-// تعريف حالة المكونات
-const mainItems = ref(JSON.parse(localStorage.getItem('mainItems')) || []);
-const subItemKey = ref('');
-const newSubItem = ref('');
+const categories = ref(JSON.parse(localStorage.getItem('categories')) || []);
+const newCategoryName = ref('');
+const newCustomerName = ref('');
+const newCustomerAmount = ref('');
+const newCustomerDescription = ref('');
 
-function share(report) {
+function share() {
   const textShare = document.getElementById('textShare').innerText;
   const obComment = {
     text: textShare + '\n',
   };
   navigator.share(obComment);
 }
-function totalSum() {
-  let total = 0;
-  mainItems.value.forEach(mainItem => {
-    Object.values(mainItem).forEach(item => {
-      total += item.reduce((acc, cur) => acc + cur, 0);
-    });
+
+function handleFocus(event) {
+  const parentDiv = event.target.closest('.d-f-wor2');
+  const allParents = document.querySelectorAll('.d-f-wor2');
+
+  allParents.forEach(div => {
+    if (div !== parentDiv) {
+      div.style.visibility = 'hidden';
+    }
   });
-  return total;
 }
-// دالة لإضافة بند جديد
-function addItem(keyName) {
-  if (keyName.trim() !== '') {
-    const newItem = {
-      [keyName]: [],
-    };
-    mainItems.value.push(newItem);
-    subItemKey.value = '';
+
+function handleBlur() {
+  const allParents = document.querySelectorAll('.d-f-wor2');
+  allParents.forEach(div => {
+    div.style.visibility = 'visible';
+  });
+}
+
+function addCategory() {
+  if (newCategoryName.value.trim() !== '') {
+    categories.value.push({
+      categoryName: newCategoryName.value,
+      customers: [],
+    });
+    newCategoryName.value = '';
     updateLocalStorage();
   }
 }
 
-// دالة لإضافة عنصر فرعي
-function addSubItem(mainIndex, key) {
-  if (newSubItem.value.trim() !== '') {
-    mainItems.value[mainIndex][key].push(Number(newSubItem.value));
-    newSubItem.value = '';
+function addCustomer(categoryIndex) {
+  if (newCustomerName.value.trim() !== '' && newCustomerAmount.value.trim() !== '') {
+    categories.value[categoryIndex].customers.push({
+      name: newCustomerName.value,
+      amount: Number(newCustomerAmount.value),
+      description: newCustomerDescription.value,
+    });
+    newCustomerName.value = '';
+    newCustomerAmount.value = '';
+    newCustomerDescription.value = '';
     updateLocalStorage();
   }
 }
 
-// دالة لحذف عنصر فرعي
-function removeSubItem(mainIndex, key, subIndex) {
-  mainItems.value[mainIndex][key].splice(subIndex, 1);
+function removeCategory(categoryIndex) {
+  categories.value.splice(categoryIndex, 1);
   updateLocalStorage();
 }
 
-// دالة لحذف بند رئيسي
-function removeMainItem(mainIndex) {
-  mainItems.value.splice(mainIndex, 1);
+function removeCustomer(categoryIndex, customerIndex) {
+  categories.value[categoryIndex].customers.splice(customerIndex, 1);
   updateLocalStorage();
 }
 
-// دالة لحساب مجموع الأرقام داخل العناصر الفرعية
-function sumSubItems(mainIndex, key) {
-  return mainItems.value[mainIndex][key].reduce((acc, cur) => acc + cur, 0);
+function editCustomer(categoryIndex, customerIndex) {
+  const customer = categories.value[categoryIndex].customers[customerIndex];
+  const newName = prompt('تعديل اسم المشتري:', customer.name);
+  const newAmount = prompt('تعديل السعر:', customer.amount);
+  const newDescription = prompt('تعديل الوصف:', customer.description);
+
+  if (newName !== null) customer.name = newName;
+  if (newAmount !== null) customer.amount = Number(newAmount);
+  if (newDescription !== null) customer.description = newDescription;
+
+  updateLocalStorage();
 }
 
-// دالة لتحديث localStorage
+const totalCategories = computed(() => {
+  return categories.value.reduce((total, category) => {
+    return total + category.customers.length;
+  }, 0);
+});
+
+const totalAmount = computed(() => {
+  return categories.value.reduce((sum, category) => {
+    return (
+      sum +
+      category.customers.reduce((customerSum, customer) => {
+        return customerSum + parseInt(customer.amount);
+      }, 0)
+    );
+  }, 0);
+});
+
 function updateLocalStorage() {
-  localStorage.setItem('mainItems', JSON.stringify(mainItems.value));
+  localStorage.setItem('categories', JSON.stringify(categories.value));
 }
 </script>
 
 <style scoped>
-.box-item {
-  display: inline-block;
-  font-size: 25px;
-  font-weight: bold;
-  padding: 5px 10px;
-  border: blue solid 1px;
-  border-radius: 7px;
+.v-btn {
+  padding: 4px;
 }
-.d-f-row {
+.ul-display,
+.ul-display li {
+  width: 100% !important;
+}
+.v-btn {
+  margin-right: 10px;
+}
+.d-f-wor,
+.d-f-wor2 {
   display: flex;
-}
-.app {
-  max-width: 800px;
-  margin: auto;
-  padding: 10px;
-}
-
-.main-item {
-  margin-bottom: 10px;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  background: #f4f4f4;
-  margin: 3px 0;
-  padding: 8px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 </style>

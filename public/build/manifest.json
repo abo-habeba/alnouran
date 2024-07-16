@@ -38,12 +38,12 @@
       "resources/js/views/main/main.vue",
       "resources/js/views/main/order.vue"
     ],
-    "file": "assets/main-4c9caa15.js",
+    "file": "assets/main-13a4908e.js",
     "isEntry": true,
     "src": "resources/js/main.js"
   },
   "resources/js/views/main/main.vue": {
-    "file": "assets/main-94b0d8ec.js",
+    "file": "assets/main-d1d24302.js",
     "imports": [
       "resources/js/main.js"
     ],
@@ -51,14 +51,14 @@
     "src": "resources/js/views/main/main.vue"
   },
   "resources/js/views/main/order.css": {
-    "file": "assets/order-69013bf1.css",
+    "file": "assets/order-e12b113d.css",
     "src": "resources/js/views/main/order.css"
   },
   "resources/js/views/main/order.vue": {
     "css": [
-      "assets/order-69013bf1.css"
+      "assets/order-e12b113d.css"
     ],
-    "file": "assets/order-a190082f.js",
+    "file": "assets/order-9015cc08.js",
     "imports": [
       "resources/js/main.js"
     ],
