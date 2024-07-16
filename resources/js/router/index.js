@@ -24,12 +24,6 @@ const routes = [
     meta: { title: 'Home' },
   },
   {
-    path: '/appDaow',
-    name: 'appDaow',
-    component: appView,
-    meta: { title: 'App Daow' },
-  },
-  {
     path: '/stations',
     name: 'stations',
     component: StationsView,
@@ -119,6 +113,18 @@ const routes = [
     ],
   },
   {
+    path: '/main',
+    name: 'main',
+    component: () => import('../views/main/main.vue'),
+    meta: { title: 'Main' },
+  },
+  {
+    path: '/main/order',
+    name: 'order',
+    component:  () => import('../views/main/order.vue'),
+    meta: { title: 'Order' },
+  },
+  {
     path: '/:path(.*)*',
     name: 'notfound',
     component: NotFound,
@@ -130,33 +136,11 @@ const router = createRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//  document.title = to.meta.title || 'atsh';
-//  const token = localStorage.getItem('token');
-//  if (to.name === 'app') {
-//   next();
-//   return;
-//  }
-//  if (token) {
-//   // التوكن موجود، يتم توجيه المستخدم إلى الصفحة الرئيسية
-//   if (to.name === 'login' || to.name === 'register' || to.name === 'auth') {
-//    next({ name: 'home' });
-//   } else {
-//    next();
-//   }
-//  } else {
-//   // التوكن غير موجود، يتم توجيه المستخدم إلى صفحة تسجيل الدخول
-//   if (to.name !== 'auth' && to.name !== 'login' && to.name !== 'register') {
-//    next({ name: 'login' });
-//   } else {
-//    next();
-//   }
-//  }
-// });
+
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'atsh';
   const token = localStorage.getItem('token');
-  if (to.name === 'appDaow') {
+  if (to.path.startsWith('/main')) {
     return next();
   } else {
     if (token) {

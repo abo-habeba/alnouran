@@ -42,12 +42,12 @@ export const usemainStore = defineStore('mainStore', {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             this.auth = false;
-            this.startSnack('error', 'login', 'danger', false);
+            this.startSnack('error', 'no', 'danger', false);
           });
       } else {
         delete axios.defaults.headers.common['Authorization'];
         this.auth = false;
-        this.startSnack('error', 'login', 'danger', false);
+        this.startSnack('error', 'no', 'danger', false);
       }
     },
     startSnack(text, urlDirect, coler = 'success', snack = true, timeout = 2000) {

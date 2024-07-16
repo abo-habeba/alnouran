@@ -34,9 +34,36 @@
     "css": [
       "assets/main-8d44d301.css"
     ],
-    "file": "assets/main-bbfedda8.js",
+    "dynamicImports": [
+      "resources/js/views/main/main.vue",
+      "resources/js/views/main/order.vue"
+    ],
+    "file": "assets/main-72e991bb.js",
     "isEntry": true,
     "src": "resources/js/main.js"
+  },
+  "resources/js/views/main/main.vue": {
+    "file": "assets/main-7c9fc020.js",
+    "imports": [
+      "resources/js/main.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/views/main/main.vue"
+  },
+  "resources/js/views/main/order.css": {
+    "file": "assets/order-8509d872.css",
+    "src": "resources/js/views/main/order.css"
+  },
+  "resources/js/views/main/order.vue": {
+    "css": [
+      "assets/order-8509d872.css"
+    ],
+    "file": "assets/order-02d3a139.js",
+    "imports": [
+      "resources/js/main.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/views/main/order.vue"
   },
   "resources/sass/app.scss": {
     "file": "assets/app-70df9bdf.css",
