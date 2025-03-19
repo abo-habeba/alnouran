@@ -20,7 +20,7 @@
     "src": "resources/js/assets/Report.png"
   },
   "resources/js/main.css": {
-    "file": "assets/main-2bdf82eb.css",
+    "file": "assets/main-8d44d301.css",
     "src": "resources/js/main.css"
   },
   "resources/js/main.js": {
@@ -32,11 +32,38 @@
       "assets/materialdesignicons-webfont-61e8aba5.ttf"
     ],
     "css": [
-      "assets/main-2bdf82eb.css"
+      "assets/main-8d44d301.css"
     ],
-    "file": "assets/main-60380e1a.js",
+    "dynamicImports": [
+      "resources/js/views/main/main.vue",
+      "resources/js/views/main/order.vue"
+    ],
+    "file": "assets/main-13a4908e.js",
     "isEntry": true,
     "src": "resources/js/main.js"
+  },
+  "resources/js/views/main/main.vue": {
+    "file": "assets/main-d1d24302.js",
+    "imports": [
+      "resources/js/main.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/views/main/main.vue"
+  },
+  "resources/js/views/main/order.css": {
+    "file": "assets/order-e12b113d.css",
+    "src": "resources/js/views/main/order.css"
+  },
+  "resources/js/views/main/order.vue": {
+    "css": [
+      "assets/order-e12b113d.css"
+    ],
+    "file": "assets/order-9015cc08.js",
+    "imports": [
+      "resources/js/main.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/views/main/order.vue"
   },
   "resources/sass/app.scss": {
     "file": "assets/app-70df9bdf.css",

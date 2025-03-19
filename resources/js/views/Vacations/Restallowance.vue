@@ -2,20 +2,26 @@
     <!-- <v-btn @click="store.getAbsences()">getAbsences</v-btn> -->
     <div>
         <AddVRestallowanceComponent />
-        <div class="div-balance text-center">
-            <router-link to="/vacations">
-                <div class="box-balance">
-                    <div class="item-balance m-1"> الاجازات </div>
+        <v-row class="div-balance m-5 text-center">
+            <v-col cols="12" sm="4">
+                <div class="box-balance-white">
+                    <router-link to="/vacations">
+                        <div class="balance-regular">
+                            <div class="item-balance"> الاجازات </div>
+                            <div class="item-balance">{{ store.regular }}</div>
+                        </div>
+                    </router-link>
                 </div>
-            </router-link>
-            <div class="box-balance">
-                <router-link to="/rest">
-                    <div class="item-balance"> البدلات </div>
-                    <div class="item-balance">{{ store.rest }}</div>
-                </router-link>
-            </div>
-
-        </div>
+            </v-col>
+            <v-col cols="12" sm="4">
+                <div class="box-balance-blue">
+                    <div class="balance-rest">
+                        <div class="item-balance"> البدلات </div>
+                        <div class="item-balance">{{ store.rest }}</div>
+                    </div>
+                </div>
+            </v-col>
+        </v-row>
         <hr style="margin: auto" />
         <router-view></router-view>
     </div>
@@ -32,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="box-absence" v-for="(absence, index) in store.restallowance" @click="ActiveClass(absence)"
+                <tr class="box-absence" v-for="(absence, index) in store.restallowance" :key="absence.id" @click="ActiveClass(absence)"
                     @contextmenu="optionsMenu(absence)" :id="'id-' + absence.id">
                     <th>{{ index + 1 }}</th>
                     <td>{{ absence.description }}</td>
@@ -197,34 +203,4 @@ function funDelete() {
     document.getElementById('optionsMenu').style.display = 'none';
 }
 </script>
-<style lang="scss">
-.box-fixed {
-    position: sticky !important;
-    top: 73px;
-    z-index: 9999;
-    width: 100%;
-    height: 100%;
-}
-
-.box-absence {
-    .bg-suc {
-        background-color: darkgreen !important;
-    }
-
-    .bg-dang {
-        background-color: #dc3545 !important;
-    }
-
-    .bg-warn {
-        background-color: #5d5e55 !important;
-    }
-}
-
-.box-fixed * {
-    position: unset !important;
-}
-
-html {
-    overflow-y: auto !important;
-}
-</style>
+<style lang="scss"></style>
